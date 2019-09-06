@@ -61,23 +61,7 @@
         }
     }
 }
-.card-menu{
-    border-top:3px solid #1299c5;
-}
-.card-menu:hover{
-    border-top:1px solid #006079;
-    background: #1299c5 !important;
-    color: white;
-    margin-top:-5px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    transition: all .5s;
-    .card-body{
-        background: #1299c5;
-        p{
-            color:white;
-        }
-    }
-}
+
 .card-icon {
     .card-body {
         padding: 2rem .5rem;

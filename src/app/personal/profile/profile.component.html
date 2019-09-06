@@ -1,108 +1,49 @@
 <div class="row">
-  <div class="col-sm-4">
-    <div class="card user-profile o-hidden mb-4">
-      <div
-        class="header-cover"
-        style="background-image: url('assets/images/photo-wide-4.jpg');height:200px"
-      ></div>
-      <div class="user-info">
-        <img
-          class="profile-picture avatar-lg mb-2"
-          src="{{ service.urlPublic }}{{ rutas }}{{ fotos }}"
-        />
-        <p class="m-0 text-16">{{ info.cPersNombre }}</p>
-        <p class="text-muted m-0">{{ info.cPersPaterno }} {{ info.cPersMaterno }}</p>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12">
-            <table>
-              <tr>
-                <th class="text-right">DNI :</th>
-                <td class="text-center">{{ datos['reniec'][0]['cReniecDni'] }}</td>
-              </tr>
-              <tr>
-                <th class="text-right">Correo :</th>
-                <td class="text-center">-</td>
-              </tr>
-              <tr>
-                <th class="text-right">Telefono :</th>
-                <td class="text-center">-</td>
-              </tr>
-              <tr>
-                <th class="text-right">Direccion :</th>
-                <td class="text-center">{{ datos['reniec'][0]['cReniecDireccion'] }}</td>
-              </tr>
-              <tr>
-                <th class="text-right">Facebook :</th>
-                <td class="text-center">-</td>
-              </tr>
-            </table>
-          </div>
+    <div class="col-sm-4">
+        <div class="card user-profile o-hidden mb-4">
+            <div class="header-cover" style="background-image: url('assets/images/photo-wide-4.jpg');height:200px"></div>
+            <div class="user-info">
+                <img class="profile-picture avatar-lg mb-2" src="assets/images/faces/1.jpg" alt="">
+                <p class="m-0 text-16">{{ info.cPersNombre }}</p>
+                <p class="text-muted m-0">{{ info.cPersPaterno }} {{ info.cPersMaterno }}</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <table>
+                            <tr>
+                                <th class="text-right">Codigo :</th>
+                                <td class="text-center">-</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right">Correo :</th>
+                                <td class="text-center">-</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right">Telefono :</th>
+                                <td class="text-center">-</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right">Direccion :</th>
+                                <td class="text-center">-</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right">Facebook :</th>
+                                <td class="text-center">-</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <div class="col-sm-8">
-    <div class="card user-profile o-hidden mb-4">
-      <div class="col-12 m-4">
-        <h4>Información Personal</h4>
-        <p></p>
-        <hr />
-        <div class="row">
-          <div class="col-md-4 col-6">
-            <div class="mb-4">
-              <p class="text-primary mb-1 text-color-white">
-                <i class="i-Calendar text-16 mr-1"></i> Birth Date
-              </p>
-              <span>1 Jan, 1994</span>
+    <div class="col-sm-8">
+            <div class="card user-profile o-hidden mb-4">
+                <br><br><br>
+                <h5 class="text-center">Informacion de Usuario</h5>
+                <br><br><br>
             </div>
-            <div class="mb-4">
-              <p class="text-primary mb-1">
-                <i class="i-Edit-Map text-16 mr-1"></i>Titulo Post-Grado
-              </p>
-              <span>{{ datos['results']['cDocenteTitPost'] }}</span>
-            </div>
-            <div class="mb-4">
-              <p class="text-primary mb-1"><i class="i-Globe text-16 mr-1"></i> Dedicación</p>
-              <span>{{ datos['results']['cDocenteDedic'] }}</span>
-            </div>
-          </div>
-          <div class="col-md-4 col-6">
-            <div class="mb-4">
-              <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Profesión</p>
-              <span>{{ datos['results']['cDocenteTitulo'] }}</span>
-            </div>
-            <div class="mb-4">
-              <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Condicón</p>
-              <span>{{ datos['results']['cDocenteCondicion'] }}</span>
-            </div>
-            <div class="mb-4">
-              <p class="text-primary mb-1">
-                <i class="i-Cloud-Weather text-16 mr-1"></i> Categoría
-              </p>
-              <span>{{ datos['results']['cDocenteCategoria'] }}</span>
-            </div>
-          </div>
         </div>
-        <hr />
-        <h4>Accesos Directos</h4>
-        <p class="mb-4"></p>
-        <div class="row">
-          <div class="col-md-2 col-sm-4 col-6 text-center">
-            <i class="i-Business-Mens text-32 text-primary"></i>
-            <p class="text-16 mt-1">Asistencias</p>
-          </div>
-          <div class="col-md-2 col-sm-4 col-6 text-center">
-            <i class="i-Receipt-4 text-32 text-primary"></i>
-            <p class="text-16 mt-1">Notas</p>
-          </div>
-          <div class="col-md-2 col-sm-4 col-6 text-center">
-            <i class="i-Split-Horizontal text-32 text-primary"></i>
-            <p class="text-16 mt-1">Reportes</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
+

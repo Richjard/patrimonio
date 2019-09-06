@@ -9,19 +9,18 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './shared/inmemory-db/inmemory-db.service';
 import { HttpClientModule } from '@angular/common/http';
 
-import { NgxPaginationModule } from 'ngx-pagination';
+import {NgxPaginationModule} from 'ngx-pagination';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { OrderModule } from 'ngx-order-pipe';
-import { TramitesModule } from './subModulos/tramites/tramites.module';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+  ],
   imports: [
     BrowserModule,
     SharedModule,
@@ -33,14 +32,12 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
-      useFactory: adapterFactory,
+      useFactory: adapterFactory
     }),
     AngularFontAwesomeModule,
-    OrderModule,
-    TramitesModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    OrderModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

@@ -13,7 +13,7 @@
     position: relative;
     min-height: calc(100vh - #{$topbar-height});
     
-    background: #404f8a29;
+    background: #f5f6fd;
     &.sidenav-open {
         width: calc(100% - #{$sidebar-left-width});
     }

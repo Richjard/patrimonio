@@ -4,26 +4,27 @@
 
 .table {
   width: 100%;
+  margin-bottom: $spacer;
   border-collapse: collapse;
-  border-radius: .5em;
   overflow: hidden;
-  font-size: 11px;
-  color:#23263a;
-  margin-bottom: 25px;
+  font-size: $fontSize;
+  background-color: white; // Reset for nesting within parents with `background-color`.
+
   th,
   td {
-    padding: 6px 10px;
-    background: white;
-    border: 1px solid #0E7FA6; 
+    padding: $table-cell-padding;
+    vertical-align: center;
+    border-top: $table-border-width solid $table-border-color;
   }
 
   thead th {
-    background: #0E7FA6;
-    border: 1px solid #1299c5; 
-    color:white;
+    vertical-align: center;
     text-align: center;
-    font-size: 14px;
-    padding: 8px 12px;
+    border-bottom: (2 * $table-border-width) solid $table-border-color;
+  }
+
+  tbody + tbody {
+    border-top: (2 * $table-border-width) solid $table-border-color;
   }
 
   .table {
@@ -48,7 +49,7 @@
 //
 // Add or remove borders all around the table and between all the columns.
 
-.table-bordered{
+.table-bordered {
   border: $table-border-width solid $table-border-color;
 
   th,
@@ -92,7 +93,7 @@
   tbody tr {
     @include hover {
       background-color: #293F80;
-      color:black;
+      color:white
     }
   }
 }
@@ -143,7 +144,7 @@
     border-color: $table-dark-border-color;
   }
 
-  &.table-bordered{
+  &.table-bordered {
     border: 0;
   }
 
@@ -182,7 +183,7 @@
         -ms-overflow-style: -ms-autohiding-scrollbar; // See https://github.com/twbs/bootstrap/pull/10057
 
         // Prevent double border on horizontal scroll due to use of `display: block;`
-        > .table-bordered{
+        > .table-bordered {
           border: 0;
         }
       }

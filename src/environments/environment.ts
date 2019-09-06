@@ -3,23 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  version: '1.0',
-
-  // serverRecursos: 'http://200.60.83.164',
-  // serverRutas: 'http://200.60.83.164/api',
-
-  // serverRecursos: 'http://172.16.0.145',
-  // serverRutas: 'http://172.16.0.145/api',
-
-  //serverRecursos: 'http://200.60.83.164',
-  //serverRutas: 'http://200.60.83.164/api',
-
-  serverRecursos: 'http://127.0.0.1:8000',
-  serverRutas: 'http://127.0.0.1:8000/api',
-
+  production: false
 };
-
 
 /*
  * For easier debugging in development mode, you can import the following file

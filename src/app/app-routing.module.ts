@@ -9,37 +9,18 @@ import { AdminLayoutSidebarLargeComponent } from './shared/components/layouts/ad
 const moduleRoutes: Routes = [
   {
     path: 'user',
-    loadChildren: () => import('./personal/personal.module').then(m => m.PersonalModule),
+    loadChildren: () => import('./personal/personal.module').then(m => m.PersonalModule)
   },
   {
-    path: 'cursos',
-    loadChildren: () => import('./subModulos/cursos/cursos.module').then(m => m.CursosModule),
+    path: 'control',
+    loadChildren: () => import('./subModulos/control/control.module').then(m => m.ControlModule)
   },
-  {
-    path: 'tramites',
-    loadChildren: () => import('./subModulos/tramites/tramites.module').then(m => m.TramitesModule),
-  },
-  {
-    path: 'docente',
-    loadChildren: () => import('./subModulos/cursos/cursos.module').then(m => m.CursosModule),
-  },
-  {
-    path: 'tramites',
-    loadChildren: () => import('./subModulos/tramites/tramites.module').then(m => m.TramitesModule),
-  },
-  {
-    path: 'racionalizacion',
-    loadChildren: () =>
-      import('./subModulos/racionalizacion/racionalizacion.module').then(
-        m => m.RacionalizacionModule,
-      ),
-  },
-];
+]
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'user/perfil',
-    pathMatch: 'full',
+    pathMatch: 'full'
   },
   {
     path: '',
@@ -47,9 +28,9 @@ const routes: Routes = [
     children: [
       {
         path: 'sessions',
-        loadChildren: () => import('./views/sessions/sessions.module').then(m => m.SessionsModule),
-      },
-    ],
+        loadChildren: () => import('./views/sessions/sessions.module').then(m => m.SessionsModule)
+      }
+    ]
   },
   {
     path: '',
@@ -57,24 +38,24 @@ const routes: Routes = [
     children: [
       {
         path: 'others',
-        loadChildren: () => import('./views/others/others.module').then(m => m.OthersModule),
-      },
-    ],
+        loadChildren: () => import('./views/others/others.module').then(m => m.OthersModule)
+      }
+    ]
   },
   {
     path: '',
     component: AdminLayoutSidebarLargeComponent,
     canActivate: [AuthGaurd],
-    children: moduleRoutes,
+    children: moduleRoutes
   },
   {
     path: '**',
-    redirectTo: 'others/404',
-  },
+    redirectTo: 'others/404'
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

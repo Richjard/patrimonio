@@ -1,0 +1,78 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    Control de estudiantes
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <div class="form-group">
+                                <label for="">Buscar Estudiante </label>
+                                <input type="text" class="form-control" [(ngModel)]="textEstudiante" placeholder="Busca por DNI, Codigo, Apellidos o Nombres">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <label for=""></label><br>
+                            <button class="btn btn-primary" (click)="buscar()">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12" ><!--*ngIf="estudiantes.length > 0"-->
+            <br><br>
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th colspan="7">Resultado de Estudiantes encontrados</th>
+                    </tr>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>N° Documento</th>
+                        <th>Apellidos y Nombres</th>
+                        <th>Estado</th>
+                        <th>Tiene <br>Seguro</th>
+                        <th></th>
+                        <th>Habilitado</th>
+                    </tr>
+                </thead>
+                <tbody class="table-hover">
+                    <tr *ngFor="let estudiante of estudiantes | paginate: { itemsPerPage: 18, currentPage: p }">
+                        <td class="text-center">{{ estudiante.cEstudCodUniv }}</td>
+                        <td class="text-center">{{ estudiante.cPersDocumento }}</td>
+                        <td>{{ estudiante.cPersPaterno }}  {{ estudiante.cPersMaterno }} {{ estudiante.cPersNombre }}</td>
+                        <td class="text-center">{{ estudiante.cClasificDsc }}</td>
+                        <td class="text-center">
+                            <label class="checkbox checkbox-outline-primary">
+                                <input type="checkbox" 
+                                    [ngModel]="estudiante.bCheckObuSeguro == 1 ? true : estudiante.bCheckObuSeguro == 0 ? false : null" 
+                                    (ngModelChange)="estudiante.bCheckObuSeguro = $event ? 1 : 0"
+                                    (change)="editRow(2,estudiante.bCheckObuSeguro,estudiante.cEstudCodUniv,estudiante.iControlCicloAcadActual)">
+                                <span *ngIf="estudiante.bCheckObuSeguro == 0" class="text-danger"><b>No</b></span>
+                                <span *ngIf="estudiante.bCheckObuSeguro == 1" class="text-succcess"><b>Si</b> </span>
+                                <span class="checkmark"></span>
+                            </label>
+                            
+                        </td>
+                        <th><button class="btn btn-primary btn-sm" (click)="verificar(estudiante.cEstudCodUniv,estudiante.cPersDocumento,estudiante.iControlCicloAcadActual)">verf.</button></th>
+                        <td>
+                            <label class="checkbox checkbox-outline-primary">
+                                <input type="checkbox" [ngModel]="estudiante.bCheckObuRevision == 1 ? true : estudiante.bCheckObuRevision == 0 ? false : null" (ngModelChange)="estudiante.bCheckObuRevision = $event ? 1 : 0"
+                                (change)="editRow(1,estudiante.bCheckObuRevision,estudiante.cEstudCodUniv,estudiante.iControlCicloAcadActual)">
+                                <span *ngIf="estudiante.bCheckObuRevision == 0" class="text-danger"><b>N. Confir</b></span>
+                                <span *ngIf="estudiante.bCheckObuRevision == 1" class="text-succcess"><b>Confirmado</b> </span>
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+                
+            </table>
+            <br>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="card o-hidden custom" [@animate]="{value:'*',params:{y:'200px',opacity:'0',delay:'800ms', duration: '800ms'}}">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="p-4">
+          <div class="auth-logo text-center mb-4">
+            <img src="assets/images/logo.png" alt="">
+          </div>
+          <h1 class="mb-3 text-18">Inicio de Session</h1>
+          <form [formGroup]="signinForm" (ngSubmit)="signin()">
+            <div class="form-group">
+              <label for="email">Usuario</label>
+              <input id="email" class="form-control form-control-rounded" formControlName="usuario" type="text">
+            </div>
+            <div class="form-group">
+              <label for="password">Clave</label>
+              <input id="password" class="form-control form-control-rounded" formControlName="password" type="password">
+            </div>
+            <!-- <button class="btn btn-rounded btn-primary btn-block mt-2">Sign In</button>  ya no-->
+            <btn-loading btnClass="btn-primary btn-rounded btn-block mt-3" [loadingText]="loadingText" [loading]="loading">
+              Ingresar
+            </btn-loading>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+  <ng-template #content center-modal>
+      <div class="card-header">
+          Restablece tu Contraseña
+      </div>  
+      
+
+      <div class="modal-body">
+          <label class="" for="">Por seguridad se requiere el ingrese de una Nueva Contraseña</label>
+          <hr>
+          <div class="form-group">
+              <label for="">Nueva Contraseña</label>
+              <input type="password" class="form-control" name="newPass" [(ngModel)]="newPass"  >
+              <div *ngIf="submitted && f.newPass.errors" class="invalid-feedback">
+                  <div *ngIf="f.newPass.errors.required">Password es obligatorio</div>
+                  <div *ngIf="f.newPass.errors.minlength">Password tiene que tener mas de 6 caracteres</div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="">Repite Contraseña</label>
+              <input type="password" class="form-control" name="repPass" [(ngModel)]="repPass" >
+              <div *ngIf="submitted && f.repPass.errors" class="invalid-feedback">
+                  <div *ngIf="f.repPass.errors.required">Password es obligatorio</div>
+                  <div *ngIf="f.repPass.errors.minlength">Password tiene que tener mas de 6 caracteres</div>
+              </div>
+          </div>
+          <div class="form-group">
+              <button class="btn btn-success" (click)="savePersonData()">Guardar Cambios</button>
+          </div>
+      </div>
+
+  </ng-template>

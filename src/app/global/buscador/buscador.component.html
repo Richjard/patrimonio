@@ -1,0 +1,6 @@
+<input type="text" class="form-control" [(ngModel)]="texto" (keyup)="buscar()" placeholder="Buscar... ">
+<ul class="box-search">
+    <li  *ngFor="let d of data" class="block-search">
+        <a (click)="result(d)">{{d.texto }}</a>
+    </li>
+</ul>

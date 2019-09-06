@@ -1,0 +1,38 @@
+$font-family-heading: 'Nunito', sans-serif;
+$font-family-base: 'Nunito', sans-serif;
+$font-size-base: .813rem;
+
+
+// // LAYOUT VARS
+// $topbar-height: 80px;
+// $topbar-height-mobile: 70px;
+
+// $sidebar-left-width: 120px;
+// $sidebar-left-width-mobile: 90px;
+// $sidebar-left-secondary-width: 220px;
+// $sidebar-left-secondary-width-mobile: 190px;
+// $side-clearance: 20px;
+
+// GLOBAL COLORS
+$facebook: rgb(55, 101, 201);
+$google: rgb(236, 65, 44);
+$twitter: rgb(3, 159, 245);
+.pulse{
+    animation: pulse-black 2s infinite;
+}
+@keyframes pulse-black {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    }
+    
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+    
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+}

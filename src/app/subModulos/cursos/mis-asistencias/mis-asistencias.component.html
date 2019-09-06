@@ -1,0 +1,90 @@
+<!--
+<div class="container" *ngIf="activo == 1">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          Asistencias por cursos
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Carrera</th>
+                <th>Código Curso</th>
+                <th>Nombre Curso</th>
+                <th>Seccion</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of cursos; let i = index">
+                <td class="text-center">{{ i + 1 }}</td>
+                <td>{{ item.cCarreraDsc }}</td>
+                <td class="text-center">{{ item.cCargaHCurso }}</td>
+                <td>{{ item.cCurricCursoDsc }}</td>
+                <td class="text-center">{{ item.cSeccionDsc }}</td>
+                <td class="text-center">
+                  <button
+                    class="btn btn-primary btn-sm"
+                    (click)="activo = 0; getDescargaestudiante(item); getlistestudiante(item)"
+                  >
+                    Asistencias
+                  </button>
+                  <button class="btn btn-warning" routerLink="/cursos/silabo" (click)="enviarDatos(cCurricCursoDsc)">Ver Silabo</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <button
+            type="button"
+            class="btn btn-success btn-block m-1"
+            (click)="getDescargaestudiante()"
+          >
+            Exportar a Excel
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-hover">
+            <thead class="">
+              <tr>
+                <th colspan="9">
+                  <span class="tg">LISTADO OFICIAL DE ALUMNOS MATRICULADOS</span>
+                </th>
+              </tr>
+              <tr>
+                <th>Nro.</th>
+                <th>Código</th>
+                <th>Apellidos</th>
+                <th>Nombres</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listEstudiantes; let i = index">
+                <td class="text-center">{{ i + 1 }}</td>
+                <td class="text-center">{{ item['Codigo_Estudiante'] }}</td>
+                <td>{{ item['Apellidos'] }}</td>
+                <td>{{ item['Nombres'] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 ">
+            Curso:
+        </div>
+        <div class="col-4">
+            <select class="form-control ">
+        <option>Comunicación </option>
+        <option>Matemática </option>
+      </select>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="card-header">
+                                <th rowspan="3" style="vertical-align:middle;">N°</th>
+                                <th rowspan="3" style="vertical-align:middle;">Nombre y Apellidos</th>
+                                <th colspan="17" style="vertical-align:middle;">Semana</th>
+                                <th rowspan="3" style="vertical-align:middle;">Promedio</th>
+                                <th rowspan="3" style="vertical-align:middle;">Acciones</th>
+                            </tr>
+                            <tr class="card-header">
+                                <th>1</th>
+                                <th>2</th>
+                                <th>3</th>
+                                <th>4</th>
+                                <th>5</th>
+                                <th>6</th>
+                                <th>7</th>
+                                <th>8</th>
+                                <th>9</th>
+                                <th>10</th>
+                                <th>11</th>
+                                <th>12</th>
+                                <th>13</th>
+                                <th>14</th>
+                                <th>15</th>
+                                <th>16</th>
+                                <th>17</th>
+                            </tr>
+                            <tr class="card-body">
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="card-body" *ngFor="let c of mySentences; let i = index">
+                                <th>{{ i + 1 }}</th>
+                                <th>{{ c.apellidos }}, {{ c.nombres }}</th>
+                                <th style="text-align: center">{{ c.asis1 }}</th>
+                                <th style="text-align: center">{{ c.asis2 }}</th>
+                                <th style="text-align: center">{{ c.asis1 }}</th>
+                                <th style="text-align: center">{{ c.asis1 }}</th>
+                                <th style="text-align: center">{{ c.asis1 }}</th>
+                                <th style="text-align: center">{{ c.asis2 }}</th>
+                                <th style="text-align: center">{{ c.asis2 }}</th>
+                                <th style="text-align: center">{{ c.asis1 }}</th>
+                                <th style="text-align: center">{{ c.asis1 }}</th>
+                                <th style="text-align: center">{{ c.asis1 }}</th>
+                                <th style="text-align: center">{{ c.asis1 }}</th>
+                                <th style="text-align: center">{{ c.asis2 }}</th>
+                                <th style="text-align: center">{{ c.asis }}</th>
+                                <th style="text-align: center">{{ c.asis }}</th>
+                                <th style="text-align: center">{{ c.asis }}</th>
+                                <th style="text-align: center">{{ c.asis }}</th>
+                                <th style="text-align: center">{{ c.asis }}</th>
+                                <th style="text-align: center">{{ c.asisp }}</th>
+                                <th style="text-align: center">
+                                    <button class="btn btn-outline-success ">Control</button>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

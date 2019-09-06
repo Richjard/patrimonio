@@ -1,0 +1,48 @@
+{
+    "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+    "index": "/index.html",
+    "assetGroups": [{
+            "name": "app",
+            "installMode": "prefetch",
+            "updateMode": "prefetch",
+            "resources": {
+                "files": [
+                    "/favicon.ico",
+                    "/index.html",
+                    "/*.css",
+                    "/*.js",
+                    "/common*.js",
+                    "/main*.js",
+                    "/ngsw*.js",
+                    "/woker*.js",
+                    "/polyfills*.js",
+                    "/runtime*.js",
+                    "/fontawesome*"
+                ]
+            }
+        },
+        {
+            "name": "assets",
+            "installMode": "lazy",
+            "updateMode": "prefetch",
+            "resources": {
+                "files": [
+                    "/assets/**",
+                    "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
+                ]
+            }
+        }
+    ],
+    "dataGroups": [{
+        "name": "sigeun-info-api",
+        "urls": [
+            "https://www.sigeun.edu.pe/api/"
+        ],
+        "cacheConfig": {
+            "strategy": "freshness",
+            "maxSize": 10000,
+            "maxAge": "6h",
+            "timeout": "5s"
+        }
+    }]
+}

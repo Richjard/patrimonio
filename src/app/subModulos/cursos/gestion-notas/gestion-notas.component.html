@@ -1,0 +1,73 @@
+<div class="row">
+    
+    <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="unidad" id="selUnidad">
+            <option value>Seleccione Unidad...</option>
+            <option value="1"> Unidad I</option>
+            <option value="2"> Unidad II</option>
+            <option value="3"> Unidad III</option>
+            <option value="4"> Unidad IV</option>
+            
+        </select>
+    </div>
+    <div class="col-md-3">
+      
+    </div>
+    
+      
+    <div class="col-md-3 " >
+        <button class="btn btn-outline-success float-right" (click)="getNotas()">Guardar</button>
+    </div>
+  
+</div>
+<br />
+
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          
+          <div class="card-body">
+            <table class="table table-hover" >
+              <thead>
+                <tr class="" >
+                  <th rowspan="3" style="vertical-align:middle;">N°</th>
+                  <th rowspan="3" style="vertical-align:middle;"> Nombre y Apellidos</th>
+                  <th colspan="3" rowspan="1" style="vertical-align:middle;">Unidad</th>
+                  <th rowspan="3" style="vertical-align:middle;"> Promedio</th>
+                  
+                </tr>
+                
+                <tr class="">
+                        
+                        <th >Procedimental</th>
+                        <th >Conceptual</th>
+                        <th >Actitudinal</th>
+                        
+                        
+                            
+                </tr>
+                
+              </thead>
+              <tbody>
+                    <tr class="card-body" *ngFor="let item of listEstudiantes; let i = index" >
+                        
+                            <th >{{ i + 1 }}</th>
+                            <th >{{ item['Apellidos'] }}, {{ item['Nombres'] }}</th>
+                            <th style="text-align: center"><input type="number" style="text-align: center" [(ngModel)]="item.procedimental"> </th>
+                            <th style="text-align: center"><input type="number" style="text-align: center"  [(ngModel)]="item.conceptual"> </th>
+                            <th style="text-align: center"><input type="number" style="text-align: center" [(ngModel)]="item.actitudinal"> </th>
+                            <th style="text-align: center"><input type="text" style="border: 0 solid; text-align: center"  [(ngModel)]="item.promedio"  value="{{((item.procedimental*0.4)+(item.conceptual*0.5)+(item.actitudinal*0.2)).toFixed(2)}}" readonly=""> </th>
+                            
+                            
+                            
+                                
+                    </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

@@ -1,0 +1,22 @@
+.box-search{
+    list-style: none;
+    background: #F2F2F2;
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+    width: 100%;
+    height: auto;
+    display: block;
+    position: absolute;
+    z-index: 20;
+}
+.block-search{
+    display: block;
+    position: relative;
+    list-style: none;
+    
+}
+.block-search:hover{
+    background: #A6A6A6;
+    cursor: pointer;
+}

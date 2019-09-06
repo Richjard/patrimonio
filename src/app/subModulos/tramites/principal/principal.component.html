@@ -1,0 +1,91 @@
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table  ">
+                <thead class="  ">
+                    <tr>
+                        <th colspan="15">Información de Docente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="5" width="120">
+                            <ng-container>
+                                <img src="" alt="" />
+                            </ng-container>
+                            <ng-template #default>
+                                <img src="" alt="" />
+                            </ng-template>
+                        </td>
+                        <td rowspan="5" width="120">
+                            <img src="" alt="" />
+                        </td>
+                        <td colspan="3">Escuela Profesional :</td>
+                        <td width="160">Estado :</td>
+                        <td>Sede :</td>
+                    </tr>
+                    <tr>
+                        <td width="95">Código</td>
+                        <td></td>
+                        <td width="125">Modalidad Ingreso</td>
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td>DNI</td>
+                        <td></td>
+                        <td>Semestre Ingreso</td>
+                        <td></td>
+                        <td rowspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td>Apellidos</td>
+                        <td></td>
+                        <td>Semestre Actual</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Nombres</td>
+                        <td></td>
+                        <td>Semestre Egreso</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <app-guia-panel [codigo]="codigo" [title]="option.titulo" (option)="option = $event"></app-guia-panel>
+
+    <ng-container [ngSwitch]="option.n">
+        <ng-container *ngSwitchCase="0">
+            <app-menu [menus]="menus" (option)="option = $event"></app-menu>
+        </ng-container>
+        <ng-container *ngSwitchCase="1">
+            <app-ingreso-notas></app-ingreso-notas>
+        </ng-container>
+        <ng-container *ngSwitchCase="2">
+            <app-ingreso-asistencia></app-ingreso-asistencia>
+        </ng-container>
+        <ng-container *ngSwitchCase="3">
+            <app-modificacion-notas></app-modificacion-notas>
+        </ng-container>
+        <ng-container *ngSwitchCase="4">
+            <app-reprogramacion-clases></app-reprogramacion-clases>
+        </ng-container>
+        <ng-container *ngSwitchCase="5">
+            <app-reprogramacion-examenes></app-reprogramacion-examenes>
+        </ng-container>
+        <ng-container *ngSwitchCase="6">
+            <app-descargo-inasistencias></app-descargo-inasistencias>
+        </ng-container>
+    </ng-container>
+
+    <!-- <router-outlet></router-outlet>
+</div> -->
+
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <img class="card-img" src="./assets/images/pagina.png" alt="Card image" />
+  </div>
+  <div class="col-md-4"></div>
+</div>

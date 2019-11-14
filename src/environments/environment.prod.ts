@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'http://192.168.2.11/backsigeun-master/public/api'
 };

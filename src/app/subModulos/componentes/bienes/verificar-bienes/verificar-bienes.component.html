@@ -1,0 +1,59 @@
+
+<div class="control-section template" ><!--inicio de diaglolo-->
+
+    <!--<div class="col-lg-12 control-section toast-default-section">
+        <div class="e-sample-resize-container">
+            <ejs-toast #defaulttoast id='defaulttoast' [position]="position" (created)="onCreate()"  (close)="onClose($event)"  (beforeOpen)="onBeforeOpen()">            
+            </ejs-toast>        
+        </div>
+    </div>-->
+
+
+
+    <h1>Seleccione una Dependencia o sub dependencia</h1>
+ 
+    <app-dependecia-ubicacion  (devuelve_hijo)="ok_filtroDependencia($event)" ></app-dependecia-ubicacion >
+ 
+
+
+   <!--<div class="control-section button-group-container">
+        <div class="button-group-section">
+            <div id="button-group-control">
+                <div class="row">    
+                    <div id="icon" class="e-btn-group">
+                        <button ejs-button id="btnDocumentoNuevo" #ButtonInstance (click)="BtnNuevoDocumentoClick()" ><fa-icon [icon]="faPlus" size="lg"></fa-icon> Nuevo</button>
+                        <button ejs-button id="btnDocumentoVer" #ButtonInstance (click)="BtnVerDocumentoClick()" ><fa-icon [icon]="faInfo" size="lg"></fa-icon> Ver</button>
+                        <button ejs-button id="btnDocumentoModificar" #ButtonInstance (click)="BtnModificarDocumentoClick()"><fa-icon [icon]="faEdit" size="lg"></fa-icon> Modificar</button>
+                        <button ejs-button id="btnDocumentoVerificarBienes" #ButtonInstance (click)="BtnVerificarBienesDocumentoClick()"><fa-icon [icon]="faCheckDouble" size="lg"></fa-icon> Ver Bienes Verificados</button>                        
+                    </div>
+                </div>
+                           
+            </div>
+        </div>
+    </div>-->
+
+    <ejs-grid #grid [dataSource]='data | async'  allowPaging='true' height=365  [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChange($event)' (rowSelected)='rowSelected($event)'>
+   
+        <e-columns>
+            <e-column field= "RowNumber" headerText="N°" width="5%" [allowFiltering]="false" [allowSorting]="false"></e-column>
+            <e-column field= "iYearId" headerText="Año" width="8%" [allowFiltering]="false"></e-column>
+            <e-column field= "cBienCodigo" headerText="Código" width="15%"  ></e-column>
+            <e-column field= "cBienDescripcion" headerText="Descripción" width="37%"  ></e-column>           
+            <e-column field= "iEstadoBienId" headerText="Estado" width="10%"  ></e-column>
+            <e-column field= "dVerificacionFecha" headerText="Fecha Ver." width="10%"  ></e-column>
+            <e-column field= "cVerificacionObs" headerText="Obs" width="15%"  ></e-column>
+           
+           
+        </e-columns>
+    </ejs-grid>
+
+    <!--<ejs-dialog #alertDialog [buttons]='alertDlgButtons' [isModal]='isModalAlert'  [visible]='hidden' [header]='alertHeader' [animationSettings]='animationSettings' [content]='alertContent' [showCloseIcon]='showCloseIcon' [target]='target' [width]='alertWidth'>
+    </ejs-dialog>     -->         
+
+
+
+    
+</div>
+
+
+

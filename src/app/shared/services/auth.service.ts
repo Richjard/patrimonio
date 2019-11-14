@@ -13,8 +13,8 @@ import { ToastrService  } from 'ngx-toastr';
 export class AuthService {
   //Only for demo purpose
   authenticated = false;
-  private baseUrl = 'http://200.60.83.163/api';
-  modulo: number = 6
+  private baseUrl = 'http://192.168.1.145/api';
+  modulo: number = 11
 
   constructor(
     private store: LocalStoreService, 

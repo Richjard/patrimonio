@@ -1,0 +1,81 @@
+
+<div class="control-section template" ><!--inicio de diaglolo-->
+
+    <div class="col-lg-12 control-section toast-default-section">
+        <div class="e-sample-resize-container">
+            <ejs-toast #defaulttoast id='defaulttoast' [position]="position" (created)="onCreate()"  (close)="onClose($event)"  (beforeOpen)="onBeforeOpen()">            
+            </ejs-toast>        
+        </div>
+    </div>
+
+
+
+    <h1>Ordenes de compra</h1>
+    <div id="action-description">
+    <p>
+        En esta seccion puede UD. visualizar   <code>Ordenes de compra </code>.
+    </div>
+
+    <ejs-dialog #template  [isModal]='isModal' [allowDragging]='dialogdragging'  [height]='height' [visible]='hidden'  [animationSettings]='animationSettings' [showCloseIcon]='showCloseIcon' [target]='target' [width]='width' (open)="dialogOpen()"
+        (close)="dialogClose()">  
+        <!--<ng-template #footerTemplate>
+            <input id="inVal" class="e-input" type="text" placeholder="Enter your message here!"/>
+                <button id="sendButton" class="e-control e-btn e-light sendButton" data-ripple="true">Cancelar</button>
+                <button id="sendButton"  class="e-control e-btn e-primary sendButton" data-ripple="true">Guardar</button>         
+                    <button  [disabled]="userForm.form.invalid" >SAVE</button>
+        </ng-template>-->
+        <ng-template #content>
+            <div class="dialogContent">
+                <span class="dialogText">    
+                    
+               <app-oc-form-tablas-generales [datosOc]="Oc" [op]="opcion" (devuelve_hijo)="cerrar_ventana_modal($event)" (cerrar_modal)="cerrar_ventana_modal_($event)"></app-oc-form-tablas-generales>                   
+              
+                </span>     
+            </div>
+        </ng-template>
+        
+        <ng-template #header>
+            <!--<div class="e-avatar template-image e-avatar-xsmall e-avatar-circle">fadsf</div>-->
+
+            <fa-icon [icon]="icoForm" size="lg"></fa-icon>
+                                                            
+            <div id="dlg-template" title="Nancy" class="e-icon-settings"> Formulario Documentos  </div>
+        </ng-template>
+    </ejs-dialog>
+
+
+    <div class="control-section button-group-container">
+        <div class="button-group-section">
+            <div id="button-group-control">
+                <div class="row">    
+                    <div id="icon" class="e-btn-group">                        
+                        <button ejs-button id="btnOcVer" #ButtonInstance (click)="BtnVerOcClick()" ><fa-icon [icon]="faInfo" size="lg"></fa-icon> Ver</button>
+                        <button ejs-button id="btnOcActualizar" #ButtonInstance (click)="BtnActualizarOcClick()" ><fa-icon [icon]="faInfo" size="lg"></fa-icon> Refrescar</button>
+                      
+                    </div>
+                </div>
+                           
+            </div>
+        </div>
+    </div>
+   
+
+    <ejs-grid #grid [dataSource]='data | async'  allowPaging='true' height=365  [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChange($event)' (rowSelected)='rowSelected($event)'>
+   
+        <e-columns>
+            <e-column field= "RowNumber" headerText="N°" width="10%" [allowFiltering]="false" [allowSorting]="false"></e-column>
+            <e-column field= "NRO_ORDEN" headerText="O/C" width="10%" [allowSorting]="false"></e-column>
+            <e-column field= "TIPO_BIEN" headerText="Tipo" width="10%"  [allowFiltering]="false" [allowSorting]="false"></e-column>           
+            <e-column field= "FECHA_ORDEN" headerText="Fecha" width="10%"    [allowFiltering]="false" [allowSorting]="false"></e-column>
+            <e-column field= "CONCEPTO" headerText="Concepto" width="40%"  [allowFiltering]="false" [allowSorting]="false"></e-column>
+            <e-column field= "TOTAL_FACT_SOLES" headerText="Total"   width="20%" [allowFiltering]="false" [allowSorting]="false"></e-column>
+           
+        </e-columns>
+    </ejs-grid>
+
+   
+
+
+    
+</div>
+

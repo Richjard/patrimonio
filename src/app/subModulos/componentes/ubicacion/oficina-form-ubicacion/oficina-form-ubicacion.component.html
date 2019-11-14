@@ -1,0 +1,64 @@
+
+
+ 
+ <form id="template_driven"  name="template_driven" #oficinaForm="ngForm" novalidate>
+
+     
+
+        <div class="form-group template">            
+
+
+                <div class="e-float-input" [ngClass]="{'e-success': iLocalId.valid}">
+                    <!--<input type="text" id="iLocalId" #iLocalId='ngModel'   [disabled]="op == 1" [(ngModel)]="oficina.iLocalId" name="iLocalId" required value="{{oficina.iLocalId}}">
+                    -->
+                    <ejs-dropdownlist  #localList  name="iLocalId"   id="iLocalId" #iLocalId='ngModel'  (change)='onChange1()'  [disabled]="op == 1"  [(ngModel)]="oficina.iLocalId" name="iLocalId" required 
+                            [dataSource]='dataComboLocales' [placeholder]='remoteWaterMark' [fields]='remoteFields' floatLabelType='Auto'>
+                            </ejs-dropdownlist>
+                    
+                    <span class="e-float-line"></span>
+                    <!--<label class="e-float-text" [ngClass]="{'e-label-top': oficina.iLocalId !== '' , 'e-label-bottom':  oficina.iLocalId == ''}" for="iLocalId">Local</label>                        
+                    -->
+              
+                </div>
+         </div>
+         <div class="form-group template">
+                <div class="e-float-input" [ngClass]="{'e-success': iAreaId.valid}">
+                    <!--<input type="text" id="iLocalId" #iLocalId='ngModel'   [disabled]="op == 1" [(ngModel)]="oficina.iLocalId" name="iLocalId" required value="{{oficina.iLocalId}}">
+                    -->
+                    <ejs-dropdownlist   #areaList  name="iAreaId"   id="iAreaId" #iAreaId='ngModel' [disabled]="op == 1"  [(ngModel)]="oficina.iAreaId" name="iAreaId" required 
+                            [dataSource]='dataComboAreas' [placeholder]='remoteWaterMarkAreas' [fields]='remoteFieldsAreas' floatLabelType='Auto'  >
+                            </ejs-dropdownlist>
+                    
+                    <span class="e-float-line"></span>
+                    <!--<label class="e-float-text" [ngClass]="{'e-label-top': oficina.iLocalId !== '' , 'e-label-bottom':  oficina.iLocalId == ''}" for="iLocalId">Local</label>                        
+                    -->
+              
+                </div>
+         </div>
+
+
+        <div class="form-group template">
+            <div class="e-float-input" [ngClass]="{'e-success': iOficnaId.valid}">
+                <input type="text" id="iOficnaId" name="iOficnaId" [(ngModel)]="oficina.iOficnaId" #iOficnaId="ngModel" required disabled value="{{oficina.iOficinaId}}">
+                <span class="e-float-line"></span>
+                <label class="e-float-text" [ngClass]="{'e-label-top': oficina.iOficinaId !== '' , 'e-label-bottom':  oficina.iOficinaId == ''}" for="iOficinaId">ID oficina </label>                        
+            </div>
+        </div>
+       <div class="form-group template">
+            <div class="e-float-input" [ngClass]="{'e-success': cOficinaDescripcion.valid}">
+                <input type="text" id="cOficinaDescripcion" #cOficinaDescripcion='ngModel'   [disabled]="op == 1" [(ngModel)]="oficina.cOficinaDescripcion" name="cOficinaDescripcion" required value="{{oficina.cOficinaDescripcion}}">
+                <span class="e-float-line"></span>
+                <label class="e-float-text" [ngClass]="{'e-label-top': oficina.cOficinaDescripcion !== '' , 'e-label-bottom':  oficina.cOficinaDescripcion == ''}" for="cOficinaDescripcion">Descripcion</label>                        
+            </div>
+        </div>
+        
+         
+         
+                   
+           <div class="form-group template" *ngIf="op!=1">
+            <div class="submitBtn">
+                <button class="submit-btn e-btn e-success sendButto" id="GuardarButtonOficina" [disabled]="oficinaForm.invalid"  type="submit" (click)= "GuardarOficina()"><fa-icon [icon]="faSave" size="lg"></fa-icon> Guardar</button>                                                              
+            </div> 
+            </div>                        
+    </form> 
+

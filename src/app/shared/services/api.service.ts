@@ -6,7 +6,7 @@ import { LocalStoreService } from "./local-store.service";
   providedIn: "root"
 })
 export class ApiService {
-  private baseUrl = 'http://200.60.83.163/api';
+  private baseUrl = 'http://192.168.2.11/backsigeun-master/public/api';//login server
   
   headers:any
   token:any

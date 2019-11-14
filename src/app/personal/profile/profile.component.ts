@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalService } from './../../servicios/local.services'
+import { LocalService } from '../../servicios/local.services'
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +7,9 @@ import { LocalService } from './../../servicios/local.services'
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
+  public date: Object = new Date()
   info:any
-
+  to:any;
   constructor(
     private local:LocalService
   ) { }
@@ -18,8 +18,11 @@ export class ProfileComponent implements OnInit {
     this.getInfoPersonal()
   }
   getInfoPersonal(){
-    let informacion = this.local.getItem('userInfo')
+   /* let informacion = this.local.getItem('userInfo')
     this.info = informacion['grl_persona']
-    console.log(this.info)
+    let tokkk = this.local.getItem('unamToken')
+    this.to= tokkk['access_token']
+    console.log(this.info+" probando consola"+this.to)*/
+    console.log("ppp");
   }
 }

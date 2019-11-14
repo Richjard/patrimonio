@@ -16,10 +16,14 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { OrderModule } from 'ngx-order-pipe';
+import { HomeComponent } from './home/home.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,60 @@
+ 
+     
+
+<form id="template_driven"  name="template_driven" #OcForm="ngForm" novalidate>
+
+   
+    
+        <div class="form-group template">
+                <div class="e-float-input" [ngClass]="{'e-success': NRO_ORDEN.valid}">
+                    <input type="text" id="NRO_ORDEN" name="NRO_ORDEN" [(ngModel)]="Oc.NRO_ORDEN" #NRO_ORDEN="ngModel" required disabled value="{{Oc.NRO_ORDEN}}">
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" [ngClass]="{'e-label-top': Oc.NRO_ORDEN !== '' , 'e-label-bottom':  Oc.NRO_ORDEN == ''}" for="NRO_ORDEN">O/C </label>                        
+                </div>     
+            </div>
+    
+    
+            <div class="form-group template">
+                    <div class="e-float-input" [ngClass]="{'e-success': TIPO_BIEN.valid}">
+                        <input type="text" id="TIPO_BIEN" name="TIPO_BIEN" [(ngModel)]="Oc.TIPO_BIEN" #TIPO_BIEN="ngModel" required disabled value="{{Oc.TIPO_BIEN}}">
+                        <span class="e-float-line"></span>
+                        <label class="e-float-text" [ngClass]="{'e-label-top': Oc.TIPO_BIEN !== '' , 'e-label-bottom':  Oc.TIPO_BIEN == ''}" for="iTramMovId">Tipo </label>                        
+                    </div>     
+                </div>
+    
+            <div class="form-group template">
+                <div class="e-float-input" [ngClass]="{'e-success': FECHA_ORDEN.valid}">
+                    <input type="text" id="FECHA_ORDEN" name="FECHA_ORDEN" [(ngModel)]="Oc.FECHA_ORDEN" #FECHA_ORDEN="ngModel" required disabled value="{{Oc.FECHA_ORDEN}}">
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" [ngClass]="{'e-label-top': Oc.FECHA_ORDEN !== '' , 'e-label-bottom':  Oc.FECHA_ORDEN == ''}" for="FECHA_ORDEN">Fecha </label>                        
+                </div>     
+            </div>
+            <div class="form-group template">
+                    <div class="e-float-input" [ngClass]="{'e-success': CONCEPTO.valid}">
+                        <input type="text" id="CONCEPTO" name="CONCEPTO" [(ngModel)]="Oc.CONCEPTO" #CONCEPTO="ngModel" required disabled value="{{Oc.CONCEPTO}}">
+                        <span class="e-float-line"></span>
+                        <label class="e-float-text" [ngClass]="{'e-label-top': Oc.CONCEPTO !== '' , 'e-label-bottom':  Oc.CONCEPTO == ''}" for="CONCEPTO">Concepto </label>                        
+                    </div>     
+                </div>
+            <div class="form-group template">
+                    <div class="e-float-input" [ngClass]="{'e-success': TOTAL_FACT_SOLES.valid}">
+                        <input type="text" id="TOTAL_FACT_SOLES" name="TOTAL_FACT_SOLES" [(ngModel)]="Oc.TOTAL_FACT_SOLES" #TOTAL_FACT_SOLES="ngModel" required disabled value="{{Oc.TOTAL_FACT_SOLES}}">
+                        <span class="e-float-line"></span>
+                        <label class="e-float-text" [ngClass]="{'e-label-top': Oc.TOTAL_FACT_SOLES !== '' , 'e-label-bottom':  Oc.TOTAL_FACT_SOLES == ''}" for="TOTAL_FACT_SOLES">Total S/.</label>                        
+                    </div>     
+                </div>
+    
+     
+    
+      
+    
+    
+      
+                   
+           <div class="form-group template" *ngIf="op!=1">
+            <div class="submitBtn">
+                <button class="submit-btn e-btn e-success sendButto" id="GuardarButtonDocumento" [disabled]="OcForm.invalid"  type="submit" (click)= "GuardarDocumento()"><fa-icon [icon]="faSave" size="lg"></fa-icon> Guardar</button>                                                              
+            </div> 
+            </div>                        
+    </form> 
+    

@@ -1,0 +1,37 @@
+
+
+  <form id="template_driven"  name="template_driven" #grupoGenForm="ngForm" novalidate>
+     <!--   <div class="form-group template">
+            <div class="e-float-input" [ngClass]="{'e-success': iGrupoGenId.valid}">-->
+                <input type="hidden" id="iGrupoGenId" name="iGrupoGenId" [(ngModel)]="grupoGen.iGrupoGenId" #iGrupoGenId="ngModel" required disabled value="{{grupoGen.iGrupoGenId}}">
+         <!--       <span class="e-float-line"></span>
+                <label class="e-float-text" [ngClass]="{'e-label-top': grupoGen.iGrupoGenId !== '' , 'e-label-bottom':  grupoGen.iGrupoGenId == ''}" for="iGrupoGenId">ID grupoGen </label>                        
+            </div>     
+        </div>-->
+
+        <div class="form-group template">
+                <div class="e-float-input" [ngClass]="{'e-success': cGrupoGenCodigo.valid}">
+                    <input type="text" id="cGrupoGenCodigo" #cGrupoGenCodigo='ngModel'   [disabled]="op == 1" [(ngModel)]="grupoGen.cGrupoGenCodigo" name="cGrupoGenCodigo" required value="{{grupoGen.cGrupoGenCodigo}}">
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" [ngClass]="{'e-label-top': grupoGen.cGrupoGenCodigo !== '' , 'e-label-bottom':  grupoGen.cGrupoGenCodigo == ''}" for="cGrupoGenCodigo">Código</label>                        
+                </div>
+        </div>
+
+
+       <div class="form-group template">
+            <div class="e-float-input" [ngClass]="{'e-success': cGrupoGenDescripcion.valid}">
+                <input type="text" id="cGrupoGenDescripcion" #cGrupoGenDescripcion='ngModel'   [disabled]="op == 1" [(ngModel)]="grupoGen.cGrupoGenDescripcion" name="cGrupoGenDescripcion" required value="{{grupoGen.cGrupoGenDescripcion}}">
+                <span class="e-float-line"></span>
+                <label class="e-float-text" [ngClass]="{'e-label-top': grupoGen.cGrupoGenDescripcion !== '' , 'e-label-bottom':  grupoGen.cGrupoGenDescripcion == ''}" for="cGrupoGenDescripcion">Descripcion</label>                        
+            </div>
+        </div>
+        
+                   
+           <div class="form-group template" *ngIf="op!=1">
+            <div class="submitBtn">
+                <button class="submit-btn e-btn e-success sendButto" id="GuardarButtonGrupoGen" [disabled]="grupoGenForm.invalid"  type="submit" (click)= "GuardarGrupoGen()"><fa-icon [icon]="faSave" size="lg"></fa-icon> Guardar</button>                                                              
+            </div> 
+            </div>                        
+    </form> 
+ 
+    

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationService } from '../../../../services/navigation.service';
 import { SearchService } from '../../../../services/search.service';
 import { AuthService } from '../../../../services/auth.service';
-import { LocalService } from './../../../../../servicios/local.services'
+import { LocalService } from '../../../../../servicios/local.services'
 import * as $ from 'jquery';
 
 @Component({

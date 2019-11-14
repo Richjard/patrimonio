@@ -6,7 +6,7 @@ import { LocalService } from './local.services'
   providedIn: "root"
 })
 export class QueryService {
-  private baseUrl = 'http://200.60.83.163/api';
+  private baseUrl = 'http://192.168.1.145/api';
   private codEstu:string = ''
   carrera:any
   sede:any

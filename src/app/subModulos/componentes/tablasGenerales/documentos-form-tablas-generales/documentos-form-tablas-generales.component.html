@@ -1,0 +1,202 @@
+
+
+
+
+     
+
+<form id="template_driven"  name="template_driven" #DocumentoForm="ngForm" novalidate>
+        <div class="row">
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <div class="e-float-input e-input-group" [ngClass]="{'e-success': iTramNumRegistro.valid}">
+                        <!-- Focus and FocusOut Event binding Floating input label -->
+                        <input type="hidden" id="iTramMovId" name="iTramMovId" [(ngModel)]="Documento.iTramMovId" #iTramMovId="ngModel"   value="{{Documento.iTramMovId}}">
+                        <input type="text"    readonly    id="iTramNumRegistro" name="iTramNumRegistro" [(ngModel)]="Documento.iTramNumRegistro" #iTramNumRegistro="ngModel"   value="{{Documento.iTramNumRegistro}}">
+                        <span class="e-float-line"></span>
+                        <label class="e-float-text" [ngClass]="{'e-label-top': Documento.iTramNumRegistro !== '' , 'e-label-bottom':  Documento.iTramNumRegistro == ''}" for="iTramNumRegistro">Documento Tramite Referencia</label>                        
+                
+        
+                        <span class="e-input-group-icon " (click)="BtnVerDocumentosTramiteClick()" ><fa-icon [icon]="faFilter" size="lg"></fa-icon> </span> 
+                        
+                   
+                    </div>
+                </div>
+            </div>
+
+        <div class="form-group template">
+            <div class="e-float-input" [ngClass]="{'e-success': iDocAdqId.valid}">
+                <input type="text" id="iDocAdqId" name="iDocAdqId" [(ngModel)]="Documento.iDocAdqId" #iDocAdqId="ngModel" required disabled value="{{Documento.iDocAdqId}}">
+                <span class="e-float-line"></span>
+                <label class="e-float-text" [ngClass]="{'e-label-top': Documento.iDocAdqId !== '' , 'e-label-bottom':  Documento.iDocAdqId == ''}" for="iDocAdqId">ID Documento </label>                        
+            </div>     
+        </div>
+
+        <div class="row">
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <div class="e-float-input e-input-group" [ngClass]="{'e-success': cDocAdqNro.valid}">
+                        <!-- Focus and FocusOut Event binding Floating input label -->
+                        <input type="text"        id="cDocAdqNro" name="cDocAdqNro" [(ngModel)]="Documento.cDocAdqNro" #cDocAdqNro="ngModel"   value="{{Documento.cDocAdqNro}}">
+                        <span class="e-float-line"></span>
+                        <label class="e-float-text" [ngClass]="{'e-label-top': Documento.cDocAdqNro !== '' , 'e-label-bottom':  Documento.cDocAdqNro == ''}" for="cDocAdqNro">Nro Documento Adquisición</label>                        
+                
+        
+                        <span class="e-input-group-icon " (click)="BtnVerOrdenesCompraClick()" ><fa-icon [icon]="faFilter" size="lg"></fa-icon> </span> 
+                        
+                   
+                    </div>
+                </div>
+            </div>
+
+       <!--<div class="form-group template">
+            <div class="e-float-input" [ngClass]="{'e-success': cDocAdqNro.valid}">
+                <input type="text" id="cDocAdqNro" #cDocAdqNro='ngModel'   [disabled]="op == 1" [(ngModel)]="Documento.cDocAdqNro" name="cDocAdqNro" required value="{{Documento.cDocAdqNro}}">
+                <span class="e-float-line"></span>
+                <label class="e-float-text" [ngClass]="{'e-label-top': Documento.cDocAdqNro !== '' , 'e-label-bottom':  Documento.cDocAdqNro == ''}" for="cDocAdqNro">Nro Documento</label>                        
+            </div>
+        </div>-->
+
+      
+
+        <div class="form-group template">
+                <div class="e-float-input" [ngClass]="{'e-success': dDocAdqFecha.valid}">
+                        <div class="control-label" [ngClass]="{'e-label-top': Documento.dDocAdqFecha !== '' , 'e-label-bottom':  Documento.dDocAdqFecha == ''}">Fecha</div>
+                       <input type="date" ngModel="inputDate | date:'dd-MM-yyyy'"  id="dDocAdqFecha" #dDocAdqFecha='ngModel'   [disabled]="op == 1" [(ngModel)]="Documento.dDocAdqFecha" name="dDocAdqFecha" required value="{{Documento.dDocAdqFecha}}">
+                  
+                   <!-- <span class="e-float-line"></span>
+                    <label class="e-float-text" [ngClass]="{'e-label-top': Documento.dDocAdqFecha !== '' , 'e-label-bottom':  Documento.dDocAdqFecha == ''}" for="dDocAdqFecha">Fecha</label>                        
+                   -->
+                </div>
+            </div>
+       
+
+            <div class="form-group template">
+                    <div class="e-float-input" [ngClass]="{'e-success': nDocAdqValor.valid}">
+                        <input type="text" id="nDocAdqValor" #nDocAdqValor='ngModel'   [disabled]="op == 1" [(ngModel)]="Documento.nDocAdqValor" name="nDocAdqValor" required value="{{Documento.nDocAdqValor}}">
+                        <span class="e-float-line"></span>
+                        <label class="e-float-text" [ngClass]="{'e-label-top': Documento.nDocAdqValor !== '' , 'e-label-bottom':  Documento.nDocAdqValor == ''}" for="nDocAdqValor">Valor </label>                        
+                    </div>
+                </div>
+        
+                <div class="form-group template">
+                        <div class="e-float-input" [ngClass]="{'e-success': cDocAdqObs.valid}">
+                            <input type="text" id="cDocAdqObs" #cDocAdqObs='ngModel'   [disabled]="op == 1" [(ngModel)]="Documento.cDocAdqObs" name="cDocAdqObs"  value="{{Documento.cDocAdqObs}}">
+                            <span class="e-float-line"></span>
+                            <label class="e-float-text" [ngClass]="{'e-label-top': Documento.cDocAdqObs !== '' , 'e-label-bottom':  Documento.cDocAdqObs == ''}" for="cDocAdqObs">OBS </label>                        
+                        </div>
+                    </div>
+                    
+
+            <div class="form-group template">
+                    <div class="e-float-input" [ngClass]="{'e-success': iLocalId.valid}">
+                        <!--<input type="text" id="iLocalId" #iLocalId='ngModel'   [disabled]="op == 1" [(ngModel)]="area.iLocalId" name="iLocalId" required value="{{area.iLocalId}}">
+                        -->
+                        <ejs-dropdownlist #FormaAdqList name="iFormaAdqId"  id="iFormaAdqId" #iLocalId='ngModel' [disabled]="op == 1"  [(ngModel)]="Documento.iFormaAdqId" name="iFormaAdqId" required 
+                                [dataSource]='dataFormaAdq' [placeholder]='FormaAdMark' [fields]='FormaAdqFields' floatLabelType='Auto'>
+                                </ejs-dropdownlist>
+                        
+                        <span class="e-float-line"></span>
+                        <!--<label class="e-float-text" [ngClass]="{'e-label-top': area.iLocalId !== '' , 'e-label-bottom':  area.iLocalId == ''}" for="iLocalId">Local</label>                        
+                        -->
+                  
+                    </div>
+             </div>
+
+
+      
+                   
+           <div class="form-group template" *ngIf="op!=1">
+            <div class="submitBtn">
+                <button class="submit-btn e-btn e-success sendButto" id="GuardarButtonDocumento" [disabled]="DocumentoForm.invalid"  type="submit" (click)= "GuardarDocumento()"><fa-icon [icon]="faSave" size="lg"></fa-icon> Guardar</button>                                                              
+            </div> 
+            </div> 
+            
+            
+
+            
+    </form> 
+    <div class="control-section template" ><!--inicio de diaglolo-->
+        <ejs-dialog #template [visible]='hidden'  [animationSettings]='animationSettings' [isModal]='isModal' [showCloseIcon]='showCloseIcon' [target]='target' [width]='width' (open)="dialogOpen()"
+        (close)="dialogClose()">  
+        <ng-template #footerTemplate>
+            
+           <div class="row">
+                   <div class="col-xs-8 col-sm-8 col-lg-8 col-md-8">
+                           <input id="textSelectDocumentoTramite" name="textSelectDocumentoTramite" [(ngModel)]="textSelectDocumentoTramite" class="e-input" type="text" placeholder="Seleccione una Documento de Tramite Referencia" readonly/>
+                           <input id="idSelectDocumentoTramite" name="idSelectDocumentoTramite" [(ngModel)]="idSelectDocumentoTramite" class="e-input" type="hidden"/>
+                     
+                  
+                       </div>
+       
+                    <div class="col-xs-4 col-sm-4 col-lg-4 col-md-4">
+                           <!--<button id="sendButton" class="e-control e-btn e-light sendButton" data-ripple="true">Cancelar</button>-->
+                           <button id="sendButton"  class="e-control e-btn e-primary sendButton" data-ripple="true" (click)="BtnOkDocumentosTramiteModalClick()"> Ok</button>     
+                       </div>
+           </div>
+                
+                
+        </ng-template>
+        <ng-template #content>
+            <div class="dialogContent">
+                <span class="dialogText">    
+                    <app-documentos-tramite-tablas-generales (devuelve_DocumentosTramite)="setTextDocumentosTramiteSelect($event)"></app-documentos-tramite-tablas-generales>                  
+                   
+                </span>     
+            </div>
+        </ng-template>
+        
+        <ng-template #header>
+               <!--<div class="e-avatar template-image e-avatar-xsmall e-avatar-circle">fadsf</div>-->
+       
+               <fa-icon [icon]="faList" size="lg"></fa-icon>
+                                                               
+              <!-- <div id="dlg-template" title="Nancy" class="e-icon-settings"> Modelos </div>-->
+           </ng-template>
+       
+       
+       </ejs-dialog>
+       
+
+
+
+
+
+        <ejs-dialog #dialogOC [visible]='hidden'  [animationSettings]='animationSettings' [isModal]='isModal' [showCloseIcon]='showCloseIcon' [target]='target' [width]='width' (open)="dialogOpen()"
+        (close)="dialogClose()">  
+        <ng-template #footerTemplate>
+            
+           <div class="row">
+                   <div class="col-xs-8 col-sm-8 col-lg-8 col-md-8">
+                           <input id="textSelectOC" name="textSelectOC" [(ngModel)]="textSelectOC" class="e-input" type="text" placeholder="Seleccione una  O/C" readonly/>
+                         
+                     
+                  
+                       </div>
+       
+                    <div class="col-xs-4 col-sm-4 col-lg-4 col-md-4">
+                           <!--<button id="sendButton" class="e-control e-btn e-light sendButton" data-ripple="true">Cancelar</button>-->
+                           <button id="sendButton"  class="e-control e-btn e-primary sendButton" data-ripple="true" (click)="BtnOkOrdenCompraModalClick()"> Ok</button>     
+                       </div>
+           </div>
+                
+                
+        </ng-template>
+        <ng-template #content>
+            <div class="dialogContent">
+                <span class="dialogText">    
+                    <app-oc-tablas-generales (devuelve_Oc)="setTextOrdenCompraSelect($event)"></app-oc-tablas-generales>                  
+                   
+                </span>     
+            </div>
+        </ng-template>
+        
+        <ng-template #header>
+               <!--<div class="e-avatar template-image e-avatar-xsmall e-avatar-circle">fadsf</div>-->
+       
+               <fa-icon [icon]="faList" size="lg"></fa-icon>
+                                                               
+              <!-- <div id="dlg-template" title="Nancy" class="e-icon-settings"> Modelos </div>-->
+           </ng-template>
+       
+       
+       </ejs-dialog>
+       
+       </div>

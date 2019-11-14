@@ -1,0 +1,83 @@
+
+
+ 
+ <form id="template_driven"  name="template_driven" #catalgoSBNForm="ngForm" novalidate>         
+       <!-- <div class="form-group template">
+            <div class="e-float-input" [ngClass]="{'e-success': iCatSbnId.valid}">-->
+                <input type="hidden" id="iCatSbnId" name="iCatSbnId" [(ngModel)]="catalgoSBN.iCatSbnId" #iCatSbnId="ngModel" required disabled value="{{catalgoSBN.iCatSbnId}}">
+            <!--    <span class="e-float-line"></span>
+                <label class="e-float-text" [ngClass]="{'e-label-top': catalgoSBN.iCatSbnId !== '' , 'e-label-bottom':  catalgoSBN.iCatSbnId == ''}" for="iCatSbnId">ID Catalogo </label>                        
+            </div>
+        </div>-->
+
+        <div class="form-group template">      
+                <div class="e-float-input" [ngClass]="{'e-success': iGrupoGenId.valid}">
+                    <ejs-dropdownlist  #grupoList  name="iGrupoGenId"   id="iGrupoGenId" #iGrupoGenId='ngModel'  (change)='onChange1()'  [disabled]="op == 1"  [(ngModel)]="catalgoSBN.iGrupoGenId" name="iGrupoGenId" required 
+                            [dataSource]='dataComboGrupos' [placeholder]='remoteWaterMarkGrupo' [fields]='remoteFieldsGrupos' floatLabelType='Auto'>
+                            </ejs-dropdownlist>                    
+                    <span class="e-float-line"></span>              
+                </div>
+         </div>
+        <div class="form-group template">
+                <div class="e-float-input" [ngClass]="{'e-success': iGrupoClaseGenId.valid}">
+                    <ejs-dropdownlist   #grupoClaseList  name="iGrupoClaseGenId"   id="iGrupoClaseGenId" #iGrupoClaseGenId='ngModel' (change)='onChange2()'  [disabled]="op == 1"  [(ngModel)]="catalgoSBN.iGrupoClaseGenId" name="iGrupoClaseGenId" required 
+                            [dataSource]='dataComboGruposClases' [placeholder]='remoteWaterMarkGruposClases' [fields]='remoteFieldsGruposClases' floatLabelType='Auto'  >
+                            </ejs-dropdownlist>                    
+                    <span class="e-float-line"></span>              
+                </div>
+         </div>
+
+
+       <div class="form-group template">
+            <div class="e-float-input" [ngClass]="{'e-success': cCatSbnCodigo.valid}">
+                <input type="text" id="cCatSbnCodigo" #cCatSbnCodigo='ngModel'   disabled  [(ngModel)]="catalgoSBN.cCatSbnCodigo" name="cCatSbnCodigo" required value="{{catalgoSBN.cCatSbnCodigo}}">
+                <span class="e-float-line"></span>
+                <label class="e-float-text" [ngClass]="{'e-label-top': catalgoSBN.cCatSbnCodigo !== '' , 'e-label-bottom':  catalgoSBN.cCatSbnCodigo == ''}" for="cCatSbnCodigo">Código</label>                        
+            </div>
+        </div>
+
+
+        <div class="form-group template">
+            <div class="e-float-input" [ngClass]="{'e-success': cCatSbnDescripcion.valid}">
+                <input type="text" id="cCatSbnDescripcion" #cCatSbnDescripcion='ngModel'   [disabled]="op == 1" [(ngModel)]="catalgoSBN.cCatSbnDescripcion" name="cCatSbnDescripcion" required value="{{catalgoSBN.cCatSbnDescripcion}}">
+                <span class="e-float-line"></span>
+                <label class="e-float-text" [ngClass]="{'e-label-top': catalgoSBN.cCatSbnDescripcion !== '' , 'e-label-bottom':  catalgoSBN.cCatSbnDescripcion == ''}" for="cCatSbnDescripcion">Denominación</label>                        
+            </div>
+        </div>
+
+        <div class="form-group template">
+            <div class="e-float-input" [ngClass]="{'e-success': cCatSbnResolucion.valid}">
+                <input type="text" id="cCatSbnResolucion" #cCatSbnResolucion='ngModel'   [disabled]="op == 1" [(ngModel)]="catalgoSBN.cCatSbnResolucion" name="cCatSbnResolucion" required value="{{catalgoSBN.cCatSbnResolucion}}">
+                <span class="e-float-line"></span>
+                <label class="e-float-text" [ngClass]="{'e-label-top': catalgoSBN.cCatSbnResolucion !== '' , 'e-label-bottom':  catalgoSBN.cCatSbnResolucion == ''}" for="cCatSbnResolucion">Resolución</label>                        
+            </div>
+        </div>  
+
+
+        <!--<div class="form-group template">
+            <div class="e-float-input" [ngClass]="{'e-success': bCatSbnEstado.valid}">
+                <input type="text" id="bCatSbnEstado" #bCatSbnEstado='ngModel'   [disabled]="op == 1" [(ngModel)]="catalgoSBN.bCatSbnEstado" name="bCatSbnEstado" required value="{{catalgoSBN.bCatSbnEstado}}">
+                <span class="e-float-line"></span>
+                <label class="e-float-text" [ngClass]="{'e-label-top': catalgoSBN.bCatSbnEstado !== '' , 'e-label-bottom':  catalgoSBN.bCatSbnEstado == ''}" for="bCatSbnEstado">Estado</label>                        
+            </div>
+        </div>    -->
+        
+
+        <div class="control-section">
+            <div class="checkbox-control">
+                <div class="row">
+                    <ejs-checkbox #checkbox label="Estado: " id="bCatSbnEstado"  [checked]="catalgoSBN.bCatSbnEstado"  [disabled]="op == 1" (change)="changeHandler()" name="bCatSbnEstado"  [(ngModel)]="catalgoSBN.bCatSbnEstado" ></ejs-checkbox>
+                </div>                
+            </div>
+        </div>
+
+         
+         
+                   
+           <div class="form-group template" *ngIf="op!=1">
+            <div class="submitBtn">
+                <button class="submit-btn e-btn e-success sendButto" id="GuardarButtonCatalogoSBN" [disabled]="catalgoSBNForm.invalid"  type="submit" (click)= "GuardarCatalogoSBN()"><fa-icon [icon]="faSave" size="lg"></fa-icon> Guardar</button>                                                              
+            </div> 
+            </div>                        
+    </form> 
+

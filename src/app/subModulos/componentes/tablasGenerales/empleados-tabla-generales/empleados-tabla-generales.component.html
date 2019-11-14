@@ -1,0 +1,89 @@
+
+<div class="control-section template" ><!--inicio de diaglolo-->
+
+    <div class="col-lg-12 control-section toast-default-section">
+        <div class="e-sample-resize-container">
+            <ejs-toast #defaulttoast id='defaulttoast' [position]="position" (created)="onCreate()"  (close)="onClose($event)"  (beforeOpen)="onBeforeOpen()">            
+            </ejs-toast>        
+        </div>
+    </div>
+
+
+
+    <h1>Empleados</h1>
+    <div id="action-description">
+    <p>
+        En esta seccion puede UD. gestionar   <code>Empleados </code>.
+    </div>
+
+    <ejs-dialog #template  [isModal]='isModal' [allowDragging]='dialogdragging'  [height]='height' [visible]='hidden'  [animationSettings]='animationSettings' [showCloseIcon]='showCloseIcon' [target]='target' [width]='width' (open)="dialogOpen()"
+        (close)="dialogClose()">  
+        <!--<ng-template #footerTemplate>
+            <input id="inVal" class="e-input" type="text" placeholder="Enter your message here!"/>
+                <button id="sendButton" class="e-control e-btn e-light sendButton" data-ripple="true">Cancelar</button>
+                <button id="sendButton"  class="e-control e-btn e-primary sendButton" data-ripple="true">Guardar</button>         
+                    <button  [disabled]="userForm.form.invalid" >SAVE</button>
+        </ng-template>-->
+        <ng-template #content>
+            <div class="dialogContent">
+                <span class="dialogText">    
+                   <app-empleados-form-tabla-generales [datosEmpleado]="Empleado" [op]="opcion" (devuelve_hijo)="cerrar_ventana_modal($event)" (cerrar_modal)="cerrar_ventana_modal_($event)"></app-empleados-form-tabla-generales>                   
+                  
+                </span>     
+            </div>
+        </ng-template>
+        
+        <ng-template #header>
+            <!--<div class="e-avatar template-image e-avatar-xsmall e-avatar-circle">fadsf</div>-->
+
+            <fa-icon [icon]="icoForm" size="lg"></fa-icon>
+                                                            
+            <div id="dlg-template" title="Nancy" class="e-icon-settings"> Formulario Documentos  </div>
+        </ng-template>
+    </ejs-dialog>
+
+
+
+   <div class="control-section button-group-container">
+        <div class="button-group-section">
+            <div id="button-group-control">
+                <div class="row">    
+                    <div id="icon" class="e-btn-group">
+                        <button ejs-button id="btnDocumentoNuevo" #ButtonInstance (click)="BtnNuevoDocumentoClick()" ><fa-icon [icon]="faPlus" size="lg"></fa-icon> Nuevo</button>
+                        <button ejs-button id="btnDocumentoVer" #ButtonInstance (click)="BtnVerDocumentoClick()" ><fa-icon [icon]="faInfo" size="lg"></fa-icon> Ver</button>
+                        <button ejs-button id="btnDocumentoModificar" #ButtonInstance (click)="BtnModificarDocumentoClick()"><fa-icon [icon]="faEdit" size="lg"></fa-icon> Modificar</button>
+                        <button ejs-button id="btnDocumentoEliminar" #ButtonInstance (click)="BtnEliminarDocumentoClick()"><fa-icon [icon]="faTrashAlt" size="lg"></fa-icon> Eliminar</button>
+                        
+                    </div>
+                </div>
+                           
+            </div>
+        </div>
+    </div>
+
+    <ejs-grid #grid [dataSource]='data | async'  allowPaging='true' height=365  [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChange($event)' (rowSelected)='rowSelected($event)'>
+   
+        <e-columns>
+            <!--<e-column field= "RowNumber" headerText="N°" width="10%" [allowFiltering]="false" [allowSorting]="false"></e-column>
+            <e-column field= "iEmpleadoId" headerText="ID" width="10%" [allowFiltering]="false"></e-column>-->
+            <e-column field= "cEmpleadoDni" headerText="DNI" width="8%"  ></e-column>
+            <e-column field= "cEmpleadoApellidoP" headerText="Apellido P" width="15%"  ></e-column>           
+            <e-column field= "cEmpleadoApellidoM" headerText="Apellido M" width="15%"  ></e-column>
+            <e-column field= "cEmpleadoNombre" headerText="Nombres" width="15%"  ></e-column>
+            <e-column field= "cEmpleadoDireccion" headerText="Dirección" width="15%"  ></e-column>
+            <e-column field= "cEmpleadoTelefonos" headerText="Telefonos" width="10%"  ></e-column>
+            <e-column field= "cEmpleadoEmail" headerText="E-mail" width="10%"  ></e-column>
+            <e-column field= "cCargNombre" headerText="Cargo" width="10%"  ></e-column>
+           
+           
+        </e-columns>
+    </ejs-grid>
+
+    <ejs-dialog #alertDialog [buttons]='alertDlgButtons' [isModal]='isModalAlert'  [visible]='hidden' [header]='alertHeader' [animationSettings]='animationSettings' [content]='alertContent' [showCloseIcon]='showCloseIcon' [target]='target' [width]='alertWidth'>
+    </ejs-dialog>               
+
+
+
+    
+</div>
+

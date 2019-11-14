@@ -1,0 +1,67 @@
+
+<h1>Locales</h1>
+<div id="action-description">
+  <p>
+    En esta seccion puede UD. gestionar   <code>locales</code>.
+
+
+  </p>
+</div>
+
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let local of localesInterface">
+        <h1>Local: {{local.cLocalDescripcion}}</h1>
+    </li>
+  </ul>
+
+
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let item of local">
+        <h1>NOmbre: {{item.descripcion}}</h1>
+    </li>
+  </ul>
+<!--<div class="control-section">
+  <div id="control_wrapper">
+      <ejs-datepicker></ejs-datepicker>
+  </div>
+</div>-->
+
+
+<!--<fa-icon [icon]="faCoffee"></fa-icon>-->
+
+
+
+
+    
+
+
+    <div class="control-section">
+
+
+            <div class="control-section button-group-container">
+                    <div class="button-group-section">
+                        <div id="button-group-control">
+                            <div class="row">    
+                                <div id="icon" class="e-btn-group">
+                                    <button ejs-button ><fa-icon [icon]="faPlus" size="lg"></fa-icon> Nuevo</button>
+                                    <button ejs-button ><fa-icon [icon]="faEdit" size="lg"></fa-icon> Modificar</button>
+                                    <button ejs-button ><fa-icon [icon]="faTrashAlt" size="lg"></fa-icon> Eliminar</button>
+                                   
+                                </div>
+                            </div>
+                                       
+                        </div>
+                    </div>
+                </div>
+
+                
+        <ejs-grid #grid [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings'>
+            <e-columns>
+                <e-column field='iLocalId' headerText='ID ' width='120' textAlign='Right'></e-column>
+                <e-column field='cLocalDescripcion' headerText='Descripcion' width='160'></e-column>
+               <!-- <e-column field='EmployeeID' headerText='Employee ID' width='120' textAlign='Right'></e-column>
+                <e-column field='Freight' headerText='Freight' width='150' format="C2" textAlign='Right'></e-column>
+                <e-column field='ShipCountry' headerText='Ship Country' width='150' ></e-column>-->
+            </e-columns>
+        </ejs-grid>    
+    </div>

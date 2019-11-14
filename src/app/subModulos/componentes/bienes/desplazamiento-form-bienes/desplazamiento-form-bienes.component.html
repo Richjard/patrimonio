@@ -1,0 +1,286 @@
+
+
+
+
+
+<form id="template_driven"  name="template_driven" #DesplazamientoBienForm="ngForm" novalidate>
+    <fieldset>
+        <div class="legend_">[ Datos de desplazamiento ]</div>
+        
+        <div class="row material2">             
+            <!--<div class="col-xs-2 col-sm-2 col-lg-2 col-md-2">   
+                    <div class="form-group template">
+                            <div class="e-float-input" [ngClass]="{'e-success': iDespBienId.valid}">-->
+                                <input type="hidden" id="iDespBienId" name="iDespBienId" [(ngModel)]="DesplazamientoBien.iDespBienId" #iDespBienId="ngModel" required disabled value="{{DesplazamientoBien.iDespBienId}}">
+                       <!--         <span class="e-float-line"></span>
+                                <label class="e-float-text" [ngClass]="{'e-label-top': DesplazamientoBien.iDespBienId !== '' , 'e-label-bottom':  DesplazamientoBien.iDespBienId == ''}" for="iDocAdqId">ID Desplazamiento Bien </label>                        
+                            </div>     
+                    </div>
+            </div>-->
+
+            <div class="col-xs-2 col-sm-2 col-lg-2 col-md-2"> 
+                    <div class="form-group template">
+                            <div class="e-float-input" [ngClass]="{'e-success': iTipoDespId.valid}">
+                                <!--<input type="text" id="iLocalId" #iLocalId='ngModel'   [disabled]="op == 1" [(ngModel)]="area.iLocalId" name="iLocalId" required value="{{area.iLocalId}}">
+                                -->
+                                <ejs-dropdownlist #tipoDesplazamientoBienList name="iTipoDespId"  id="iTipoDespId" #iTipoDespId='ngModel' [disabled]="op == 1"  [(ngModel)]="DesplazamientoBien.iTipoDespId" name="iTipoDespId" required 
+                                        [dataSource]='dataTipoDesplazamiento' [placeholder]='TipoDesplazamientoWaterMark' [fields]='TipoDesplazamientoFields' floatLabelType='Auto'>
+                                        </ejs-dropdownlist>
+                                
+                                <span class="e-float-line"></span>
+                                <!--<label class="e-float-text" [ngClass]="{'e-label-top': area.iLocalId !== '' , 'e-label-bottom':  area.iLocalId == ''}" for="iLocalId">Local</label>                        
+                                    -->
+                            
+                                </div>
+                        </div>
+
+            </div>    
+
+            <div class="col-xs-2 col-sm-2 col-lg-2 col-md-2">  
+                    <div class="form-group template">
+                            <div class="e-float-input" [ngClass]="{'e-success': dDespBienFecha.valid}">
+                                    <div class="control-label" [ngClass]="{'e-label-top': DesplazamientoBien.dDespBienFecha !== '' , 'e-label-bottom':  DesplazamientoBien.dDespBienFecha == ''}">Fecha{{DesplazamientoBien.dDespBienFecha}}</div>
+                                   <input type="date" ngModel="inputDate | date:'dd-MM-yyyy'"  id="dDespBienFecha" #dDespBienFecha='ngModel'   [disabled]="op == 1" [(ngModel)]="DesplazamientoBien.dDespBienFecha" name="dDespBienFecha" required value="{{DesplazamientoBien.dDespBienFecha}}">
+                              
+                               <!-- <span class="e-float-line"></span>
+                                <label class="e-float-text" [ngClass]="{'e-label-top': DesplazamientoBien.dDocAdqFecha !== '' , 'e-label-bottom':  DesplazamientoBien.dDocAdqFecha == ''}" for="dDocAdqFecha">Fecha</label>                        
+                               -->
+                            </div>
+                        </div>
+                </div>  
+
+
+                <div class="col-xs-2 col-sm-2 col-lg-2 col-md-2">  
+                    
+        <div class="form-group template">
+                <div class="e-float-input" [ngClass]="{'e-success': cDespBienDocRef.valid}">
+                    <input type="text" id="cDespBienDocRef" #cDespBienDocRef='ngModel'   [disabled]="op == 1" [(ngModel)]="DesplazamientoBien.cDespBienDocRef" name="cDespBienDocRef"  value="{{DesplazamientoBien.cDespBienDocRef}}">
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" [ngClass]="{'e-label-top': DesplazamientoBien.cDespBienDocRef !== '' , 'e-label-bottom':  DesplazamientoBien.cDespBienDocRef == ''}" for="cDespBienDocRef">Documento de referencia </label>                        
+                </div>
+            </div>
+
+                    </div>  
+
+
+                    <div class="col-xs-2 col-sm-2 col-lg-2 col-md-2"> 
+                            <div class="form-group template">
+                                    <div class="e-float-input" [ngClass]="{'e-success': iYearId.valid}">
+                                        <input type="text" id="iYearId" #iYearId='ngModel'   disabled  [(ngModel)]="DesplazamientoBien.iYearId" name="iYearId"  value="{{DesplazamientoBien.iYearId}}">
+                                        <span class="e-float-line"></span>
+                                        <label class="e-float-text" [ngClass]="{'e-label-top': DesplazamientoBien.iYearId !== '' , 'e-label-bottom':  DesplazamientoBien.iYearId == ''}" for="iYearId">Año </label>                        
+                                    </div>
+                                </div>
+                        </div>
+
+        </div>        
+
+  
+
+ 
+
+  
+
+
+   
+
+    
+           
+                
+</fieldset>
+
+<fieldset>
+    <div class="legend_">[ Datos de ubicación ]</div>
+
+    <div class="row material2">             
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                <h5>Origen</h5>
+                
+            
+                                <div class="e-float-input e-input-group" [ngClass]="{'e-success': iOrigenUbicacion.valid}" >
+                                        <input type="hidden" id="idCentroCostoEmpleadoOrigen" name="idCentroCostoEmpleadoOrigen" [(ngModel)]="DesplazamientoBien.idCentroCostoEmpleadoOrigen" #idCentroCostoEmpleadoOrigen="ngModel" required  value="{{DesplazamientoBien.idCentroCostoEmpleadoOrigen}}">
+                                        <input type="text" required  class="inputD"  disabled    id="iOrigenUbicacion" name="iOrigenUbicacion" [(ngModel)]="DesplazamientoBien.iOrigenUbicacion" #iOrigenUbicacion="ngModel"   value="{{DesplazamientoBien.iOrigenUbicacion}}">
+                                        <span class="e-float-line"></span>
+                                        <label class="e-float-text" [ngClass]="{'e-label-top': DesplazamientoBien.iOrigenUbicacion !== '' , 'e-label-bottom':  DesplazamientoBien.iOrigenUbicacion == ''}" for="empleado">Dependencia</label>                        
+                                
+                        
+                                        <button   [disabled]="op == 1" class="e-input-group-icon " (click)="BtnVerCentroCostoEmpleadoClick()" ><fa-icon [icon]="faFilter" size="lg"></fa-icon> </button> 
+                                        
+                                   
+                                    </div>
+                                    <div class="form-group template ">
+                                        <div class="e-float-input" [ngClass]="{'e-success': iOrigenUbicacionSubDependencia.valid}">
+                                            <input type="text" id="iOrigenUbicacionSubDependencia" disabled class="inputDD" #iOrigenUbicacionSubDependencia='ngModel'   [(ngModel)]="DesplazamientoBien.iOrigenUbicacionSubDependencia" name="iOrigenUbicacionSubDependencia"  value="{{DesplazamientoBien.iOrigenUbicacionSubDependencia}}">
+                                            <span class="e-float-line"></span>
+                                            <label class="e-float-text" [ngClass]="{'e-label-top': DesplazamientoBien.iOrigenUbicacionSubDependencia !== '' , 'e-label-bottom':  DesplazamientoBien.iOrigenUbicacionSubDependencia == ''}" for="iOrigenUbicacionSubDependencia">Sub Dependencia</label>                        
+                                        </div>
+                                </div>   
+
+                                <div class="row material2">             
+                                        <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                        <div class="form-group template ">
+                                                                <div class="e-float-input" [ngClass]="{'e-success': cOrigenEpleadoDNI.valid}">
+                                                                <input type="text" id="cOrigenEpleadoDNI" disabled class="inputDD" #cOrigenEpleadoDNI='ngModel'   [(ngModel)]="DesplazamientoBien.cOrigenEpleadoDNI" name="cOrigenEpleadoDNI"  value="{{DesplazamientoBien.cOrigenEpleadoDNI}}">
+                                                                <span class="e-float-line"></span>
+                                                                <label class="e-float-text" [ngClass]="{'e-label-top': DesplazamientoBien.cOrigenEpleadoDNI !== '' , 'e-label-bottom':  DesplazamientoBien.cOrigenEpleadoDNI == ''}" for="iOrigenEmpleado">DNI Empleado</label>                        
+                                                                </div>
+                                                        </div>   
+                                        </div>
+                                        <div class="col-xs-9 col-sm-9 col-lg-9 col-md-9">                
+                                                
+                                                        <div class="form-group template ">
+                                                                <div class="e-float-input" [ngClass]="{'e-success': iOrigenEmpleado.valid}">
+                                                                <input type="text" id="iOrigenEmpleado" disabled class="inputDD" #iOrigenEmpleado='ngModel'   [(ngModel)]="DesplazamientoBien.iOrigenEmpleado" name="iOrigenEmpleado" required value="{{DesplazamientoBien.iOrigenEmpleado}}">
+                                                                <span class="e-float-line"></span>
+                                                                <label class="e-float-text" [ngClass]="{'e-label-top': DesplazamientoBien.iOrigenEmpleado !== '' , 'e-label-bottom':  DesplazamientoBien.iOrigenEmpleado == ''}" for="iOrigenEmpleado">Empleado</label>                        
+                                                                </div>
+                                                        </div>   
+                                        </div>
+                                </div>
+
+
+                  
+
+                                <ejs-grid id='Grid' [dataSource]='srcData' [allowPaging]="true" [pageSettings]="pageOptions" [allowSelection]="true" [allowRowDragAndDrop]="true"
+                                [selectionSettings]="selectionOptions" [rowDropSettings]="srcDropOptions" width="100%" allowFiltering='true' allowResizing= 'true' >
+                                <e-columns>
+                                        <e-column field='RowNumber' headerText='N°' width='10%' textAlign='Right'></e-column>
+                                        <e-column field='cBienCodigo' headerText='Código' width='20%'></e-column>
+                                        <e-column field='cBienDescripcion' headerText='Descripción' width='40%' ></e-column>
+                                        <e-column field='cEstadoBienDescripcion' headerText='Estado' width='10%'></e-column>
+                                        <e-column field='cDespBienDetObs' headerText='Observación' width='20%' ></e-column>
+                                </e-columns>
+                                </ejs-grid>
+
+            </div> 
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+               <h5>Destino</h5>
+
+
+
+               <div class="e-float-input e-input-group" [ngClass]="{'e-success': iDestinoUbicacion.valid}" >
+                        <input type="hidden" id="idCentroCostoEmpleado" name="idCentroCostoEmpleado" [(ngModel)]="DesplazamientoBien.idCentroCostoEmpleado" #idCentroCostoEmpleado="ngModel" required  value="{{DesplazamientoBien.idCentroCostoEmpleado}}">
+                        <input type="text" required  class="inputD"  disabled    id="iDestinoUbicacion" name="iDestinoUbicacion" [(ngModel)]="DesplazamientoBien.iDestinoUbicacion" #iDestinoUbicacion="ngModel"   value="{{DesplazamientoBien.iDestinoUbicacion}}">
+                        <span class="e-float-line"></span>
+                        <label class="e-float-text" [ngClass]="{'e-label-top': DesplazamientoBien.iDestinoUbicacion !== '' , 'e-label-bottom':  DesplazamientoBien.iDestinoUbicacion == ''}" for="empleado">Dependencia</label>                        
+                
+        
+                        <button   [disabled]="op == 1" class="e-input-group-icon " (click)="BtnVerCentroCostoEmpleadoDestinoClick()" ><fa-icon [icon]="faFilter" size="lg"></fa-icon> </button> 
+                        
+                   
+                    </div>
+                    <div class="form-group template ">
+                        <div class="e-float-input" [ngClass]="{'e-success': iDestinoUbicacionSubDependencia.valid}">
+                            <input type="text" id="iDestinoUbicacionSubDependencia" disabled class="inputDD" #iDestinoUbicacionSubDependencia='ngModel'   [(ngModel)]="DesplazamientoBien.iDestinoUbicacionSubDependencia" name="iDestinoUbicacionSubDependencia"  value="{{DesplazamientoBien.iDestinoUbicacionSubDependencia}}">
+                            <span class="e-float-line"></span>
+                            <label class="e-float-text" [ngClass]="{'e-label-top': DesplazamientoBien.iDestinoUbicacionSubDependencia !== '' , 'e-label-bottom':  DesplazamientoBien.iDestinoUbicacionSubDependencia == ''}" for="iDestinoUbicacionSubDependencia">Sub Dependencia</label>                        
+                        </div>
+                </div>   
+
+                <div class="row material2">             
+                        <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                        <div class="form-group template ">
+                                                <div class="e-float-input" [ngClass]="{'e-success': cDestinoEpleadoDNI.valid}">
+                                                <input type="text" id="cDestinoEpleadoDNI" disabled class="inputDD" #cDestinoEpleadoDNI='ngModel'   [(ngModel)]="DesplazamientoBien.cDestinoEpleadoDNI" name="cDestinoEpleadoDNI"  value="{{DesplazamientoBien.cDestinoEpleadoDNI}}">
+                                                <span class="e-float-line"></span>
+                                                <label class="e-float-text" [ngClass]="{'e-label-top': DesplazamientoBien.cDestinoEpleadoDNI !== '' , 'e-label-bottom':  DesplazamientoBien.cDestinoEpleadoDNI == ''}" for="iOrigenEmpleado">DNI Empleado</label>                        
+                                                </div>
+                                        </div>   
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-lg-9 col-md-9">                
+                                
+                                        <div class="form-group template ">
+                                                <div class="e-float-input" [ngClass]="{'e-success': iDestinoEmpleado.valid}">
+                                                <input type="text" id="iDestinoEmpleado" disabled class="inputDD" #iDestinoEmpleado='ngModel'   [(ngModel)]="DesplazamientoBien.iDestinoEmpleado" name="iDestinoEmpleado" required value="{{DesplazamientoBien.iDestinoEmpleado}}">
+                                                <span class="e-float-line"></span>
+                                                <label class="e-float-text" [ngClass]="{'e-label-top': DesplazamientoBien.iDestinoEmpleado !== '' , 'e-label-bottom':  DesplazamientoBien.iDestinoEmpleado == ''}" for="iDestinoEmpleado">Empleado</label>                        
+                                                </div>
+                                        </div>   
+                        </div>
+                </div>
+
+
+
+               <ejs-grid id='DestGrid' [dataSource]='destData' [allowPaging]="true" [pageSettings]="pageOptions" [allowSelection]="true"
+                                    [allowRowDragAndDrop]="true" [selectionSettings]="selectionOptions" [rowDropSettings]="destDropOptions" width="100%" [editSettings]='editSettings' [toolbar]='toolbar'>
+                                    <e-columns>
+                                        <e-column field='RowNumber' headerText='N°' width='10%' textAlign='Right' [allowEditing]="false" ></e-column>
+                                        <e-column field='cBienCodigo' headerText='Código' width='20%' [allowEditing]="false" ></e-column>
+                                        <e-column field='cBienDescripcion' headerText='Descripción' width='40%' [allowEditing]="false" ></e-column>
+                                        <e-column field='cEstadoBienDescripcion' headerText='Estado' width='10%' editType='dropdownedit' [edit]='editparams' ></e-column>
+                                        <e-column field='cDespBienDetObs' headerText='Observación' width='20%' ></e-column>
+
+                                        <e-column field='iEstadoBienId' headerText='Estado'  [visible]="false"></e-column>
+                                        <e-column field='iBienId' headerText='Estado'  [visible]="false"></e-column>
+                                    </e-columns>
+                                    </ejs-grid>
+
+                                   
+            </div>    
+
+            
+                           
+                    
+                                
+                     
+    </div>   
+</fieldset>    
+               
+       <div class="form-group template" *ngIf="op!=1">
+        <div class="submitBtn">
+            <button class="submit-btn e-btn e-success sendButto" id="GuardarButtonDesplazamientoBien" [disabled]="DesplazamientoBienForm.invalid"  type="submit" (click)= "GuardarDesplazamientoBien()"><fa-icon [icon]="faSave" size="lg"></fa-icon> Guardar</button>                                                              
+        </div> 
+        </div> 
+        
+        
+
+        
+</form> 
+
+
+
+
+<div class="control-section template" ><!--inicio de diaglolo-->
+     
+        <ejs-dialog #dialogCentroCostoEmpleado [visible]='hidden'  [animationSettings]='animationSettings' [isModal]='isModal' [showCloseIcon]='showCloseIcon' [target]='target' [width]='width_DMCE' (open)="dialogOpen()"
+        (close)="dialogClose()" [isModal]='isModal' >  
+        <ng-template #footerTemplate>
+            
+           <div class="row">
+                   <div class="col-xs-8 col-sm-8 col-lg-8 col-md-8">
+                           <input id="textSelectCentroCostoEmpleado" name="textSelectCentroCostoEmpleado" [(ngModel)]="textSelectCentroCostoEmpleado" class="e-input" type="text" placeholder="Seleccione una  Empleado" readonly/>
+                         
+                     
+                  
+                       </div>
+       
+                    <div class="col-xs-4 col-sm-4 col-lg-4 col-md-4">
+                           <!--<button id="sendButton" class="e-control e-btn e-light sendButton" data-ripple="true">Cancelar</button>-->
+                           <button id="sendButton"  class="e-control e-btn e-primary sendButton" data-ripple="true" (click)="BtnOkCentroCostoEmpleadoModalClick()"> Ok</button>     
+                       </div>
+           </div>
+                
+                
+        </ng-template>
+        <ng-template #content>
+            <div class="dialogContent">
+                <span class="dialogText">    
+                    <app-centro-costo-empleado-tabla-generales (devuelve_CentroCostoEmpleado)="setTexCentroCostoEmpleadoSelect($event)"></app-centro-costo-empleado-tabla-generales>                  
+                   
+                </span>     
+            </div>
+        </ng-template>
+        
+        <ng-template #header>
+               <!--<div class="e-avatar template-image e-avatar-xsmall e-avatar-circle">fadsf</div>-->
+       
+               <fa-icon [icon]="faList" size="lg"></fa-icon>
+                                                               
+              <!-- <div id="dlg-template" title="Nancy" class="e-icon-settings"> Modelos </div>-->
+           </ng-template>
+       
+       
+       </ejs-dialog>
+       
+       </div>
+

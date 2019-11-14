@@ -1,0 +1,85 @@
+<div class="control-section template" ><!--inicio de diaglolo-->
+    <ejs-dialog #template [visible]='hidden'  [animationSettings]='animationSettings' [isModal]='isModal' [showCloseIcon]='showCloseIcon' [target]='target' [width]='width' (open)="dialogOpen()"
+    (close)="dialogClose()">  
+    <ng-template #footerTemplate>
+        
+       <div class="row">
+               <div class="col-xs-8 col-sm-8 col-lg-8 col-md-8">
+                       <input id="textSelectModelo" name="textSelectModelo" [(ngModel)]="textSelectModelo" class="e-input" type="text" placeholder="Seleccione una Modelo" readonly/>
+                       <input id="idSelectModelo" name="idSelectModelo" [(ngModel)]="idSelectModelo" class="e-input" type="hidden"/>
+                 
+              
+                   </div>
+   
+                <div class="col-xs-4 col-sm-4 col-lg-4 col-md-4">
+                       <!--<button id="sendButton" class="e-control e-btn e-light sendButton" data-ripple="true">Cancelar</button>-->
+                       <button id="sendButton"  class="e-control e-btn e-primary sendButton" data-ripple="true" (click)="BtnOkModeloModalClick()"> Ok</button>     
+                   </div>
+       </div>
+            
+            
+    </ng-template>
+    <ng-template #content>
+        <div class="dialogContent">
+            <span class="dialogText">    
+                <app-modelos-tablas-generales (devuelve_Modelos)="setTextModeloSelect($event)"></app-modelos-tablas-generales>                  
+               
+            </span>     
+        </div>
+    </ng-template>
+    
+    <ng-template #header>
+           <!--<div class="e-avatar template-image e-avatar-xsmall e-avatar-circle">fadsf</div>-->
+   
+           <fa-icon [icon]="faList" size="lg"></fa-icon>
+                                                           
+          <!-- <div id="dlg-template" title="Nancy" class="e-icon-settings"> Modelos </div>-->
+       </ng-template>
+   
+   
+   </ejs-dialog>
+   
+   </div>
+   
+   <form id="template_driven"  name="template_driven" #TipoForm="ngForm" novalidate>
+       <div class="form-group template">
+           <div class="e-float-input" [ngClass]="{'e-success': iTipoId.valid}">
+               <input type="text" id="iTipoId" name="iTipoId" [(ngModel)]="Tipo.iTipoId" #iTipoId="ngModel" required disabled value="{{Tipo.iTipoId}}">
+               <span class="e-float-line"></span>
+               <label class="e-float-text" [ngClass]="{'e-label-top': Tipo.iTipoId !== '' , 'e-label-bottom':  Tipo.iTipoId == ''}" for="iTipoId">ID Tipo </label>                        
+           </div>     
+       </div>
+      <div class="form-group template">
+           <div class="e-float-input" [ngClass]="{'e-success': cTipoDescripcion.valid}">
+               <input type="text" id="cTipoDescripcion" #cTipoDescripcion='ngModel'   [disabled]="op == 1" [(ngModel)]="Tipo.cTipoDescripcion" name="cTipoDescripcion" required value="{{Tipo.cTipoDescripcion}}">
+               <span class="e-float-line"></span>
+               <label class="e-float-text" [ngClass]="{'e-label-top': Tipo.cTipoDescripcion !== '' , 'e-label-bottom':  Tipo.cTipoDescripcion == ''}" for="cTipoDescripcion">Descripcion</label>                        
+           
+           </div>
+       </div>
+   
+       <div class="row">
+           <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+               <div class="e-float-input e-input-group" [ngClass]="{'e-success': cModeloDescripcion.valid}">
+                   <!-- Focus and FocusOut Event binding Floating input label -->
+                   <input type="hidden" id="iModeloId" name="iModeloId" [(ngModel)]="Tipo.iModeloId" #iModeloId="ngModel" required  value="{{Tipo.iModeloId}}">
+                   <input type="text" required   readonly    id="cModeloDescripcion" name="cModeloDescripcion" [(ngModel)]="Tipo.cModeloDescripcion" #cModeloDescripcion="ngModel"   value="{{Tipo.cModeloDescripcion}}">
+                   <span class="e-float-line"></span>
+                   <label class="e-float-text" [ngClass]="{'e-label-top': Tipo.cModeloDescripcion !== '' , 'e-label-bottom':  Tipo.cModeloDescripcion == ''}" for="cModeloDescripcion">Modelo</label>                        
+           
+   
+                   <span class="e-input-group-icon " (click)="BtnVerTiposloClick()" ><fa-icon [icon]="faFilter" size="lg"></fa-icon> </span> 
+                   
+              
+               </div>
+           </div>
+       </div>
+       
+                  
+          <div class="form-group template" *ngIf="op!=1">
+           <div class="submitBtn">
+               <button class="submit-btn e-btn e-success sendButto" id="GuardarButtonTipo" [disabled]="TipoForm.invalid"  type="submit" (click)= "GuardarTipo()"><fa-icon [icon]="faSave" size="lg"></fa-icon> Guardar</button>                                                              
+           </div> 
+           </div>                        
+   </form> 
+   

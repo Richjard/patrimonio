@@ -1,0 +1,105 @@
+
+<div class="control-section template" ><!--inicio de diaglolo-->
+
+    <div class="col-lg-12 control-section toast-default-section">
+        <div class="e-sample-resize-container">
+            <ejs-toast #defaulttoast id='defaulttoast' [position]="position" (created)="onCreate()"  (close)="onClose($event)"  (beforeOpen)="onBeforeOpen()">            
+            </ejs-toast>        
+        </div>
+    </div>
+
+
+
+    <h1>Items de la O/C: {{nroOC}} </h1>
+    <div id="action-description">
+    <p>
+        En esta seccion puede UD. visualizar   <code>Items de la O/C: {{nroOC}} </code>.
+    </div>
+
+    <ejs-dialog #template  [isModal]='isModal' [allowDragging]='dialogdragging'  [height]='height' [visible]='hidden'  [animationSettings]='animationSettings' [showCloseIcon]='showCloseIcon' [target]='target' [width]='width' (open)="dialogOpen()"
+        (close)="dialogClose()">  
+        <!--<ng-template #footerTemplate>
+            <input id="inVal" class="e-input" type="text" placeholder="Enter your message here!"/>
+                <button id="sendButton" class="e-control e-btn e-light sendButton" data-ripple="true">Cancelar</button>
+                <button id="sendButton"  class="e-control e-btn e-primary sendButton" data-ripple="true">Guardar</button>         
+                    <button  [disabled]="userForm.form.invalid" >SAVE</button>
+        </ng-template>-->
+        <ng-template #content>
+            <div class="dialogContent">
+                <span class="dialogText">    
+                    
+               <app-oc-item-form-tablas-generales [datosOcItem]="OcItem" [op]="opcion" (devuelve_hijo)="cerrar_ventana_modal($event)" (cerrar_modal)="cerrar_ventana_modal_($event)"></app-oc-item-form-tablas-generales>                   
+               
+                </span>     
+            </div>
+        </ng-template>
+        
+        <ng-template #header>
+            <!--<div class="e-avatar template-image e-avatar-xsmall e-avatar-circle">fadsf</div>-->
+
+            <fa-icon [icon]="icoForm" size="lg"></fa-icon>
+                                                            
+            <div id="dlg-template" title="Nancy" class="e-icon-settings"> Formulario Item O/C  </div>
+        </ng-template>
+    </ejs-dialog>
+
+
+    <div class="control-section button-group-container">
+        <div class="button-group-section">
+            <div id="button-group-control">
+                <div class="row">    
+                    <div id="icon" class="e-btn-group">                        
+                        <button ejs-button id="btnOcVer" #ButtonInstance (click)="BtnVerOcClick()" ><fa-icon [icon]="faInfo" size="lg"></fa-icon> Ver</button>
+                      
+                    </div>
+                </div>
+                           
+            </div>
+        </div>
+    </div>
+   
+
+    <ejs-grid #grid [dataSource]='data | async'  allowPaging='true' height=365  [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChange($event)' (rowSelected)='rowSelected($event)'>
+   
+        <e-columns>
+            <e-column field= "RowNumber" headerText="N°" width="10%" [allowFiltering]="false" [allowSorting]="false"></e-column>
+            <e-column field= "CODIGO" headerText="Código" width="15%" [allowSorting]="false"></e-column>
+            <e-column field= "NOMBRE_ITEM" headerText="Descripcion" width="45%"  [allowFiltering]="false" [allowSorting]="false"></e-column>           
+            <e-column field= "CANT_ITEM" headerText="Cantidad" width="10%"    [allowFiltering]="false" [allowSorting]="false"></e-column>
+            <e-column field= "PREC_UNIT_MONEDA" headerText="Precio U." width="10%"  textAlign='Right'  [allowFiltering]="false" [allowSorting]="false"></e-column>
+            <e-column field= "PREC_TOT_SOLES" headerText="Total"   width="10%"  textAlign='Right' [allowFiltering]="false" [allowSorting]="false"></e-column>
+
+            <e-column field='b'  headerText='Estado' width='150' [allowFiltering]="false" [allowSorting]="false">
+                <ng-template #template let-data>                       
+                    <div *ngIf="data.b === 1;else login" class="statustemp e-activecolor">                                          
+                            <span class="statustxt e-activecolor">Compatible</span>           
+                    </div>
+                    <ng-template #login>
+                        <div class="statustemp e-inactivecolor">
+                            <span class="statustxt e-inactivecolor">Incompatible</span>
+                        </div>
+                        </ng-template>
+                </ng-template>               
+            </e-column>
+           
+        </e-columns>
+        <e-aggregates>
+            <e-aggregate>
+                <e-columns>
+                    <e-column type="Sum" field="PREC_TOT_SOLES">
+                        <ng-template #footerTemplate let-data>Van: {{data.Sum}}</ng-template>
+                    </e-column>
+                </e-columns>
+            </e-aggregate>           
+        </e-aggregates>
+
+    </ejs-grid>
+
+ 
+
+
+
+    
+</div>
+
+

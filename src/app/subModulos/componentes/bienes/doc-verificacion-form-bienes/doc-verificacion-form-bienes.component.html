@@ -1,0 +1,64 @@
+
+
+
+
+     
+
+<form id="template_driven"  name="template_driven" #DocVerificacionForm="ngForm" novalidate>    
+
+
+    <div class="form-group template">
+        <div class="e-float-input" [ngClass]="{'e-success': iYearId.valid}">
+       
+            <ejs-dropdownlist  name="iYearId"  id="iYearId" #iYearId='ngModel' [disabled]="op == 1"     [(ngModel)]="DocVerificacion.iYearId" name="iYearId" required 
+                    [dataSource]='dataYears' [placeholder]='yearMark' [fields]='yearFields' floatLabelType='Auto'>
+                    </ejs-dropdownlist>
+            
+            <span class="e-float-line"></span>
+        
+        
+            </div>
+</div>
+
+
+<div class="form-group template">
+        <div class="e-float-input" [ngClass]="{'e-success': cDocVerBienDocRef.valid}">
+            <input type="text" id="cDocVerBienDocRef" #cDocVerBienDocRef='ngModel'   [disabled]="op == 1" [(ngModel)]="DocVerificacion.cDocVerBienDocRef" name="cDocVerBienDocRef"  value="{{DocVerificacion.cDocVerBienDocRef}}">
+            <span class="e-float-line"></span>
+            <label class="e-float-text" [ngClass]="{'e-label-top': DocVerificacion.cDocVerBienDocRef !== '' , 'e-label-bottom':  DocVerificacion.cDocVerBienDocRef == ''}" for="cDocVerBienDocRef">Documento de Referencia </label>                        
+        </div>
+</div>
+<div class="form-group template">
+    <div class="e-float-input" [ngClass]="{'e-success': dDocVerBienFechaInicio.valid}">
+            <div class="control-label" [ngClass]="{'e-label-top': DocVerificacion.dDocVerBienFechaInicio !== '' , 'e-label-bottom':  DocVerificacion.dDocVerBienFechaInicio == ''}">Fecha Inicio</div>
+           <input type="date" ngModel="inputDate | date:'dd-MM-yyyy'"  id="dDocVerBienFechaInicio" #dDocVerBienFechaInicio='ngModel'   [disabled]="op == 1" [(ngModel)]="DocVerificacion.dDocVerBienFechaInicio" name="dDocVerBienFechaInicio" required value="{{DocVerificacion.dDocVerBienFechaInicio}}">
+      
+    
+    </div>
+</div>
+<div class="form-group template">
+    <div class="e-float-input" [ngClass]="{'e-success': dDocVerBienFechaFin.valid}">
+            <div class="control-label" [ngClass]="{'e-label-top': DocVerificacion.dDocVerBienFechaFin !== '' , 'e-label-bottom':  DocVerificacion.dDocVerBienFechaFin == ''}">Fecha Fin</div>
+           <input type="date" ngModel="inputDate | date:'dd-MM-yyyy'"  id="dDocVerBienFechaFin" #dDocVerBienFechaFin='ngModel'   [disabled]="op == 1" [(ngModel)]="DocVerificacion.dDocVerBienFechaFin" name="dDocVerBienFechaFin" required value="{{DocVerificacion.dDocVerBienFechaFin}}">
+      
+ 
+    </div>
+</div>
+<div class="multiline-row">
+    <ejs-textbox  [disabled]="op == 1" id="cDocVerBienObs" name="cDocVerBienObs" [(ngModel)]="DocVerificacion.cDocVerBienObs" #cDocVerBienObs="ngModel"   value="{{DocVerificacion.cDocVerBienObs}}"  #default rows="2" placeholder="Observaciones" floatLabelType="Auto" [multiline]="true" ></ejs-textbox>
+</div>
+
+
+   <div class="form-group template" *ngIf="op!=1">
+    <div class="submitBtn">
+        <button class="submit-btn e-btn e-success sendButto" id="GuardarButtonDocVerificacion" [disabled]="DocVerificacionForm.invalid"  type="submit" (click)= "GuardarDocVerificacion()"><fa-icon [icon]="faSave" size="lg"></fa-icon> Guardar</button>                                                              
+    </div> 
+    </div> 
+
+
+   
+    
+    
+
+    
+</form> 

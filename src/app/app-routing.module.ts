@@ -5,8 +5,10 @@ import { AuthGaurd } from './shared/services/auth.gaurd';
 import { BlankLayoutComponent } from './shared/components/layouts/blank-layout/blank-layout.component';
 import { AdminLayoutSidebarCompactComponent } from './shared/components/layouts/admin-layout-sidebar-compact/admin-layout-sidebar-compact.component';
 import { AdminLayoutSidebarLargeComponent } from './shared/components/layouts/admin-layout-sidebar-large/admin-layout-sidebar-large.component';
+import { HomeComponent } from './home/home.component';
 
 const moduleRoutes: Routes = [
+  
   {
     path: 'user',
     loadChildren: () => import('./personal/personal.module').then(m => m.PersonalModule)
@@ -15,8 +17,17 @@ const moduleRoutes: Routes = [
     path: 'control',
     loadChildren: () => import('./subModulos/control/control.module').then(m => m.ControlModule)
   },
+
+  {
+    path: 'subModulos',
+    loadChildren: () => import('./subModulos/subModulos.module').then(m => m.SubModulosModule)
+  },
 ]
 const routes: Routes = [
+  {
+    path:'home',
+    component:HomeComponent,
+  },
   {
     path: '',
     redirectTo: 'user/perfil',

@@ -1,0 +1,80 @@
+
+<div class="control-section template" ><!--inicio de diaglolo-->
+
+                <div class="col-lg-12 control-section toast-default-section">
+                    <div class="e-sample-resize-container">
+                        <ejs-toast #defaulttoast id='defaulttoast' [position]="position" (created)="onCreate()"  (close)="onClose($event)"  (beforeOpen)="onBeforeOpen()">            
+                        </ejs-toast>        
+                    </div>
+                </div>
+
+
+
+                <h1>Locales</h1>
+                <div id="action-description">
+                <p>
+                    En esta seccion puede UD. gestionar   <code>locales</code>.
+                </div>
+
+                <ejs-dialog #template  [isModal]='isModal' [allowDragging]='dialogdragging'  [height]='height' [visible]='hidden'  [animationSettings]='animationSettings' [showCloseIcon]='showCloseIcon' [target]='target' [width]='width' (open)="dialogOpen()"
+                    (close)="dialogClose()">  
+                    <!--<ng-template #footerTemplate>
+                        <input id="inVal" class="e-input" type="text" placeholder="Enter your message here!"/>
+                            <button id="sendButton" class="e-control e-btn e-light sendButton" data-ripple="true">Cancelar</button>
+                            <button id="sendButton"  class="e-control e-btn e-primary sendButton" data-ripple="true">Guardar</button>         
+                                <button  [disabled]="userForm.form.invalid" >SAVE</button>
+                    </ng-template>-->
+                    <ng-template #content>
+                        <div class="dialogContent">
+                            <span class="dialogText">    
+                                <!--<app-local-detalles-ubicacion [id_Local_I]="'probando id'"></app-local-detalles-ubicacion>-->
+                                <app-local-detalles-ubicacion [id_Local_I]="datos_nombre_" [json_]="identificacion" [datosLocal]="Local" [op]="opcion" (devuelve_hijo)="cerrar_ventana_modal($event)" (cerrar_modal)="cerrar_ventana_modal_($event)"></app-local-detalles-ubicacion>                   
+                            </span>     
+                        </div>
+                    </ng-template>
+                    
+                    <ng-template #header>
+                        <!--<div class="e-avatar template-image e-avatar-xsmall e-avatar-circle">fadsf</div>-->
+
+                        <fa-icon [icon]="icoForm" size="lg"></fa-icon>
+                                                                        
+                        <div id="dlg-template" title="Nancy" class="e-icon-settings"> Formulario Local </div>
+                    </ng-template>
+                </ejs-dialog>
+
+
+
+               <div class="control-section button-group-container">
+                    <div class="button-group-section">
+                        <div id="button-group-control">
+                            <div class="row">    
+                                <div id="icon" class="e-btn-group">
+                                    <button ejs-button id="btnLocalNuevo" #ButtonInstance (click)="BtnNuevoClick()" ><fa-icon [icon]="faPlus" size="lg"></fa-icon> Nuevo</button>
+                                    <button ejs-button id="btnLocalVer" #ButtonInstance (click)="BtnVerClick()" ><fa-icon [icon]="faInfo" size="lg"></fa-icon> Ver</button>
+                                    <button ejs-button id="btnLocalModificar" #ButtonInstance (click)="BtnModificarClick()"><fa-icon [icon]="faEdit" size="lg"></fa-icon> Modificar</button>
+                                    <button ejs-button id="btnLocalEliminar" #ButtonInstance (click)="BtnEliminarClick()"><fa-icon [icon]="faTrashAlt" size="lg"></fa-icon> Eliminar</button>
+                                    
+                                </div>
+                            </div>
+                                       
+                        </div>
+                    </div>
+                </div>
+
+                <ejs-grid #grid [dataSource]='data | async'  allowPaging='true' height=365  [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChange($event)' (rowSelected)='rowSelected($event)'>
+               
+                    <e-columns>
+                        <e-column field= "RowNumber" headerText="N°" width="10%" [allowFiltering]="false" [allowSorting]="false"></e-column>
+                        <e-column field= "iLocalId" headerText="ID" width="10%" [allowFiltering]="false"></e-column>
+                        <e-column field= "cLocalDescripcion" headerText="Descripción" width="90%"></e-column>
+                       
+                    </e-columns>
+                </ejs-grid>
+
+                <ejs-dialog #alertDialog [buttons]='alertDlgButtons' [isModal]='isModalAlert'  [visible]='hidden' [header]='alertHeader' [animationSettings]='animationSettings' [content]='alertContent' [showCloseIcon]='showCloseIcon' [target]='target' [width]='alertWidth'>
+                </ejs-dialog>               
+
+
+
+                
+    </div>

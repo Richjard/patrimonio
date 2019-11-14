@@ -15,10 +15,11 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
   imports: [
     CommonModule,
     PersonalRutasModule,
-    NgxEchartsModule,
-    SharedComponentsModule,
-    NgxDatatableModule,
-    NgbModule
+    //NgxEchartsModule,
+    //SharedComponentsModule,
+    //NgxDatatableModule,
+    //NgbModule,
+  
   ]
 })
 export class PersonalModule { }

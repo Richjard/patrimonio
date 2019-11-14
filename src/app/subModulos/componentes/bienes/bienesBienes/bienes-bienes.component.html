@@ -1,0 +1,106 @@
+
+<div class="control-section template" ><!--inicio de diaglolo-->
+    <ejs-dialog #template  [isModal]='isModal' [allowDragging]='dialogdragging'  [height]='height' [visible]='hidden'  [animationSettings]='animationSettings' [showCloseIcon]='showCloseIcon' [target]='target' [width]='width' (open)="dialogOpen()"
+    (close)="dialogClose()">  
+    <!--<ng-template #footerTemplate>
+        <input id="inVal" class="e-input" type="text" placeholder="Enter your message here!"/>
+            <button id="sendButton" class="e-control e-btn e-light sendButton" data-ripple="true">Cancelar</button>
+            <button id="sendButton"  class="e-control e-btn e-primary sendButton" data-ripple="true">Guardar</button>         
+                <button  [disabled]="userForm.form.invalid" >SAVE</button>
+    </ng-template>-->
+    <ng-template #content>
+        <div class="dialogContent">
+            <span class="dialogText">    
+              <app-bienes-form-bienes [datosBien]="Bien" [op]="opcion" (devuelve_hijo)="cerrar_ventana_modal($event)" (cerrar_modal)="cerrar_ventana_modal_($event)"></app-bienes-form-bienes>                   
+           
+            </span>     
+        </div>
+    </ng-template>
+    
+    <ng-template #header>
+        <!--<div class="e-avatar template-image e-avatar-xsmall e-avatar-circle">fadsf</div>-->
+
+        <fa-icon [icon]="icoForm" size="lg"></fa-icon>
+                                                        
+        <div id="dlg-template" title="Nancy" class="e-icon-settings"> Formulario Bien </div>
+    </ng-template>
+</ejs-dialog>
+
+
+    <div class="col-lg-12 control-section toast-default-section">
+        <div class="e-sample-resize-container">
+            <ejs-toast #defaulttoast id='defaulttoast' [position]="position" (created)="onCreate()"  (close)="onClose($event)"  (beforeOpen)="onBeforeOpen()">            
+            </ejs-toast>        
+        </div>
+    </div>
+
+
+
+    <h1>Bienes</h1>
+    <div id="action-description">
+    <p>
+        En esta seccion puede UD. gestionar   <code>Bienes</code>.
+
+
+
+    </div>
+
+ 
+
+
+   <div class="control-section button-group-container">
+        <div class="button-group-section">
+            <div id="button-group-control">
+                <div class="row">    
+                    <div id="icon" class="e-btn-group">
+                        <button ejs-button id="btnBienNuevo" #ButtonInstance (click)="BtnNuevoBienClick()" ><fa-icon [icon]="faPlus" size="lg"></fa-icon> Nuevo</button>
+                        <button ejs-button id="btnBienVer" #ButtonInstance (click)="BtnVerBienClick()" ><fa-icon [icon]="faInfo" size="lg"></fa-icon> Ver</button>
+                        <button ejs-button id="btnBienModificar" #ButtonInstance (click)="BtnModificarBienClick()"><fa-icon [icon]="faEdit" size="lg"></fa-icon> Modificar</button>
+                        <button ejs-button id="btnBienEliminar" #ButtonInstance (click)="BtnEliminarBienClick()"><fa-icon [icon]="faTrashAlt" size="lg"></fa-icon> Eliminar</button>
+                        <button ejs-button id="btnBienCodigoBarra" #ButtonInstance (click)="BtnCodigoBarraBienClick()"><fa-icon [icon]="faBarcode" size="lg"></fa-icon> Generar Etiqueta</button>
+                        
+                    </div>
+                </div>
+                           
+            </div>
+        </div>
+    </div>
+
+
+
+
+<ng-template #toolbarTemplate let-data>
+    <ejs-toolbar (clicked)='clickHandler($event)'>
+        <e-items>
+            <e-item id='collapse' prefixIcon='e-collapse'></e-item>
+        </e-items>
+    </ejs-toolbar>
+</ng-template>
+    <ejs-grid #grid [dataSource]='data | async'  [allowSelection]="true" [selectionSettings]="selectOptions"   allowPaging='true' height=465  
+    [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChange($event)' (rowSelected)='rowSelected($event)'  [toolbar]='toolbar' rowHeight='20'   (toolbarClick)='clickHandler($event)'>
+    
+
+    
+        <e-columns>
+            <e-column type='checkbox' width='5%'></e-column>
+           <!-- <e-column field= "iTipoCId" headerText="iTipoCId" width="10%" [allowFiltering]="false" [visible]="false"></e-column>
+            <e-column field= "RowNumber" headerText="N°" width="2%" [allowFiltering]="false" [allowSorting]="false" [visible]="false"></e-column>
+            <e-column field= "iBienId" headerText="ID" width="10%" [allowFiltering]="false" [visible]="false"></e-column>-->
+            <e-column field= "cBienCodigo" headerText="Código Pat." width="15%"  ></e-column>
+            <e-column field= "cBienDescripcion" headerText="Descripcion" width="55%" [allowResizing] = 'true' ></e-column>
+            <e-column field= "cDocAdqNro" headerText="Nro O/C" width="5%"  [allowSorting]="false"></e-column>
+            <e-column field= "dDocAdqFecha" headerText="Fecha O/C" width="5%"  [allowFiltering]="false" [allowSorting]="false" ></e-column>
+            <e-column field= "nBienValor" headerText="Valor Adqu." width="5%"  [allowFiltering]="false" [allowSorting]="false"></e-column>
+            <e-column field= "cEstadoBienAbre" headerText="E" width="5%" [allowFiltering]="false"></e-column>    
+              
+            
+           
+        </e-columns>
+    </ejs-grid>
+
+    <ejs-dialog #alertDialog [buttons]='alertDlgButtons' [isModal]='isModalAlert'  [visible]='hidden' [header]='alertHeader' [animationSettings]='animationSettings' [content]='alertContent' [showCloseIcon]='showCloseIcon' [target]='target' [width]='alertWidth'>
+    </ejs-dialog>               
+
+
+</div>
+

@@ -1,0 +1,103 @@
+
+
+
+
+     
+
+<form id="template_driven"  name="template_driven" #EmpleadoForm="ngForm" novalidate>    
+
+            <div class="form-group template">
+                <div class="e-float-input" [ngClass]="{'e-success': iEmpleadoId.valid}">
+                    <input type="text" id="iEmpleadoId" name="iEmpleadoId" [(ngModel)]="Empleado.iEmpleadoId" #iEmpleadoId="ngModel" required disabled value="{{Empleado.iEmpleadoId}}">
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" [ngClass]="{'e-label-top': Empleado.iEmpleadoId !== '' , 'e-label-bottom':  Empleado.iEmpleadoId == ''}" for="iEmpleadoId">ID Empleado </label>                        
+                </div>     
+            </div>
+
+     
+
+   
+        <div class="form-group template">
+                <div class="e-float-input" [ngClass]="{'e-success': cEmpleadoApellidoP.valid}">
+                    <input type="text" id="cEmpleadoApellidoP" #cEmpleadoApellidoP='ngModel'   [disabled]="op == 1" [(ngModel)]="Empleado.cEmpleadoApellidoP" name="cEmpleadoApellidoP" required value="{{Empleado.cEmpleadoApellidoP}}">
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" [ngClass]="{'e-label-top': Empleado.cEmpleadoApellidoP !== '' , 'e-label-bottom':  Empleado.cEmpleadoApellidoP == ''}" for="cEmpleadoApellidoP">Apellido paterno </label>                        
+                </div>
+        </div>
+
+        <div class="form-group template">
+                <div class="e-float-input" [ngClass]="{'e-success': cEmpleadoApellidoM.valid}">
+                    <input type="text" id="cEmpleadoApellidoM" #cEmpleadoApellidoM='ngModel'   [disabled]="op == 1" [(ngModel)]="Empleado.cEmpleadoApellidoM" name="cEmpleadoApellidoM" required value="{{Empleado.cEmpleadoApellidoM}}">
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" [ngClass]="{'e-label-top': Empleado.cEmpleadoApellidoM !== '' , 'e-label-bottom':  Empleado.cEmpleadoApellidoM == ''}" for="cEmpleadoApellidoM">Apellido materno </label>                        
+                </div>
+        </div>
+
+        <div class="form-group template">
+                <div class="e-float-input" [ngClass]="{'e-success': cEmpleadoNombre.valid}">
+                    <input type="text" id="cEmpleadoNombre" #cEmpleadoNombre='ngModel'   [disabled]="op == 1" [(ngModel)]="Empleado.cEmpleadoNombre" name="cEmpleadoNombre" required value="{{Empleado.cEmpleadoNombre}}">
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" [ngClass]="{'e-label-top': Empleado.cEmpleadoNombre !== '' , 'e-label-bottom':  Empleado.cEmpleadoNombre == ''}" for="cEmpleadoNombre">Nombres </label>                        
+                </div>
+        </div>
+
+
+        <div class="form-group template">
+                <div class="e-float-input" [ngClass]="{'e-success': cEmpleadoDni.valid}">
+                    <input type="text" id="cEmpleadoDni" #cEmpleadoDni='ngModel'   [disabled]="op == 1" [(ngModel)]="Empleado.cEmpleadoDni" name="cEmpleadoDni" required  value="{{Empleado.cEmpleadoDni}}">
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" [ngClass]="{'e-label-top': Empleado.cEmpleadoDni !== '' , 'e-label-bottom':  Empleado.cEmpleadoDni == ''}" for="cEmpleadoDni">DNI </label>                        
+                </div>
+        </div>
+
+        <div class="form-group template">
+                <div class="e-float-input" [ngClass]="{'e-success': cEmpleadoDireccion.valid}">
+                    <input type="text" id="cEmpleadoDireccion" #cEmpleadoDireccion='ngModel'   [disabled]="op == 1" [(ngModel)]="Empleado.cEmpleadoDireccion" name="cEmpleadoDireccion"  value="{{Empleado.cEmpleadoDireccion}}">
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" [ngClass]="{'e-label-top': Empleado.cEmpleadoDireccion !== '' , 'e-label-bottom':  Empleado.cEmpleadoDireccion == ''}" for="cEmpleadoDireccion">Dirección </label>                        
+                </div>
+        </div>
+
+
+        <div class="form-group template">
+                <div class="e-float-input" [ngClass]="{'e-success': cEmpleadoTelefonos.valid}">
+                    <input type="text" id="cEmpleadoTelefonos" #cEmpleadoTelefonos='ngModel'   [disabled]="op == 1" [(ngModel)]="Empleado.cEmpleadoTelefonos" name="cEmpleadoTelefonos"  value="{{Empleado.cEmpleadoTelefonos}}">
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" [ngClass]="{'e-label-top': Empleado.cEmpleadoTelefonos !== '' , 'e-label-bottom':  Empleado.cEmpleadoTelefonos == ''}" for="cEmpleadoTelefonos">Telefonos </label>                        
+                </div>
+        </div>
+
+        <div class="form-group template">
+                <div class="e-float-input" [ngClass]="{'e-success': cEmpleadoEmail.valid}">
+                    <input type="text" id="cEmpleadoEmail" #cEmpleadoEmail='ngModel'   [disabled]="op == 1" [(ngModel)]="Empleado.cEmpleadoEmail" name="cEmpleadoEmail"  value="{{Empleado.cEmpleadoEmail}}">
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" [ngClass]="{'e-label-top': Empleado.cEmpleadoEmail !== '' , 'e-label-bottom':  Empleado.cEmpleadoEmail == ''}" for="cEmpleadoEmail">E-mail </label>                        
+                </div>
+        </div>
+
+         <div class="form-group template">
+                    <div class="e-float-input" [ngClass]="{'e-success': iCargId.valid}">
+                   
+                        <ejs-dropdownlist #tipoDesplazamientoBienList name="iCargId"  id="iCargId" #iCargId='ngModel' [disabled]="op == 1"  [(ngModel)]="Empleado.iCargId" name="iCargId" required 
+                                [dataSource]='dataCargos' [placeholder]='CargoMark' [fields]='CargoFields' floatLabelType='Auto'>
+                                </ejs-dropdownlist>
+                        
+                        <span class="e-float-line"></span>
+                    
+                    
+                        </div>
+                </div>
+                   
+           <div class="form-group template" *ngIf="op!=1">
+            <div class="submitBtn">
+                <button class="submit-btn e-btn e-success sendButto" id="GuardarButtonEmpleado" [disabled]="EmpleadoForm.invalid"  type="submit" (click)= "GuardarEmpleado()"><fa-icon [icon]="faSave" size="lg"></fa-icon> Guardar</button>                                                              
+            </div> 
+            </div> 
+
+
+           
+            
+            
+
+            
+    </form> 

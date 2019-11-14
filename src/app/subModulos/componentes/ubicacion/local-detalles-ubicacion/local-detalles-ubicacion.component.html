@@ -1,0 +1,44 @@
+<!--<h1>{{id_Local_I}}</h1>
+<h1>{{json_.web}}</h1>-->
+
+<!--<h1>{{localDatos.iLocalId}}</h1>
+<div [ngSwitch]="op">
+    <div *ngSwitchCase="0">Nuevo</div>
+    <div *ngSwitchCase="1">Ver</div>
+    <div *ngSwitchCase="2">Modificar</div>  
+    <some-element *ngSwitchDefault>...</some-element>
+  </div>-->
+
+<form id="template_driven"  name="template_driven" #userForm="ngForm" novalidate>
+    <div class="form-group template">
+        <div class="e-float-input" [ngClass]="{'e-success': iLocalId.valid}">
+            <input type="text" id="iLocalId" name="iLocalId" [(ngModel)]="local.iLocalId" #iLocalId="ngModel" required disabled value="{{local.iLocalId}}">
+            <span class="e-float-line"></span>
+            <label class="e-float-text" [ngClass]="{'e-label-top': local.iLocalId !== '' , 'e-label-bottom':  local.iLocalId == ''}" for="iLocalId">ID Local </label>                        
+        </div>
+      <!--  <span class="e-error" *ngIf="iLocalId.errors && iLocalId.errors.required && (iLocalId.dirty || iLocalId.touched)" >
+            * Enter your first name
+        </span>  -->
+    </div>
+   <div class="form-group template">
+        <div class="e-float-input" [ngClass]="{'e-success': cLocalDescripcion.valid}">
+            <input type="text" id="cLocalDescripcion" #cLocalDescripcion='ngModel'   [disabled]="op == 1" [(ngModel)]="local.cLocalDescripcion" name="cLocalDescripcion" required value="{{local.cLocalDescripcion}}">
+            <span class="e-float-line"></span>
+            <label class="e-float-text" [ngClass]="{'e-label-top': local.cLocalDescripcion !== '' , 'e-label-bottom':  local.cLocalDescripcion == ''}" for="cLocalDescripcion">Descripcion</label>                        
+        </div>
+       <!-- <span class="e-error" *ngIf="cLocalDescripcion.errors && cLocalDescripcion.errors.required && (cLocalDescripcion.dirty || cLocalDescripcion.touched)" danger padding-left>
+            * Enter your last name
+        </span>-->
+    </div>
+    
+               
+       <div class="form-group template" *ngIf="op!=1">
+        <div class="submitBtn">
+            <button class="submit-btn e-btn e-success sendButto" id="GuardarButtonLocales" [disabled]="userForm.invalid"  type="submit" (click)= "GuardarLocal()"><fa-icon [icon]="faSave" size="lg"></fa-icon> Guardar</button>                                                              
+        </div> 
+        </div>                        
+</form> 
+<!-- <ejs-dialog id="confirmationDialog" #Dialog [buttons]='dlgButtons' [animationSettings]='animationSettings' [header]='formHeader' [showCloseIcon]='showCloseIcon' [content]='content'  [target]='target' [width]='width' [visible]="visible" [isModal]="isModal" >
+</ejs-dialog>-->
+
+<!---fin formulario-->

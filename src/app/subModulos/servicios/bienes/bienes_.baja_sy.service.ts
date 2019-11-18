@@ -14,7 +14,7 @@ import { LocalService } from '../../../servicios/local.services'
 @Injectable({
     providedIn: 'root'
   })
-export class BienSyService extends Subject<DataStateChangeEventArgs> { 
+export class BienesBajaSyService extends Subject<DataStateChangeEventArgs> { 
     parametros_consulta:any=[];
     orderBy:any=[];
     ls = window.localStorage;
@@ -44,7 +44,7 @@ export class BienSyService extends Subject<DataStateChangeEventArgs> {
           filter:state.where,
           order:sortQuery,
           iSituacionBienId:iSituacionBienId,
-          baja:0
+          baja:1
         
         };
         this.insertHead();  

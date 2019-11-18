@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
+
 
 
 import { ButtonModule, CheckBoxModule, RadioButtonModule, SwitchModule } from '@syncfusion/ej2-angular-buttons';
@@ -13,7 +14,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //SYN 
-
+import { TabModule } from '@syncfusion/ej2-angular-navigations';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { GridAllModule } from '@syncfusion/ej2-angular-grids';
@@ -26,6 +27,10 @@ import { LocalDetallesUbicacionComponent } from './componentes/ubicacion/local-d
 
 import { GridModule, FilterService, PageService} from '@syncfusion/ej2-angular-grids';
 import { DropDownListModule,MultiSelectModule } from '@syncfusion/ej2-angular-dropdowns';
+
+
+
+
 
 
 import { AreasUbicacionComponent } from './componentes/ubicacion/areas-ubicacion/areas-ubicacion.component';
@@ -77,6 +82,12 @@ import { DocVerificacionBienesComponent } from './componentes/bienes/doc-verific
 import { DocVerificacionFormBienesComponent } from './componentes/bienes/doc-verificacion-form-bienes/doc-verificacion-form-bienes.component';
 import { DependeciaUbicacionComponent } from './componentes/ubicacion/dependecia-ubicacion/dependecia-ubicacion.component';
 import { VerificarBienesComponent } from './componentes/bienes/verificar-bienes/verificar-bienes.component';
+import { BajaFormBienesComponent } from './componentes/bienes/baja-form-bienes/baja-form-bienes.component';
+import { MoverFormBienesComponent } from './componentes/bienes/mover-form-bienes/mover-form-bienes.component';
+
+
+
+
 
 const routes: Routes = [    
   {
@@ -208,6 +219,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
     CommonModule,    
+    NgbModule,
     DatePickerModule,
     GridAllModule,
     ToolbarModule,
@@ -221,6 +233,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     ToastModule,
+    TabModule,
     DropDownListModule,
     MultiSelectModule,
     MaskedTextBoxModule,
@@ -228,7 +241,7 @@ const routes: Routes = [
     SwitchModule 
   ],
   exports: [RouterModule],
-  declarations: [LocalesUbicacionComponent, LocalDetallesUbicacionComponent, AreasUbicacionComponent, AreaFormUbicacionComponent, OficinasUbicacionComponent, OficinaFormUbicacionComponent, GruposGenericosCatalogoSBNComponent, GruposGenericosFormCatalogoSBNComponent, ClasesGenericosCatalogoSBNComponent, ClasesGenericosFormCatalogoSBNComponent, GrupoClaseGenericosFormCatalogoSBNComponent, GrupoClaseGenericosCatalogoSBNComponent, CatalogoCatalogoSBNComponent, CatalogoFormCatalogoSBNComponent, MarcasTablasGeneralesComponent, MarcasFormTablasGeneralesComponent, ModelosTablasGeneralesComponent, ModelosFormTablasGeneralesComponent, TiposTablasGeneralesComponent, TiposFormTablasGeneralesComponent, DocumentosTablasGeneralesComponent, DocumentosFormTablasGeneralesComponent, CatalogoNoPatrimonialTablasGeneralesComponent, CatalogoNoPatrimonialFormTablasGeneralesComponent, PlanFormTablasGeneralesComponent, PlanTablasGeneralesComponent, BienesBienesComponent, BienesFormBienesComponent, DocumentosTramiteTablasGeneralesComponent, DocumentosTramiteFormTablasGeneralesComponent, OcTablasGeneralesComponent, OcFormTablasGeneralesComponent, OcItemFormTablasGeneralesComponent, OcItemTablasGeneralesComponent, DesplazamientoBienesComponent, DesplazamientoFormBienesComponent, EmpleadosTablaGeneralesComponent, EmpleadosFormTablaGeneralesComponent, CentroCostoTablaGeneralesComponent, CentroCostoFormTablaGeneralesComponent, CentroCostoEmpleadoTablaGeneralesComponent, CentroCostoEmpleadoFormTablaGeneralesComponent, DocVerificacionBienesComponent, DocVerificacionFormBienesComponent, DependeciaUbicacionComponent, VerificarBienesComponent],
+  declarations: [LocalesUbicacionComponent, LocalDetallesUbicacionComponent, AreasUbicacionComponent, AreaFormUbicacionComponent, OficinasUbicacionComponent, OficinaFormUbicacionComponent, GruposGenericosCatalogoSBNComponent, GruposGenericosFormCatalogoSBNComponent, ClasesGenericosCatalogoSBNComponent, ClasesGenericosFormCatalogoSBNComponent, GrupoClaseGenericosFormCatalogoSBNComponent, GrupoClaseGenericosCatalogoSBNComponent, CatalogoCatalogoSBNComponent, CatalogoFormCatalogoSBNComponent, MarcasTablasGeneralesComponent, MarcasFormTablasGeneralesComponent, ModelosTablasGeneralesComponent, ModelosFormTablasGeneralesComponent, TiposTablasGeneralesComponent, TiposFormTablasGeneralesComponent, DocumentosTablasGeneralesComponent, DocumentosFormTablasGeneralesComponent, CatalogoNoPatrimonialTablasGeneralesComponent, CatalogoNoPatrimonialFormTablasGeneralesComponent, PlanFormTablasGeneralesComponent, PlanTablasGeneralesComponent, BienesBienesComponent, BienesFormBienesComponent, DocumentosTramiteTablasGeneralesComponent, DocumentosTramiteFormTablasGeneralesComponent, OcTablasGeneralesComponent, OcFormTablasGeneralesComponent, OcItemFormTablasGeneralesComponent, OcItemTablasGeneralesComponent, DesplazamientoBienesComponent, DesplazamientoFormBienesComponent, EmpleadosTablaGeneralesComponent, EmpleadosFormTablaGeneralesComponent, CentroCostoTablaGeneralesComponent, CentroCostoFormTablaGeneralesComponent, CentroCostoEmpleadoTablaGeneralesComponent, CentroCostoEmpleadoFormTablaGeneralesComponent, DocVerificacionBienesComponent, DocVerificacionFormBienesComponent, DependeciaUbicacionComponent, VerificarBienesComponent, BajaFormBienesComponent, MoverFormBienesComponent],
   providers: [FilterService, PageService]
  
 })

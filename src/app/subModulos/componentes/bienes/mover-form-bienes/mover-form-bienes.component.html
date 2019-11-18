@@ -1,0 +1,88 @@
+
+
+
+
+     
+
+<form id="template_driven"  name="template_driven" #BienSituacionForm="ngForm" novalidate>    
+
+        <div class="form-group template">
+            <div class="e-float-input" [ngClass]="{'e-success': iBienId.valid}">
+                <input type="text" id="iBienId" name="iBienId" [(ngModel)]="BienSituaciones.iBienId" #iBienId="ngModel" required disabled value="{{BienSituaciones.iBienId}}">
+                <span class="e-float-line"></span>
+                <label class="e-float-text" [ngClass]="{'e-label-top': BienSituaciones.iBienId !== '' , 'e-label-bottom':  BienSituaciones.iBienId == ''}" for="iBienId">ID Bien </label>                        
+            </div>     
+        </div>
+
+ 
+
+
+    <div class="form-group template">
+            <div class="e-float-input" [ngClass]="{'e-success': cBienCodigo.valid}">
+                <input type="text" id="cBienCodigo" #cBienCodigo='ngModel'   disabled  [disabled]="op == 1" [(ngModel)]="BienSituaciones.cBienCodigo" name="cBienCodigo" required value="{{BienSituaciones.cBienCodigo}}">
+                <span class="e-float-line"></span>
+                <label class="e-float-text" [ngClass]="{'e-label-top': BienSituaciones.cBienCodigo !== '' , 'e-label-bottom':  BienSituaciones.cBienCodigo == ''}" for="cBienCodigo">Codigo Bien </label>                        
+            </div>
+    </div>
+
+    <div class="form-group template">
+            <div class="e-float-input" [ngClass]="{'e-success': cBienDescripcion.valid}">
+                <input type="text" id="cBienDescripcion" #cBienDescripcion='ngModel'   disabled  [disabled]="op == 1" [(ngModel)]="BienSituaciones.cBienDescripcion" name="cBienDescripcion" required value="{{BienSituaciones.cBienDescripcion}}">
+                <span class="e-float-line"></span>
+                <label class="e-float-text" [ngClass]="{'e-label-top': BienSituaciones.cBienDescripcion !== '' , 'e-label-bottom':  BienSituaciones.cBienDescripcion == ''}" for="cBienDescripcion">Descripción </label>                        
+            </div>
+    </div>
+
+
+
+        
+
+
+
+<div class="form-group template">
+    <div class="e-float-input" [ngClass]="{'e-success': iSituacionBienId.valid}">
+            <ejs-dropdownlist #situacionList name="iSituacionBienId"  id="iSituacionBienId" #iSituacionBienId='ngModel' [disabled]="op != 0"   [(ngModel)]="BienSituaciones.iSituacionBienId" name="iSituacionBienId" required 
+            [dataSource]='dataSituacion'  [fields]='SituacionFields' floatLabelType='Auto'>
+            </ejs-dropdownlist>                          
+       
+         
+       
+                <span class="e-float-line"></span>                      
+    </div>
+</div>
+
+ 
+
+
+    <div class="form-group template">
+            <div class="e-float-input" [ngClass]="{'e-success': cSituacionesBienDocRef.valid}">
+                <input type="text" id="cSituacionesBienDocRef" #cSituacionesBienDocRef='ngModel'     [disabled]="op == 1" [(ngModel)]="BienSituaciones.cSituacionesBienDocRef" name="cSituacionesBienDocRef" required value="{{BienSituaciones.cSituacionesBienDocRef}}">
+                <span class="e-float-line"></span>
+                <label class="e-float-text" [ngClass]="{'e-label-top': BienSituaciones.cSituacionesBienDocRef !== '' , 'e-label-bottom':  BienSituaciones.cSituacionesBienDocRef == ''}" for="cSituacionesBienDocRef">Documento/Resolución   </label>                        
+            </div>
+    </div>
+
+    <div class="form-group template">
+                           
+            <div class="multiline-row">
+                    <ejs-textbox  [disabled]="op == 1" id="cSituacionesBienCausal" name="cSituacionesBienCausal" [(ngModel)]="BienSituaciones.cSituacionesBienCausal" #cSituacionesBienCausal="ngModel"   value="{{BienSituaciones.cSituacionesBienCausal}}"  #default rows="2" placeholder="Causal" floatLabelType="Auto" [multiline]="true" ></ejs-textbox>
+                </div>
+           
+         
+    </div>
+
+               
+       <div class="form-group template" *ngIf="op!=1">
+        <div class="submitBtn">
+            <button class="submit-btn e-btn e-success sendButto" id="GuardarBienSituaciones" [disabled]="BienSituacionForm.invalid"  type="submit" (click)= "GuardarBienSituaciones()"><fa-icon [icon]="faSave" size="lg"></fa-icon> Guardar</button>                                                              
+        </div> 
+        </div> 
+
+
+       
+        
+        
+
+        
+</form> 
+

@@ -8,21 +8,33 @@ import { rippleEffect,EmitType } from '@syncfusion/ej2-base';
 import { detach, isNullOrUndefined } from '@syncfusion/ej2-base';
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';//para tamaño de la fila de la grilla
-
+import {SelectEventArgs   } from '@syncfusion/ej2-navigations';
 
 //servicios
 import {BienesService} from '../../../servicios/bienes/bienes.service'
 
 
+
+
 //interface
 
 import {BienInterface} from './../../../interfaces/bienes/catalogo-bienes-nterface';
-
+import {SituacionesBienesInterface} from './../../../interfaces/bienes/situaciones-bienes-interface';
 
 //synfusioin
 
 
 import {BienSyService} from '../../../servicios/bienes/bienes.sy.service'
+import {BienesSobrantesSyService} from '../../../servicios/bienes/bienes_.sobrantes_sy.service'
+
+import {BienesFaltantesSyService} from '../../../servicios/bienes/bienes_.faltantes_sy.service'
+import {BienesSustraidosSyService} from '../../../servicios/bienes/bienes_.sustraidos_sy.service'
+import {BienesChispitasSyService} from '../../../servicios/bienes/bienes_.shispitas_sy.service'
+import {BienesLaptosSyService} from '../../../servicios/bienes/bienes_.laptops_sy.service'
+import {BienesBajaSyService} from '../../../servicios/bienes/bienes_.baja_sy.service'
+import {SituacionBienesService} from '../../../servicios/bienes/situacion_bienes.service'
+
+
 import { DataStateChangeEventArgs,RowSelectEventArgs  } from '@syncfusion/ej2-grids';
 
 import { DialogComponent } from '@syncfusion/ej2-angular-popups';
@@ -53,7 +65,8 @@ export class BienesBienesComponent implements OnInit {
   item_e:any[];
 
 @Output() devuelve_Biens:EventEmitter<BienInterface> = new EventEmitter<BienInterface>()//devovlemos cuando invoquen al componente
-
+public bienSituaciones:SituacionesBienesInterface;
+public rowSize=30;
 faPlus = faPlus;//icono nuevo
 faInfo = faInfo;//icono info
 faBarcode=faBarcode;
@@ -78,6 +91,16 @@ public toasts: { [key: string]: Object }[] = [
 
 
 
+public headerText: Object = [
+ { text: "Existentes patrimoniales", 'iconCss': 'e-twitter' },
+ { text: "Sobrantes", 'iconCss': 'e-facebook' },
+ { text: "Faltantes", 'iconCss': 'e-whatsapp' }, 
+ { text: "Sustraidos", 'iconCss': 'e-whatsapp' }, 
+ { text: "Chispitas", 'iconCss': 'e-whatsapp' },
+ { text: "Laptops", 'iconCss': 'e-whatsapp' }, 
+
+ { text: "Baja", 'iconCss': 'e-whatsapp' }];
+
  
 
 public onCreate: EmitType<Object> = () => {
@@ -99,10 +122,11 @@ public onBeforeOpen: EmitType<Object> = () => {
 @HostListener('document:click', ['$event'])
 documentClick: EmitType<Object> = (e: MouseEvent) => {
    //let showButton: HTMLElement = document.getElementById('toastBtnShow');
-    let btnBienVer: HTMLElement = document.getElementById('btnBienVer');
-    let btnBienModificar: HTMLElement = document.getElementById('btnBienModificar');
-    let btnBienEliminar: HTMLElement = document.getElementById('btnBienEliminar');
-    if (e.target !== btnBienVer &&  e.target !== btnBienModificar && e.target !== btnBienEliminar && this.toastObj.target === document.body) {
+    let btnBienVer: HTMLElement = document.getElementById('v_b');
+    let btnBienModificar: HTMLElement = document.getElementById('m_b');
+    let btnBienEliminar: HTMLElement = document.getElementById('e_b');
+    let btnBienCB: HTMLElement = document.getElementById('cb_b');
+    if (e.target !== btnBienVer &&  e.target !== btnBienModificar && e.target !== btnBienEliminar && e.target !== btnBienCB && this.toastObj.target === document.body) {
         this.toastObj.hide('All');
     }
 }
@@ -143,25 +167,7 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
  public alertDlgButtons: Object[] = [{ click: this.alertDlgBtnClick.bind(this), buttonModel: { content: 'Si', isPrimary: true } }];
  //FIN DIALOGO
   
-//VENTANA MODAL
-
-  @ViewChild('template',{static: true})
-    public Dialog: DialogComponent;
-    public proxy: any = this;
-    public BtnNuevoBienClick: EmitType<object> = () => {   
-      this.setBienDatos("0","autogenerado","","","","","","","","","","","","","1","","","","","","","","","","","","","","","","","","",[]);
-      if(this.grid.getSelectedRecords().length){  
-         this.grid.clearSelection();          
-      }  
-
-        this.icoForm=faPlus;
-        this.opcion=0;       
-        this.Dialog.show();  
-    }
-    public BtnCodigoBarraBienClick: EmitType<object> = () => {   
-       console.log("imprimiendo");  
-       pdfMake.createPdf(this.Etiqueta()).print();
-    }
+//pritn etiqueta
 
     Etiqueta() {   
       if(this.grid.getSelectedRecords().length>0) { 
@@ -263,218 +269,47 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
     };
   }
 
-    
-    public BtnVerBienClick: EmitType<object> = () => {  
-      if(this.grid.getSelectedRecords().length>0) {  
-           const selectedrecords: object[] = this.grid.getSelectedRecords();  // Get the selected records.       
-           this.setBienDatos(
-            selectedrecords[0]['iTipoCId'],
-            selectedrecords[0]['iBienId'],  
-          selectedrecords[0]['cBienCodigo'],
-          selectedrecords[0]['cBienDescripcion'],
-          selectedrecords[0]['nBienValor'],
-          selectedrecords[0]['cBienSerie'],
-          selectedrecords[0]['cBienDimension'],
-          selectedrecords[0]['cBienOtrasCaracteristicas'],
-          selectedrecords[0]['bBienBaja'],
-          selectedrecords[0]['dBienFechaBaja'],
-          selectedrecords[0]['cBienCausalBaja'],
-          selectedrecords[0]['cBienResolucionBaja'],
-          selectedrecords[0]['dBienAnioFabricacion'],
-          selectedrecords[0]['cBienObs'],
-          selectedrecords[0]['iEstadoBienId'],
-          selectedrecords[0]['iFormaAdqId'],
-          selectedrecords[0]['iTipoId'],
-          selectedrecords[0]['iYearId'],
-          selectedrecords[0]['iCatalogoNoPatId'],
-          selectedrecords[0]['iCatSbnId'],
-          selectedrecords[0]['iDocAdqId'],
-        
-        
-          selectedrecords[0]['cPlanContCodigo'] ,
-          selectedrecords[0]['cPlanContDescripcion'],
-        
-          selectedrecords[0]['cClasGastoCodigo'] ,
-          selectedrecords[0]['cClasGastoDescripcion'],
-        
-          
-          selectedrecords[0]['cDocAdqNro'] ,
-          selectedrecords[0]['dDocAdqFecha'] ,
-          selectedrecords[0]['nDocAdqValor'] ,
-          selectedrecords[0]['cFormaAdqDescripcion'],
-        
-          selectedrecords[0]['cTipoDescripcion'] ,
-          selectedrecords[0]['cModeloDescripcion'] ,
-          selectedrecords[0]['cMarcaDescripcion'],
-          selectedrecords[0]['iCatalogoId'],
-          selectedrecords[0]['colores'],
-        
-        
-        
-          );     
-           this.icoForm=faInfo;
-           this.opcion=1;                     
-           this.Dialog.show();  
-        } else {                  
-          this.toastObj.show(this.toasts[0]);
-        }       
-    }
-    public BtnModificarBienClick: EmitType<object> = () => {
-       if(this.grid.getSelectedRecords().length>0) {  
-        const selectedrecords: object[] = this.grid.getSelectedRecords();  // Get the selected records.       
-        this.setBienDatos(
-          selectedrecords[0]['iTipoCId'],
-          selectedrecords[0]['iBienId'],  
-        selectedrecords[0]['cBienCodigo'],
-        selectedrecords[0]['cBienDescripcion'],
-        selectedrecords[0]['nBienValor'],
-        selectedrecords[0]['cBienSerie'],
-        selectedrecords[0]['cBienDimension'],
-        selectedrecords[0]['cBienOtrasCaracteristicas'],
-        selectedrecords[0]['bBienBaja'],
-        selectedrecords[0]['dBienFechaBaja'],
-        selectedrecords[0]['cBienCausalBaja'],
-        selectedrecords[0]['cBienResolucionBaja'],
-        selectedrecords[0]['dBienAnioFabricacion'],
-        selectedrecords[0]['cBienObs'],
-        selectedrecords[0]['iEstadoBienId'],
-        selectedrecords[0]['iFormaAdqId'],
-        selectedrecords[0]['iTipoId'],
-        selectedrecords[0]['iYearId'],
-        selectedrecords[0]['iCatalogoNoPatId'],
-        selectedrecords[0]['iCatSbnId'],
-        selectedrecords[0]['iDocAdqId'],
-      
-      
-        selectedrecords[0]['cPlanContCodigo'] ,
-        selectedrecords[0]['cPlanContDescripcion'],
-      
-        selectedrecords[0]['cClasGastoCodigo'] ,
-        selectedrecords[0]['cClasGastoDescripcion'],
-      
-        
-        selectedrecords[0]['cDocAdqNro'] ,
-        selectedrecords[0]['dDocAdqFecha'] ,
-        selectedrecords[0]['nDocAdqValor'] ,
-        selectedrecords[0]['cFormaAdqDescripcion'],
-      
-        selectedrecords[0]['cTipoDescripcion'] ,
-        selectedrecords[0]['cModeloDescripcion'] ,
-        selectedrecords[0]['cMarcaDescripcion'],
-        selectedrecords[0]['iCatalogoId'],
-        selectedrecords[0]['colores'],
-      
-      
-      
-        );     
+   //VENTANA MODAL
 
-        this.icoForm=faEdit;  
-          this.opcion=2;                   
-          this.Dialog.show();  
-
-      } else {                  
-        this.toastObj.show(this.toasts[0]);
-      }  
-    }
-
-    public BtnEliminarBienClick: EmitType<object> = () => {   
-       
-        if(this.grid.getSelectedRecords().length>0) { 
-          const selectedrecords: object[] = this.grid.getSelectedRecords();  // Get the selected records.       
-          /*this.setBienDatos(selectedrecords[0]['iTipoCId'],selectedrecords[0]['iBienId'],
-          selectedrecords[0]['cBienCodigo'],
-          selectedrecords[0]['cBienDescripcion'],
-          selectedrecords[0]['nBienValor'],
-          selectedrecords[0]['cBienSerie'],
-          selectedrecords[0]['cBienDimension'],
-          selectedrecords[0]['cBienOtrasCaracteristicas'],
-          selectedrecords[0]['bBienBaja'],
-          selectedrecords[0]['dBienFechaBaja'],
-          selectedrecords[0]['cBienCausalBaja'],
-          selectedrecords[0]['cBienResolucionBaja'],
-          selectedrecords[0]['dBienAnioFabricacion'],
-          selectedrecords[0]['cBienObs'],
-          selectedrecords[0]['iEstadoBienId'],
-          selectedrecords[0]['iFormaAdqId'],
-          selectedrecords[0]['iTipoId'],
-          selectedrecords[0]['iYearId'],
-          selectedrecords[0]['iCatalogoNoPatId'],
-          selectedrecords[0]['iCatSbnId'],
-          selectedrecords[0]['iPlanContId'],
-          selectedrecords[0]['iDocAdqId'],
-          selectedrecords[0]['cPlanContCodigo'] ,
-          selectedrecords[0]['cPlanContDescripcion'] ,
-          selectedrecords[0]['cDocAdqNro'] ,
-          selectedrecords[0]['dDocAdqFecha'] ,
-          selectedrecords[0]['nDocAdqValor'] ,
-          selectedrecords[0]['cFormaAdqDescripcion'],
-          selectedrecords[0]['cTipoDescripcion'] ,
-          selectedrecords[0]['cModeloDescripcion'] ,
-          selectedrecords[0]['cMarcaDescripcion'], 
-          selectedrecords[0]['iCatalogoId'],
-          selectedrecords[0]['colores'],
-          );       */           
-          this.alertDialog.show();
-       } else {                  
-       
-        this.toastObj.show(this.toasts[0]);
-       }  
-    }
-
-    public showCloseIcon: Boolean = true;
-
-    public height: string = '90%';
-
-
-
-    public target: string = '.control-section';
-    
-    public animationSettings: Object = { effect: 'None' };
-    
-    public width: string = '900px';
-
-    public isModal: Boolean = true;
-
-    public dialogdragging: Boolean = true;
-
-    public dialogClose: EmitType<object> = () => {
-      switch (this.opcion) {
-          case 0:
-              document.getElementById('btnBienNuevo').style.display = '';
-              break;
-          case 1:
-            document.getElementById('btnBienVer').style.display = '';
-              break;
-          case 2:
-            document.getElementById('btnBienModificar').style.display = '';
-              break;     
-          default:
-              console.log("No such day exists!");
-              break;
-        }
-      
-    }
-
-    public dialogOpen: EmitType<object> = () => {
-       // document.getElementById('btnLocalNuevo').style.display = 'none';
-        switch (this.opcion) {
-          case 0:
-              document.getElementById('btnBienNuevo').style.display = 'none';
-              break;
-          case 1:
-            document.getElementById('btnBienVer').style.display = 'none';
-              break;
-          case 2:
-            document.getElementById('btnBienModificar').style.display = 'none';
-              break;     
-          default:
-              console.log("No such day exists!");
-              break;
-        }
-    }
+  @ViewChild('template',{static: true})
+  public Dialog: DialogComponent;
+  public proxy: any = this; 
+  public showCloseIcon: Boolean = true;
+  public height: string = '90%';
+  public target: string = '.control-section';  
+  public animationSettings: Object = { effect: 'None' };  
+  public width: string = '900px';
+  public isModal: Boolean = true;
+  public dialogdragging: Boolean = true;
+  public dialogClose: EmitType<object> = () => {  
+  }
+  public dialogOpen: EmitType<object> = () => {
+  }
 
  
   //FIN DIAALOGO
+
+
+   //VENTANA MODAL DAR BAJA BIEN
+
+   @ViewChild('modalFormbaja',{static: true})
+   public DialogBaja: DialogComponent;
+   //public proxy: any = this; 
+   //public showCloseIcon: Boolean = true;
+   //public height: string = '90%';
+   //public target: string = '.control-section';  
+   //public animationSettings: Object = { effect: 'None' };  
+   //public width: string = '900px';
+   //public isModal: Boolean = true;
+   //public dialogdragging: Boolean = true;
+   /*public dialogClose: EmitType<object> = () => {  
+   }
+   public dialogOpen: EmitType<object> = () => {
+   }*/
+ 
+   @ViewChild('modalFormMover',{static: true})
+   public DialogMover: DialogComponent;
+   //FIN DIAALOGO
 
   ttt;
   //local:any[]=[];
@@ -488,24 +323,171 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
   faTrashAlt=faTrashAlt;
   public date: Object = new Date()
 
-  @ViewChild('grid',{static: true})
+  @ViewChild('grid',{static: false})
   public grid: GridComponent;
-  public data: Observable<DataStateChangeEventArgs>;
+  public dataBienesActivos: Observable<DataStateChangeEventArgs>;
   public pageOptions: Object;
   public pageSettings: Object;
   public state: DataStateChangeEventArgs;
 
   
-constructor(private service:BienSyService , private serviceCrud:BienesService){
-  this.data = service;
+  @ViewChild('gridSobrates',{static: false})
+  public gridSobrates: GridComponent;
+  public dataBienesSobrantes: Observable<DataStateChangeEventArgs>;
+  //public pageOptions: Object;
+ // public pageSettings: Object;
+  public stateNP: DataStateChangeEventArgs;
+
+
+  @ViewChild('gridFaltantes',{static: false})
+  public gridFaltantes: GridComponent;
+  public dataBienesFaltantes: Observable<DataStateChangeEventArgs>;
+  //public pageOptions: Object;
+ // public pageSettings: Object;
+  public stateFaltante: DataStateChangeEventArgs;
+
+
+
+  @ViewChild('gridSustraidos',{static: false})
+  public gridSustraidos: GridComponent;
+  public dataBienesSustraidos: Observable<DataStateChangeEventArgs>;
+  //public pageOptions: Object;
+ // public pageSettings: Object;
+  public stateSustraido: DataStateChangeEventArgs;
+
+
+  @ViewChild('gridChispitas',{static: false})
+  public gridChispitas: GridComponent;
+  public dataBienesChispitas: Observable<DataStateChangeEventArgs>;
+  //public pageOptions: Object;
+ // public pageSettings: Object;
+  public stateChispita: DataStateChangeEventArgs;
+
+
+  @ViewChild('gridLaptops',{static: false})
+  public gridlaptops: GridComponent;
+  public dataBienesLaptops: Observable<DataStateChangeEventArgs>;
+  //public pageOptions: Object;
+ // public pageSettings: Object;
+  public stateLaptop: DataStateChangeEventArgs;
+
+  @ViewChild('gridBajas',{static: false})
+  public gridBajas: GridComponent;
+  public dataBienesBajas: Observable<DataStateChangeEventArgs>;
+  //public pageOptions: Object;
+ // public pageSettings: Object;
+  public stateBaja: DataStateChangeEventArgs;
+
+constructor(private serviceBienesActivos:BienSyService,
+  private serviceBienesSobrantes:BienesSobrantesSyService,
+  private serviceBienesFaltantes:BienesFaltantesSyService,
+  private serviceBienesSustraidos:BienesSustraidosSyService, 
+  private serviceBienesChisputas:BienesChispitasSyService, 
+  private serviceBienesLaptops:BienesLaptosSyService, 
+  private serviceBienesBajas:BienesBajaSyService,
+
+  private serviceCrud:BienesService,
+  private serviceSituacionBienCrud:SituacionBienesService){
+
+  this.pageOptions = { pageSize: 30, pageCount: 4 };
+  let state = { skip: 0, take: 30 };
+ 
+
+  this.dataBienesActivos = serviceBienesActivos;  
+  this.dataBienesSobrantes = serviceBienesSobrantes;
+
+  this.dataBienesFaltantes = serviceBienesFaltantes;
+  this.dataBienesSustraidos = serviceBienesSustraidos;
+  this.dataBienesChispitas = serviceBienesChisputas;
+  this.dataBienesLaptops = serviceBienesLaptops;
+  this.dataBienesBajas = serviceBienesBajas;
+
+  this.serviceBienesActivos.execute(state,1);
+
+  
+
+
 }
 
 public dataStateChange(state: DataStateChangeEventArgs): void {
-  this.service.execute(state);
+  this.serviceBienesActivos.execute(state,1);
+}
+public dataStateChangeSobrantes(state: DataStateChangeEventArgs): void {
+  this.serviceBienesSobrantes.execute(state,2);
+}
+public dataStateChangeFaltantes(state: DataStateChangeEventArgs): void {
+  this.serviceBienesFaltantes.execute(state,3);
+}
+public dataStateChangeSustraidos(state: DataStateChangeEventArgs): void {
+  this.serviceBienesSustraidos.execute(state,4);
+}
+public dataStateChangeChispitas(state: DataStateChangeEventArgs): void {
+  this.serviceBienesChisputas.execute(state,5);
+}
+public dataStateChangeLaptops(state: DataStateChangeEventArgs): void {
+  this.serviceBienesLaptops.execute(state,6);
+}
+public dataStateChangeBajas(state: DataStateChangeEventArgs): void {
+  this.serviceBienesBajas.execute(state,2);
+}
+public tabSlect=0;
+public selectTab (e: SelectEventArgs) {
+  console.log("seleccionando tab+"+ e.selectedIndex);
+  let state = { skip: 0, take: 30 };
+  switch (e.selectedIndex) {
+    case 0:
+        this.serviceBienesActivos.execute(state,1);
+        this.tabSlect=0;
+        break;
+    case 1:     
+        this.serviceBienesSobrantes.execute(state,2);
+        this.tabSlect=1;
+        break;
+    case 2:
+        this.serviceBienesFaltantes.execute(state,3);
+        this.tabSlect=2;
+        break;  
+     case 3:
+        this.serviceBienesSustraidos.execute(state,4);
+        this.tabSlect=3;
+        break;   
+    case 4:
+        this.serviceBienesChisputas.execute(state,5);
+        this.tabSlect=4;
+      break;    
+    case 5:
+          this.serviceBienesLaptops.execute(state,6);
+          this.tabSlect=5;
+      break;     
+    case 6:
+        this.serviceBienesBajas.execute(state,1);
+        this.tabSlect=6;
+    break; 
+ 
+  }
+
+ 
+  /*if (e.isSwiped) {
+    e.cancel = true;
+  }*/
 }
 
-
 ngOnInit(): void {    
+
+  this.bienSituaciones = { 
+    iSituacionesBienId : 'autogenerado',
+    cSituacionesBienCausal :'',    
+    bSituacionesBienUltimoSituacion :false,
+    dSituacionesBienFecha : '',
+    cSituacionesBienDocRef : '',
+    iSituacionBienId : '3',
+    cSituacionBienDescripcion : '',
+    iBienId:'',
+    cBienCodigo :'',
+    cBienDescripcion :'',
+
+   }
+  
     this.Bien = {
       iTipoCId:'0',
       iBienId : 'autogenerado',
@@ -560,90 +542,428 @@ ngOnInit(): void {
         button = buttons.item(i) as HTMLElement;
         rippleEffect(button, { selector: '.e-btn' });
     }
-    this.toolbar =  [
-     /*  { text: 'Nuevo', tooltipText: 'Nuevo', prefixIcon: 'e-add', id: 'nuevo_' },
+   /* this.toolbar =  [
+
+      { text: 'Nuevo', tooltipText: 'Nuevo',  prefixIcon:'sf-icon-add-new tb-icons', id: 'nuevo_' },
+      { text: 'Editar', tooltipText: 'Nuevo',  prefixIcon:'e-cut-icon tb-icons', id: 'nuevo_' },
+      { text: 'Eliminar', tooltipText: 'Nuevo',  prefixIcon:'e-cut-icon tb-icons', id: 'nuevo_' },
+      { type:'Separator' },
+     
+      { text: 'Nuevo', tooltipText: 'Nuevo',  prefixIcon:'e-cut-icon tb-icons', id: 'nuevo_' },
+      {  text: 'Codigo de Barra', prefixIcon: 'sf-icon-barcode tb-icons', id: 'medium', align: 'Right' }*/
+
+    /*  <e-item prefixIcon='e-cut-icon tb-icons' tooltipText='Cut'></e-item>
+                            <e-item prefixIcon='e-copy-icon tb-icons' tooltipText='Copy'></e-item>
+                            <e-item prefixIcon='e-paste-icon tb-icons' tooltipText='Paste'></e-item>
+                            <e-item type='Separator'></e-item>
+                            <e-item prefixIcon='e-bold-icon tb-icons' tooltipText='Bold'></e-item>
+                            <e-item prefixIcon='e-underline-icon tb-icons' tooltipText='Underline'></e-item>
+                            <e-item prefixIcon='e-italic-icon tb-icons' tooltipText='Italic'></e-item>
+                            <e-item prefixIcon='e-color-icon tb-icons' tooltipText='Color-Picker'></e-item>
+                            <e-item type='Separator'></e-item>
+                            <e-item prefixIcon='e-alignleft-icon tb-icons' tooltipText='Align-Left'></e-item>
+                            <e-item prefixIcon='e-alignright-icon tb-icons' tooltipText='Align-Right'></e-item>
+                            <e-item prefixIcon='e-aligncenter-icon tb-icons' tooltipText='Align-Center'></e-item>
+                            <e-item prefixIcon='e-alignjustify-icon tb-icons' tooltipText='Align-Justify'></e-item>
+                            <e-item type='Separator'></e-item>
+                            <e-item prefixIcon='e-bullets-icon tb-icons' tooltipText='Bullets'></e-item>
+                            <e-item prefixIcon='e-numbering-icon tb-icons' tooltipText='Numbering'></e-item>
+                            <e-item type='Separator'></e-item>
+                            <e-item prefixIcon='e-ascending-icon tb-icons' tooltipText='Ascending'></e-item>
+                            <e-item prefixIcon='e-descending-icon tb-icons' tooltipText='Descending'></e-item>
+                            <e-item type='Separator'></e-item>
+                            <e-item prefixIcon='e-upload-icon tb-icons' tooltipText='Upload'></e-item>
+                            <e-item prefixIcon='e-download-icon tb-icons' tooltipText='Download'></e-item>
+                            <e-item type='Separator'></e-item>
+                            <e-item prefixIcon='e-indent-icon tb-icons' tooltipText='Indent'></e-item>
+                            <e-item prefixIcon='e-outdent-icon tb-icons' tooltipText='Outdent'></e-item>
+                            <e-item type='Separator'></e-item>
+                            <e-item prefixIcon='e-clear-icon tb-icons' tooltipText='Clear'></e-item>
+                            <e-item prefixIcon='e-reload-icon tb-icons' tooltipText='Reload'></e-item>
+                            <e-item prefixIcon='e-export-icon tb-icons' tooltipText='Export'></e-item>*/
+
+    //]
+    /*
+    { text: 'Nuevo', tooltipText: 'Nuevo', prefixIcon: 'e-add', id: 'nuevo_' },
        { text: 'Editar', tooltipText: 'Editar', prefixIcon: 'e-edit', id: 'editar_' },
        { text: 'Eliminar', tooltipText: 'Eliminar', prefixIcon: 'e-delete', id: 'eliminar_' },
        { text: 'Ver', tooltipText: 'Ver', prefixIcon: 'e-search', id: 'ver_' },
     
     'CsvExport',  { text: 'Clear Filters', tooltipText: 'Clear Filters', prefixIcon: 'e-custom-icons e-filternone', id: 'ClearFilters' },*/
-      { text: 'Nuevo', tooltipText: 'Nuevo', prefixIcon: 'e-test', id: 'nuevo_' },
+     /* { text: 'Nuevo', tooltipText: 'Nuevo', prefixIcon: 'e-test', id: 'nuevo_' },
       { prefixIcon: 'e-settings', id: 'big', align: 'Right' },
       { prefixIcon: 'e-medium-icon', id: 'medium', align: 'Right' },
       { prefixIcon: 'e-big-icon', id: 'small', align: 'Right' }
-      ];
+      ];*/
 
 
       
     //  this.toolbar = [{ text: 'Expand All', tooltipText: 'Expand All', prefixIcon: 'e-expand', id: 'expandall' },{ text: 'Collapse All', tooltipText: 'collection All', prefixIcon: 'e-collapse', id: 'collapseall', align:'Right' }];
        
-    this.pageOptions = { pageSize: 30, pageCount: 4 };
-    let state = { skip: 0, take: 30 };
-    this.service.execute(state);
-
-
+ 
     this.Dialog.hide();
 }
+clickHandler_np(args: ClickEventArgs): void {//para tamaño de fila de la grila
+  if (args.item.id === 'small_b_np') {
+    this.gridSobrates.rowHeight = 20;
+    }
+  if (args.item.id === 'medium_b_np') {
+      this.gridSobrates.rowHeight = 40;
+  }
+  if (args.item.id === 'big_b_np') {
+      this.gridSobrates.rowHeight = 60;
+  }
+
+  }
 clickHandler(args: ClickEventArgs): void {//para tamaño de fila de la grila
-  if (args.item.id === 'small') {
-      this.grid.rowHeight = 20;
-      }
-  if (args.item.id === 'medium') {
-      this.grid.rowHeight = 40;
+  let tSelect=0;
+  let selectedrecords: object[];
+  switch (this.tabSlect) {
+    case 0:
+         selectedrecords = this.grid.getSelectedRecords();  // Get the selected records.  
+          tSelect=this.grid.getSelectedRecords().length;             
+        break;
+    case 1:     
+         selectedrecords = this.gridSobrates.getSelectedRecords();  
+         tSelect=this.gridSobrates.getSelectedRecords().length;               
+        break;
+    case 2:        
+        selectedrecords = this.gridFaltantes.getSelectedRecords(); 
+        tSelect=this.gridFaltantes.getSelectedRecords().length;        
+        break;  
+     case 3:          
+        selectedrecords = this.gridSustraidos.getSelectedRecords(); 
+        tSelect=this.gridSustraidos.getSelectedRecords().length;      
+        break;   
+    case 4:
+        selectedrecords = this.gridChispitas.getSelectedRecords(); 
+        tSelect=this.gridChispitas.getSelectedRecords().length;     
+      break;    
+    case 5: 
+        selectedrecords = this.gridlaptops.getSelectedRecords();  
+        tSelect=this.gridlaptops.getSelectedRecords().length;     
+      break;
+    case 6: 
+      selectedrecords = this.gridBajas.getSelectedRecords();  
+      tSelect=this.gridBajas.getSelectedRecords().length;     
+    break;  
+ 
+    }
+
+ 
+ if( args.item.id==='m_b' || args.item.id==='e_b' || args.item.id==='v_b' || args.item.id==='b_b'  || args.item.id==='ms_b'     ){
+  if(tSelect>0) {  
+
+   
+   
+    this.setBienDatos(
+      selectedrecords[0]['iTipoCId'],
+        selectedrecords[0]['iBienId'],  
+      selectedrecords[0]['cBienCodigo'],
+      selectedrecords[0]['cBienDescripcion'],
+      selectedrecords[0]['nBienValor'],
+      selectedrecords[0]['cBienSerie'],
+      selectedrecords[0]['cBienDimension'],
+      selectedrecords[0]['cBienOtrasCaracteristicas'],
+      selectedrecords[0]['bBienBaja'],
+      selectedrecords[0]['dBienFechaBaja'],
+      selectedrecords[0]['cBienCausalBaja'],
+      selectedrecords[0]['cBienResolucionBaja'],
+      selectedrecords[0]['dBienAnioFabricacion'],
+      selectedrecords[0]['cBienObs'],
+      selectedrecords[0]['iEstadoBienId'],
+      selectedrecords[0]['iFormaAdqId'],
+      selectedrecords[0]['iTipoId'],
+      selectedrecords[0]['iYearId'],
+      selectedrecords[0]['iCatalogoNoPatId'],
+      selectedrecords[0]['iCatSbnId'],
+      selectedrecords[0]['iDocAdqId'],
+    
+    
+      selectedrecords[0]['cPlanContCodigo'] ,
+      selectedrecords[0]['cPlanContDescripcion'],
+    
+      selectedrecords[0]['cClasGastoCodigo'] ,
+      selectedrecords[0]['cClasGastoDescripcion'],
+    
+      
+      selectedrecords[0]['cDocAdqNro'] ,
+      selectedrecords[0]['dDocAdqFecha'] ,
+      selectedrecords[0]['nDocAdqValor'] ,
+      selectedrecords[0]['cFormaAdqDescripcion'],
+    
+      selectedrecords[0]['cTipoDescripcion'] ,
+      selectedrecords[0]['cModeloDescripcion'] ,
+      selectedrecords[0]['cMarcaDescripcion'],
+      selectedrecords[0]['iCatalogoId'],
+      selectedrecords[0]['colores'],   
+    
+    
+      );            
+     // this.Dialog.show();  
+    } 
+
+ }
+
+  switch (args.item.id) {
+    case 'n_b':
+        this.setBienDatos("0","autogenerado","","","","","","","","","","","","","1","","","","","","","","","","","","","","","","","","",[]);
+        if(this.grid.getSelectedRecords().length){  
+          this.grid.clearSelection();          
+        }          
+        this.icoForm=faPlus;
+        this.opcion=0;       
+        this.Dialog.show();
+     
+        break;
+    case 'v_b':
+      
+        if(tSelect>0){
+          this.icoForm=faInfo;
+          this.opcion=1;       
+          this.Dialog.show();
+        }else {                  
+            this.toastObj.show(this.toasts[0]);
+        } 
+
+    break;   
+    case 'm_b':    
+     
+          
+          if(tSelect>0){
+            this.opcion=2;                   
+            this.icoForm=faEdit;      
+            this.Dialog.show();
+          }else {                  
+             this.toastObj.show(this.toasts[0]);
+          } 
+
+        break;
+    case 'e_b':
+        this.opcion=3;     
+        this.alertDialog.show();
+        break;  
+    
+    case 'cb_b':
+        if(tSelect>0){
+          this.opcion=4;
+          pdfMake.createPdf(this.Etiqueta()).print()
+        }else {                  
+           this.toastObj.show(this.toasts[0]);
+        } 
+
+       ;
+      break;   
+    case 'b_b':
+        if(tSelect>0){
+          this.opcion=5;
+         // this.icoForm=faInfo;
+         // this.opcion=1;       
+          //this.Dialog.show();
+          this.DialogBaja.show();
+        }else {                  
+           this.toastObj.show(this.toasts[0]);
+        } 
+        //his.alertDialog.show();
+    break;   
+
+    case 'ms_b':
+        if(tSelect>0){
+          this.opcion=6;
+          // this.icoForm=faInfo;
+          // this.opcion=1;       
+           //this.Dialog.show();
+          
+           this.bienSituaciones = { 
+            iSituacionesBienId : 'autogenerado',
+            cSituacionesBienCausal :'',    
+            bSituacionesBienUltimoSituacion :false,
+            dSituacionesBienFecha : '',
+            cSituacionesBienDocRef : '',
+            iSituacionBienId : '3',
+            cSituacionBienDescripcion : '',
+            iBienId:this.Bien.iBienId,
+            cBienCodigo :this.Bien.cBienCodigo,
+            cBienDescripcion :this.Bien.cBienDescripcion,
+
+           }
+           this.DialogMover.show();
+         }else {                  
+            this.toastObj.show(this.toasts[0]);
+         } 
+    break;
+    case 'small_b':
+        console.log("samllll::"+this.tabSlect);
+        switch (this.tabSlect) {
+          case 0:
+              this.grid.rowHeight = 60;            
+              break;
+          case 1:       
+               this.gridSobrates.rowHeight = 60;              
+              break;
+          case 2:         
+              this.gridFaltantes.rowHeight = 60;       
+              break;  
+           case 3:    
+              this.gridSustraidos.rowHeight = 60;     
+              break;   
+          case 4:
+              this.gridChispitas.rowHeight = 60;     
+            break;    
+          case 5:  
+              this.gridlaptops.rowHeight = 60;    
+            break;
+          case 6 :  
+            this.gridBajas.rowHeight = 60;    
+          break;       
+          } 
+
+      break;  
+    case 'medium_b':
+        switch (this.tabSlect) {
+          case 0:
+              this.grid.rowHeight = 40;            
+              break;
+          case 1:       
+               this.gridSobrates.rowHeight = 40;              
+              break;
+          case 2:         
+              this.gridFaltantes.rowHeight = 40;       
+              break;  
+           case 3:    
+              this.gridSustraidos.rowHeight = 40;     
+              break;   
+          case 4:
+              this.gridChispitas.rowHeight = 40;     
+            break;    
+          case 5:  
+              this.gridlaptops.rowHeight = 40;    
+            break;
+          case 6 :  
+            this.gridBajas.rowHeight = 40;    
+          break;       
+          } 
+
+
+    break;    
+    case 'big_b':
+     
+        switch (this.tabSlect) {
+          case 0:
+              this.grid.rowHeight = 20;            
+              break;
+          case 1:       
+               this.gridSobrates.rowHeight = 20;              
+              break;
+          case 2:         
+              this.gridFaltantes.rowHeight = 20;       
+              break;  
+           case 3:    
+              this.gridSustraidos.rowHeight = 20;     
+              break;   
+          case 4:
+              this.gridChispitas.rowHeight = 20;     
+            break;    
+          case 5:  
+              this.gridlaptops.rowHeight = 20;    
+            break;
+          case 6 :  
+            this.gridBajas.rowHeight = 20;    
+          break;       
+          } 
+
+
+    break;     
+ 
   }
-  if (args.item.id === 'big') {
-      this.grid.rowHeight = 60;
-  }
+
+
+  /*if(args.item.id=='b_b'){
+
+  }  */
+
+   
+  
+
+
+
 }
 rowSelected(args: RowSelectEventArgs) { 
-  console.log("select");
-  const selectedrecords: object[] = this.grid.getSelectedRecords();  // Get the selected records.       
-  this.setBienDatos(
-    selectedrecords[0]['iTipoCId'],
-    selectedrecords[0]['iBienId'],  
-  selectedrecords[0]['cBienCodigo'],
-  selectedrecords[0]['cBienDescripcion'],
-  selectedrecords[0]['nBienValor'],
-  selectedrecords[0]['cBienSerie'],
-  selectedrecords[0]['cBienDimension'],
-  selectedrecords[0]['cBienOtrasCaracteristicas'],
-  selectedrecords[0]['bBienBaja'],
-  selectedrecords[0]['dBienFechaBaja'],
-  selectedrecords[0]['cBienCausalBaja'],
-  selectedrecords[0]['cBienResolucionBaja'],
-  selectedrecords[0]['dBienAnioFabricacion'],
-  selectedrecords[0]['cBienObs'],
-  selectedrecords[0]['iEstadoBienId'],
-  selectedrecords[0]['iFormaAdqId'],
-  selectedrecords[0]['iTipoId'],
-  selectedrecords[0]['iYearId'],
-  selectedrecords[0]['iCatalogoNoPatId'],
-  selectedrecords[0]['iCatSbnId'],
-  selectedrecords[0]['iDocAdqId'],
 
-
-  selectedrecords[0]['cPlanContCodigo'] ,
-  selectedrecords[0]['cPlanContDescripcion'],
-
-  selectedrecords[0]['cClasGastoCodigo'] ,
-  selectedrecords[0]['cClasGastoDescripcion'],
+  let selectedrecords: object[];
+  switch (this.tabSlect) {
+    case 0:
+         selectedrecords = this.grid.getSelectedRecords();  // Get the selected records.            
+        break;
+    case 1:     
+         selectedrecords = this.gridSobrates.getSelectedRecords();                
+        break;
+    case 2:        
+        selectedrecords = this.gridFaltantes.getSelectedRecords();        
+        break;  
+     case 3:          
+        selectedrecords = this.gridSustraidos.getSelectedRecords();      
+        break;   
+    case 4:
+        selectedrecords = this.gridChispitas.getSelectedRecords();      
+      break;    
+    case 5: 
+        selectedrecords = this.gridlaptops.getSelectedRecords();     
+      break;
+      case 6: 
+        selectedrecords = this.gridBajas.getSelectedRecords();     
+      break;
+ 
+    }
 
   
-  selectedrecords[0]['cDocAdqNro'] ,
-  selectedrecords[0]['dDocAdqFecha'] ,
-  selectedrecords[0]['nDocAdqValor'] ,
-  selectedrecords[0]['cFormaAdqDescripcion'],
+    
+        this.setBienDatos(
+          selectedrecords[0]['iTipoCId'],
+          selectedrecords[0]['iBienId'],  
+        selectedrecords[0]['cBienCodigo'],
+        selectedrecords[0]['cBienDescripcion'],
+        selectedrecords[0]['nBienValor'],
+        selectedrecords[0]['cBienSerie'],
+        selectedrecords[0]['cBienDimension'],
+        selectedrecords[0]['cBienOtrasCaracteristicas'],
+        selectedrecords[0]['bBienBaja'],
+        selectedrecords[0]['dBienFechaBaja'],
+        selectedrecords[0]['cBienCausalBaja'],
+        selectedrecords[0]['cBienResolucionBaja'],
+        selectedrecords[0]['dBienAnioFabricacion'],
+        selectedrecords[0]['cBienObs'],
+        selectedrecords[0]['iEstadoBienId'],
+        selectedrecords[0]['iFormaAdqId'],
+        selectedrecords[0]['iTipoId'],
+        selectedrecords[0]['iYearId'],
+        selectedrecords[0]['iCatalogoNoPatId'],
+        selectedrecords[0]['iCatSbnId'],
+        selectedrecords[0]['iDocAdqId'],
 
-  selectedrecords[0]['cTipoDescripcion'] ,
-  selectedrecords[0]['cModeloDescripcion'] ,
-  selectedrecords[0]['cMarcaDescripcion'],
-  selectedrecords[0]['iCatalogoId'],
-  selectedrecords[0]['colores'],
+
+        selectedrecords[0]['cPlanContCodigo'] ,
+        selectedrecords[0]['cPlanContDescripcion'],
+
+        selectedrecords[0]['cClasGastoCodigo'] ,
+        selectedrecords[0]['cClasGastoDescripcion'],
+
+        
+        selectedrecords[0]['cDocAdqNro'] ,
+        selectedrecords[0]['dDocAdqFecha'] ,
+        selectedrecords[0]['nDocAdqValor'] ,
+        selectedrecords[0]['cFormaAdqDescripcion'],
+
+        selectedrecords[0]['cTipoDescripcion'] ,
+        selectedrecords[0]['cModeloDescripcion'] ,
+        selectedrecords[0]['cMarcaDescripcion'],
+        selectedrecords[0]['iCatalogoId'],
+        selectedrecords[0]['colores'],
 
 
 
-  );     
-  this.devuelve_Biens.emit(this.Bien);
+        );     
+        this.devuelve_Biens.emit(this.Bien);
 }
 
 
@@ -719,5 +1039,49 @@ cerrar_ventana_modal_(b:string){
     this.Dialog.hide();
 }
 
+public cerrar_ventana_modal_bien_baja(Bien:BienInterface){  
+  this.serviceCrud.baja(Bien).subscribe((respon)=>{ 
+    if(respon["validated"]==true)
+    this.toastObj.show( { title: 'Éxito!', content: respon["mensaje"], cssClass: 'e-toast-success', icon: 'e-success toast-icons' });   
+    this.grid.refresh();//refresescamos la grilñla 
+    
+    });
+    this.DialogBaja.hide();
+ }
+ public cerrar_ventana_modal_bien_mover(bienSituaciones:SituacionesBienesInterface){  
+  this.serviceSituacionBienCrud.crear(bienSituaciones).subscribe((respon)=>{ 
+    if(respon["validated"]==true)
+    this.toastObj.show( { title: 'Éxito!', content: respon["mensaje"], cssClass: 'e-toast-success', icon: 'e-success toast-icons' });   
+    
+     //this.grid.refresh();//refresescamos la grilñla 
+     switch (this.tabSlect) {
+      case 0:
+          this.grid.refresh();          
+          break;
+      case 1:     
+          this.gridSobrates.refresh();           
+          break;
+      case 2:
+          this.gridFaltantes.refresh();   
+          break;  
+       case 3:
+          this.gridSustraidos.refresh();   
+          break;   
+      case 4:
+          this.gridChispitas.refresh();   
+        break;    
+      case 5:
+          this.gridlaptops.refresh();    
+        break;
+   
+    }
+
+    
+    });
+    this.DialogMover.hide();
+ }
+
+ 
+ 
 }
 

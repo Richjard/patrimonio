@@ -26,6 +26,58 @@
     </ng-template>
 </ejs-dialog>
 
+<ejs-dialog #modalFormbaja  [isModal]='isModal' [allowDragging]='dialogdragging'  [height]='height' [visible]='hidden'  [animationSettings]='animationSettings' [showCloseIcon]='showCloseIcon' [target]='target' [width]='width' (open)="dialogOpen()"
+    (close)="dialogClose()">  
+    <!--<ng-template #footerTemplate>
+        <input id="inVal" class="e-input" type="text" placeholder="Enter your message here!"/>
+            <button id="sendButton" class="e-control e-btn e-light sendButton" data-ripple="true">Cancelar</button>
+            <button id="sendButton"  class="e-control e-btn e-primary sendButton" data-ripple="true">Guardar</button>         
+                <button  [disabled]="userForm.form.invalid" >SAVE</button>
+    </ng-template>-->
+    <ng-template #content>
+        <div class="dialogContent">
+            <span class="dialogText">    
+            <app-baja-form-bienes [datosBien]="Bien" [op]="opcion" (devuelve_hijo)="cerrar_ventana_modal_bien_baja($event)" (cerrar_modal)="cerrar_ventana_modal_($event)"></app-baja-form-bienes>                   
+        
+            </span>     
+        </div>
+    </ng-template>
+
+    <ng-template #header>
+        <!--<div class="e-avatar template-image e-avatar-xsmall e-avatar-circle">fadsf</div>-->
+
+        <fa-icon [icon]="icoForm" size="lg"></fa-icon>
+                                                        
+        <div id="dlg-template" title="Nancy" class="e-icon-settings"> Formulario Bien dar Baja</div>
+    </ng-template>
+</ejs-dialog>
+
+<ejs-dialog #modalFormMover  [isModal]='isModal' [allowDragging]='dialogdragging'  [height]='height' [visible]='hidden'  [animationSettings]='animationSettings' [showCloseIcon]='showCloseIcon' [target]='target' [width]='width' (open)="dialogOpen()"
+    (close)="dialogClose()">  
+    <!--<ng-template #footerTemplate>
+        <input id="inVal" class="e-input" type="text" placeholder="Enter your message here!"/>
+            <button id="sendButton" class="e-control e-btn e-light sendButton" data-ripple="true">Cancelar</button>
+            <button id="sendButton"  class="e-control e-btn e-primary sendButton" data-ripple="true">Guardar</button>         
+                <button  [disabled]="userForm.form.invalid" >SAVE</button>
+    </ng-template>-->
+    <ng-template #content>
+        <div class="dialogContent">
+            <span class="dialogText">    
+            <app-mover-form-bienes [datosBienSituaciones]="bienSituaciones" [op]="opcion" (devuelve_hijo)="cerrar_ventana_modal_bien_mover($event)" (cerrar_modal)="cerrar_ventana_modal_($event)"></app-mover-form-bienes>                   
+        
+            </span>     
+        </div>
+    </ng-template>
+
+    <ng-template #header>
+        <!--<div class="e-avatar template-image e-avatar-xsmall e-avatar-circle">fadsf</div>-->
+
+        <fa-icon [icon]="icoForm" size="lg"></fa-icon>
+                                                        
+        <div id="dlg-template" title="Nancy" class="e-icon-settings"> Formulario Bien Mover de situación </div>
+    </ng-template>
+</ejs-dialog>
+
 
     <div class="col-lg-12 control-section toast-default-section">
         <div class="e-sample-resize-container">
@@ -36,68 +88,498 @@
 
 
 
-    <h1>Bienes</h1>
+    <!--<h1>Bienes</h1>
     <div id="action-description">
     <p>
         En esta seccion puede UD. gestionar   <code>Bienes</code>.
 
 
 
-    </div>
+    </div>-->
 
  
 
+   <!-- Render the Tab Component -->
+   <ejs-tab id="tab_default" heightAdjustMode='Auto'  (selected)="selectTab($event)">
+        <e-tabitems>
+            <e-tabitem [header]='headerText[0]'>
+                <ng-template #content>
+                  <br>
 
-   <div class="control-section button-group-container">
-        <div class="button-group-section">
-            <div id="button-group-control">
-                <div class="row">    
-                    <div id="icon" class="e-btn-group">
-                        <button ejs-button id="btnBienNuevo" #ButtonInstance (click)="BtnNuevoBienClick()" ><fa-icon [icon]="faPlus" size="lg"></fa-icon> Nuevo</button>
-                        <button ejs-button id="btnBienVer" #ButtonInstance (click)="BtnVerBienClick()" ><fa-icon [icon]="faInfo" size="lg"></fa-icon> Ver</button>
-                        <button ejs-button id="btnBienModificar" #ButtonInstance (click)="BtnModificarBienClick()"><fa-icon [icon]="faEdit" size="lg"></fa-icon> Modificar</button>
-                        <button ejs-button id="btnBienEliminar" #ButtonInstance (click)="BtnEliminarBienClick()"><fa-icon [icon]="faTrashAlt" size="lg"></fa-icon> Eliminar</button>
-                        <button ejs-button id="btnBienCodigoBarra" #ButtonInstance (click)="BtnCodigoBarraBienClick()"><fa-icon [icon]="faBarcode" size="lg"></fa-icon> Generar Etiqueta</button>
+       
+                  <ejs-grid #grid [dataSource]='dataBienesActivos | async'  [allowSelection]="true" [selectionSettings]="selectOptions"   allowPaging='true' height=465  
+                            [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChange($event)' (rowSelected)='rowSelected($event)'   rowHeight='20'  >
+                            
+                              <ng-template #toolbarTemplate let-data>
+                                    <ejs-toolbar (clicked)='clickHandler($event)'>
+                                        <e-items>
+                                                <e-item id='n_b' prefixIcon='sf-icon-add-new tb-icons' tooltipText='Nuevo registro de bien' text='Nuevo' ></e-item>
+                                                <e-item id='m_b' prefixIcon='sf-icon-data-edit tb-icons' tooltipText='Modificar datos del bien' text='Modificar'></e-item>
+                                                <e-item id='e_b' prefixIcon='sf-icon-garbage-wf  tb-icons' tooltipText='Eliminar bien' text='Eliminar'></e-item>
+                                                <e-item  type='Separator' ></e-item>
+                                                <e-item id='v_b' prefixIcon='sf-icon-message-information tb-icons' tooltipText='Ver datos del bien' text='Ver'></e-item>
+                                                <e-item id='cb_b' prefixIcon='sf-icon-barcode tb-icons' tooltipText='Generar código de Barra' text='Código de Barra' ></e-item>
+                                                <e-item  type='Separator' ></e-item>
+                                                <e-item id='ms_b' prefixIcon='sf-icon-export-01-wf tb-icons' tooltipText='Mover a una situación' text='Mover'></e-item>
+                                                <e-item  type='Separator' ></e-item>
+                                                <e-item id='b_b' prefixIcon='sf-icon-delete tb-icons' tooltipText='Dar de baja el bien' text='Baja'></e-item>
+                                                <e-item  type='Separator' ></e-item>
+                                                <e-item id='ab_b' prefixIcon=' sf-icon-assign tb-icons' tooltipText='Asignar Bienes' text='Asignar bienes'></e-item>
+                                               
+                                               
+                                                <e-item id='small_b' prefixIcon='sf-icon-menu-interface-wf tb-icons'  align='Right'></e-item>
+                                                <e-item id='medium_b' prefixIcon='sf-icon-view-01-wf tb-icons' align='Right'></e-item>
+                                                <e-item id='big_b' prefixIcon='sf-icon-align-justify tb-icons' align='Right'></e-item>
+                                               
+                                        </e-items>
+                                    </ejs-toolbar>
+                                </ng-template>
+                                <e-columns>
+                                    <e-column type='checkbox' width='5%'></e-column>
+                                   <!-- <e-column field= "iTipoCId" headerText="iTipoCId" width="10%" [allowFiltering]="false" [visible]="false"></e-column>
+                                    <e-column field= "RowNumber" headerText="N°" width="2%" [allowFiltering]="false" [allowSorting]="false" [visible]="false"></e-column>
+                                    <e-column field= "iBienId" headerText="ID" width="10%" [allowFiltering]="false" [visible]="false"></e-column>-->
+                                    <e-column field= "iTipoCId" headerText="Tipo" width="5%" [allowFiltering]="false" >
+                                            <ng-template #template let-data>
+                                                    <div class="trust">
+                                                        <img style="width: 31px; height: 24px" src="./assets/images/png/{{data.iTipoCId}}.png" /> 
+                                                    </div>
+                                            </ng-template>
+
+                                    </e-column>
+                                    <e-column field='iTipoDespId' headerText='Desplazamiento' width="5%" [allowFiltering]="false">  
+                                            <ng-template #template let-data>                       
+                                                    <div *ngIf="data.iTipoDespId === '1';" class="statustemp e-activecolor">                                          
+                                                            <span class="statustxt e-sinAsignar">Sin asignar</span>           
+                                                    </div>
+                                                    <div *ngIf="data.iTipoDespId === '2';" class="statustemp e-inactivecolor">                                          
+                                                            <span class="statustxt e-Asignado">Asignado</span>           
+                                                    </div>
+                                                    <div *ngIf="data.iTipoDespId === '3';" class="statustemp e-activecolor">                                          
+                                                            <span class="statustxt e-Internado">Internado</span>           
+                                                    </div>
+                                                    <div *ngIf="data.iTipoDespId === '4';" class="statustemp e-activecolor">                                          
+                                                            <span class="statustxt e-Prestado">Prestado</span>           
+                                                    </div>                                           
+                                                </ng-template>     
+                                     </e-column>
+                                    <e-column field= "cBienCodigo" headerText="Código Pat." width="15%"  ></e-column>
+                                    <e-column field= "cBienDescripcion" headerText="Descripcion" width="45%" [allowResizing] = 'true' ></e-column>
+                                    <e-column field= "cDocAdqNro" headerText="Nro O/C" width="5%"  [allowSorting]="true"></e-column>
+                                    <e-column field= "dDocAdqFecha" headerText="Fecha O/C" width="5%"  [allowFiltering]="false" [allowSorting]="true" ></e-column>
+                                    <e-column field= "nBienValor" headerText="Valor Adqu." width="5%"  [allowFiltering]="false" [allowSorting]="true"></e-column> 
+                                      
+                                    
+                                   
+                                </e-columns>
+                            </ejs-grid>
+
+
+                </ng-template>
+            </e-tabitem>
+            <e-tabitem [header]='headerText[1]'>
+                <ng-template #content>
+
+
+                    
+
+                    <ejs-grid #gridSobrates [dataSource]='dataBienesSobrantes | async'  [allowSelection]="true" [selectionSettings]="selectOptions"   allowPaging='true' height=465  
+                    [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChangeSobrantes($event)' (rowSelected)='rowSelected($event)'   rowHeight='20'  >
+                    
+                      <ng-template #toolbarTemplate let-data>
+                            <ejs-toolbar (clicked)='clickHandler($event)'>
+                                <e-items>                               
+                                       
+                                        <e-item id='v_b' prefixIcon='sf-icon-message-information tb-icons' tooltipText='Ver datos del bien' text='Ver'></e-item>
+                                        <e-item id='cb_b' prefixIcon='sf-icon-barcode tb-icons' tooltipText='Generar código de Barra' text='Código de Barra' ></e-item>
+                                        <e-item  type='Separator' ></e-item>
+                                        <e-item id='ms_b' prefixIcon='sf-icon-export-01-wf tb-icons' tooltipText='Mover a una situación' text='Mover'></e-item>
+                                        <e-item  type='Separator' ></e-item>
+                                        <e-item id='b_b' prefixIcon='sf-icon-delete tb-icons' tooltipText='Dar de baja el bien' text='Baja'></e-item>       
+                                       
+                                        <e-item id='small_b' prefixIcon='sf-icon-menu-interface-wf tb-icons'  align='Right'></e-item>
+                                        <e-item id='medium_b' prefixIcon='sf-icon-view-01-wf tb-icons' align='Right'></e-item>
+                                        <e-item id='big_b' prefixIcon='sf-icon-align-justify tb-icons' align='Right'></e-item>
+                                       
+                                </e-items>
+                            </ejs-toolbar>
+                        </ng-template>
+                        <e-columns>
+                            <e-column type='checkbox' width='5%'></e-column>
+                           <!-- <e-column field= "iTipoCId" headerText="iTipoCId" width="10%" [allowFiltering]="false" [visible]="false"></e-column>
+                            <e-column field= "RowNumber" headerText="N°" width="2%" [allowFiltering]="false" [allowSorting]="false" [visible]="false"></e-column>
+                            <e-column field= "iBienId" headerText="ID" width="10%" [allowFiltering]="false" [visible]="false"></e-column>-->
+                            <e-column field= "iTipoCId" headerText="Tipo" width="5%" [allowFiltering]="false" >
+                                    <ng-template #template let-data>
+                                            <div class="trust">
+                                                <img style="width: 31px; height: 24px" src="./assets/images/png/{{data.iTipoCId}}.png" /> 
+                                            </div>
+                                    </ng-template>
+
+                            </e-column>
+                            <e-column field='iTipoDespId' headerText='Desplazamiento' width="5%" [allowFiltering]="false">  
+                                    <ng-template #template let-data>                       
+                                            <div *ngIf="data.iTipoDespId === '1';" class="statustemp e-activecolor">                                          
+                                                    <span class="statustxt e-sinAsignar">Sin asignar</span>           
+                                            </div>
+                                            <div *ngIf="data.iTipoDespId === '2';" class="statustemp e-inactivecolor">                                          
+                                                    <span class="statustxt e-Asignado">Asignado</span>           
+                                            </div>
+                                            <div *ngIf="data.iTipoDespId === '3';" class="statustemp e-activecolor">                                          
+                                                    <span class="statustxt e-Internado">Internado</span>           
+                                            </div>
+                                            <div *ngIf="data.iTipoDespId === '4';" class="statustemp e-activecolor">                                          
+                                                    <span class="statustxt e-Prestado">Prestado</span>           
+                                            </div>                                           
+                                        </ng-template>     
+                             </e-column>
+                            <e-column field= "cBienCodigo" headerText="Código Pat." width="15%"  ></e-column>
+                            <e-column field= "cBienDescripcion" headerText="Descripcion" width="45%" [allowResizing] = 'true' ></e-column>
+                            <e-column field= "cDocAdqNro" headerText="Nro O/C" width="5%"  [allowSorting]="true"></e-column>
+                            <e-column field= "dDocAdqFecha" headerText="Fecha O/C" width="5%"  [allowFiltering]="false" [allowSorting]="true" ></e-column>
+                            <e-column field= "nBienValor" headerText="Valor Adqu." width="5%"  [allowFiltering]="false" [allowSorting]="true"></e-column> 
+                                      
+                                      
+                        </e-columns>
+                    </ejs-grid>
+                 
+
+
+                </ng-template>
+            </e-tabitem>
+            <e-tabitem [header]='headerText[2]'>
+                <ng-template #content>
+                    
+
                         
-                    </div>
-                </div>
+                    <ejs-grid #gridFaltantes [dataSource]='dataBienesFaltantes| async'  [allowSelection]="true" [selectionSettings]="selectOptions"   allowPaging='true' height=465  
+                    [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChangeFaltantes($event)' (rowSelected)='rowSelected($event)'   rowHeight='20'  >
+                    
+                      <ng-template #toolbarTemplate let-data>
+                            <ejs-toolbar (clicked)='clickHandler($event)'>
+                                <e-items>                                    
+                                       
+                                        <e-item id='small_b' prefixIcon='sf-icon-menu-interface-wf tb-icons'  align='Right'></e-item>
+                                        <e-item id='medium_b' prefixIcon='sf-icon-view-01-wf tb-icons' align='Right'></e-item>
+                                        <e-item id='big_b' prefixIcon='sf-icon-align-justify tb-icons' align='Right'></e-item>
+                                       
+                                </e-items>
+                            </ejs-toolbar>
+                        </ng-template>
+                        <e-columns>
+                            <e-column type='checkbox' width='5%'></e-column>
+                           <!-- <e-column field= "iTipoCId" headerText="iTipoCId" width="10%" [allowFiltering]="false" [visible]="false"></e-column>
+                            <e-column field= "RowNumber" headerText="N°" width="2%" [allowFiltering]="false" [allowSorting]="false" [visible]="false"></e-column>
+                            <e-column field= "iBienId" headerText="ID" width="10%" [allowFiltering]="false" [visible]="false"></e-column>-->
+                            <e-column field= "iTipoCId" headerText="Tipo" width="5%" [allowFiltering]="false" >
+                                    <ng-template #template let-data>
+                                            <div class="trust">
+                                                <img style="width: 31px; height: 24px" src="./assets/images/png/{{data.iTipoCId}}.png" /> 
+                                            </div>
+                                    </ng-template>
+
+                            </e-column>
+                            <e-column field='iTipoDespId' headerText='Desplazamiento' width="5%" [allowFiltering]="false">  
+                                    <ng-template #template let-data>                       
+                                            <div *ngIf="data.iTipoDespId === '1';" class="statustemp e-activecolor">                                          
+                                                    <span class="statustxt e-sinAsignar">Sin asignar</span>           
+                                            </div>
+                                            <div *ngIf="data.iTipoDespId === '2';" class="statustemp e-inactivecolor">                                          
+                                                    <span class="statustxt e-Asignado">Asignado</span>           
+                                            </div>
+                                            <div *ngIf="data.iTipoDespId === '3';" class="statustemp e-activecolor">                                          
+                                                    <span class="statustxt e-Internado">Internado</span>           
+                                            </div>
+                                            <div *ngIf="data.iTipoDespId === '4';" class="statustemp e-activecolor">                                          
+                                                    <span class="statustxt e-Prestado">Prestado</span>           
+                                            </div>                                           
+                                        </ng-template>     
+                             </e-column>
+                            <e-column field= "cBienCodigo" headerText="Código Pat." width="15%"  ></e-column>
+                            <e-column field= "cBienDescripcion" headerText="Descripcion" width="45%" [allowResizing] = 'true' ></e-column>
+                            <e-column field= "cDocAdqNro" headerText="Nro O/C" width="5%"  [allowSorting]="true"></e-column> 
+                            <e-column field= "dDocAdqFecha" headerText="Fecha O/C" width="5%"  [allowFiltering]="false" [allowSorting]="true" ></e-column>
+                            <e-column field= "nBienValor" headerText="Valor Adqu." width="5%"  [allowFiltering]="false" [allowSorting]="true"></e-column> 
+                              
+                              
+                        </e-columns>
+                    </ejs-grid>
+
                            
-            </div>
-        </div>
-    </div>
+                </ng-template>
+            </e-tabitem>
+            <e-tabitem [header]='headerText[3]'>
+                    <ng-template #content>
+                        
+                    <ejs-grid #gridSustraidos [dataSource]='dataBienesSustraidos | async'  [allowSelection]="true" [selectionSettings]="selectOptions"   allowPaging='true' height=465  
+                    [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChangeSustraidos($event)' (rowSelected)='rowSelected($event)'   rowHeight='20'  >
+                    
+                      <ng-template #toolbarTemplate let-data>
+                            <ejs-toolbar (clicked)='clickHandler($event)'>
+                                <e-items>                                    
+                                        <e-item id='v_b' prefixIcon='sf-icon-message-information tb-icons' tooltipText='Ver datos del bien' text='Ver'></e-item>
+                                        <e-item id='cb_b' prefixIcon='sf-icon-barcode tb-icons' tooltipText='Generar código de Barra' text='Código de Barra' ></e-item>
+                                        <e-item  type='Separator' ></e-item>
+                                        <e-item id='ms_b' prefixIcon='sf-icon-export-01-wf tb-icons' tooltipText='Mover a una situación' text='Mover'></e-item>
+                                        <e-item  type='Separator' ></e-item>
+                                        <e-item id='b_b' prefixIcon='sf-icon-delete tb-icons' tooltipText='Dar de baja el bien' text='Baja'></e-item>     
+
+                                        <e-item id='small_b' prefixIcon='sf-icon-menu-interface-wf tb-icons'  align='Right'></e-item>
+                                        <e-item id='medium_b' prefixIcon='sf-icon-view-01-wf tb-icons' align='Right'></e-item>
+                                        <e-item id='big_b' prefixIcon='sf-icon-align-justify tb-icons' align='Right'></e-item>
+                                       
+                                </e-items>
+                            </ejs-toolbar>
+                        </ng-template>
+                        <e-columns>
+                            <e-column type='checkbox' width='5%'></e-column>
+                           <!-- <e-column field= "iTipoCId" headerText="iTipoCId" width="10%" [allowFiltering]="false" [visible]="false"></e-column>
+                            <e-column field= "RowNumber" headerText="N°" width="2%" [allowFiltering]="false" [allowSorting]="false" [visible]="false"></e-column>
+                            <e-column field= "iBienId" headerText="ID" width="10%" [allowFiltering]="false" [visible]="false"></e-column>-->
+                            <e-column field= "iTipoCId" headerText="Tipo" width="5%" [allowFiltering]="false" >
+                                    <ng-template #template let-data>
+                                            <div class="trust">
+                                                <img style="width: 31px; height: 24px" src="./assets/images/png/{{data.iTipoCId}}.png" /> 
+                                            </div>
+                                    </ng-template>
+
+                            </e-column>
+                            <e-column field='iTipoDespId' headerText='Desplazamiento' width="5%" [allowFiltering]="false">  
+                                    <ng-template #template let-data>                       
+                                            <div *ngIf="data.iTipoDespId === '1';" class="statustemp e-activecolor">                                          
+                                                    <span class="statustxt e-sinAsignar">Sin asignar</span>           
+                                            </div>
+                                            <div *ngIf="data.iTipoDespId === '2';" class="statustemp e-inactivecolor">                                          
+                                                    <span class="statustxt e-Asignado">Asignado</span>           
+                                            </div>
+                                            <div *ngIf="data.iTipoDespId === '3';" class="statustemp e-activecolor">                                          
+                                                    <span class="statustxt e-Internado">Internado</span>           
+                                            </div>
+                                            <div *ngIf="data.iTipoDespId === '4';" class="statustemp e-activecolor">                                          
+                                                    <span class="statustxt e-Prestado">Prestado</span>           
+                                            </div>                                           
+                                        </ng-template>     
+                             </e-column>
+                            <e-column field= "cBienCodigo" headerText="Código Pat." width="15%"  ></e-column>
+                            <e-column field= "cBienDescripcion" headerText="Descripcion" width="45%" [allowResizing] = 'true' ></e-column>
+                            <e-column field= "cDocAdqNro" headerText="Nro O/C" width="5%"  [allowSorting]="true"></e-column> 
+                            <e-column field= "dDocAdqFecha" headerText="Fecha O/C" width="5%"  [allowFiltering]="false" [allowSorting]="true" ></e-column>
+                            <e-column field= "nBienValor" headerText="Valor Adqu." width="5%"  [allowFiltering]="false" [allowSorting]="true"></e-column> 
+                              
+                              
+                        </e-columns>
+                    </ejs-grid>
+
+
+                    </ng-template>
+                </e-tabitem>
+                <e-tabitem [header]='headerText[4]'>
+                        <ng-template #content>
+                           
+                    <ejs-grid #gridChispitas [dataSource]='dataBienesChispitas | async'  [allowSelection]="true" [selectionSettings]="selectOptions"   allowPaging='true' height=465  
+                    [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChangeChispitas($event)' (rowSelected)='rowSelected($event)'   rowHeight='20'  >
+                    
+                      <ng-template #toolbarTemplate let-data>
+                            <ejs-toolbar (clicked)='clickHandler($event)'>
+                                <e-items>              
+                                        <e-item id='v_b' prefixIcon='sf-icon-message-information tb-icons' tooltipText='Ver datos del bien' text='Ver'></e-item>
+                                        <e-item id='cb_b' prefixIcon='sf-icon-barcode tb-icons' tooltipText='Generar código de Barra' text='Código de Barra' ></e-item>
+                                        <e-item  type='Separator' ></e-item>
+                                        <e-item id='ms_b' prefixIcon='sf-icon-export-01-wf tb-icons' tooltipText='Mover a una situación' text='Mover'></e-item>
+                                        <e-item  type='Separator' ></e-item>
+                                        <e-item id='b_b' prefixIcon='sf-icon-delete tb-icons' tooltipText='Dar de baja el bien' text='Baja'></e-item>                           
+                                       
+                                        <e-item id='small_b' prefixIcon='sf-icon-menu-interface-wf tb-icons'  align='Right'></e-item>
+                                        <e-item id='medium_b' prefixIcon='sf-icon-view-01-wf tb-icons' align='Right'></e-item>
+                                        <e-item id='big_b' prefixIcon='sf-icon-align-justify tb-icons' align='Right'></e-item>
+                                       
+                                </e-items>
+                            </ejs-toolbar>
+                        </ng-template>
+                        <e-columns>
+                            <e-column type='checkbox' width='5%'></e-column>
+                           <!-- <e-column field= "iTipoCId" headerText="iTipoCId" width="10%" [allowFiltering]="false" [visible]="false"></e-column>
+                            <e-column field= "RowNumber" headerText="N°" width="2%" [allowFiltering]="false" [allowSorting]="false" [visible]="false"></e-column>
+                            <e-column field= "iBienId" headerText="ID" width="10%" [allowFiltering]="false" [visible]="false"></e-column>-->
+                            <e-column field= "iTipoCId" headerText="Tipo" width="5%" [allowFiltering]="false" >
+                                    <ng-template #template let-data>
+                                            <div class="trust">
+                                                <img style="width: 31px; height: 24px" src="./assets/images/png/{{data.iTipoCId}}.png" /> 
+                                            </div>
+                                    </ng-template>
+
+                            </e-column>
+                            <e-column field='iTipoDespId' headerText='Desplazamiento' width="5%" [allowFiltering]="false">  
+                                    <ng-template #template let-data>                       
+                                            <div *ngIf="data.iTipoDespId === '1';" class="statustemp e-activecolor">                                          
+                                                    <span class="statustxt e-sinAsignar">Sin asignar</span>           
+                                            </div>
+                                            <div *ngIf="data.iTipoDespId === '2';" class="statustemp e-inactivecolor">                                          
+                                                    <span class="statustxt e-Asignado">Asignado</span>           
+                                            </div>
+                                            <div *ngIf="data.iTipoDespId === '3';" class="statustemp e-activecolor">                                          
+                                                    <span class="statustxt e-Internado">Internado</span>           
+                                            </div>
+                                            <div *ngIf="data.iTipoDespId === '4';" class="statustemp e-activecolor">                                          
+                                                    <span class="statustxt e-Prestado">Prestado</span>           
+                                            </div>                                           
+                                        </ng-template>     
+                             </e-column>
+                            <e-column field= "cBienCodigo" headerText="Código Pat." width="15%"  ></e-column>
+                            <e-column field= "cBienDescripcion" headerText="Descripcion" width="45%" [allowResizing] = 'true' ></e-column>
+                            <e-column field= "cDocAdqNro" headerText="Nro O/C" width="5%"  [allowSorting]="true"></e-column> 
+                            <e-column field= "dDocAdqFecha" headerText="Fecha O/C" width="5%"  [allowFiltering]="false" [allowSorting]="true" ></e-column>
+                            <e-column field= "nBienValor" headerText="Valor Adqu." width="5%"  [allowFiltering]="false" [allowSorting]="true"></e-column> 
+                                
+                        </e-columns>
+                    </ejs-grid>
+
+
+                        </ng-template>
+                    </e-tabitem>
+                    <e-tabitem [header]='headerText[5]'>
+                            <ng-template #content>
+                               
+                            <ejs-grid #gridLaptops [dataSource]='dataBienesLaptops | async'  [allowSelection]="true" [selectionSettings]="selectOptions"   allowPaging='true' height=465  
+                            [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChangeLaptops($event)' (rowSelected)='rowSelected($event)'   rowHeight='20'  >
+                            
+                            <ng-template #toolbarTemplate let-data>
+                                    <ejs-toolbar (clicked)='clickHandler($event)'>
+                                        <e-items>              
+                                                <e-item id='v_b' prefixIcon='sf-icon-message-information tb-icons' tooltipText='Ver datos del bien' text='Ver'></e-item>
+                                                <e-item id='cb_b' prefixIcon='sf-icon-barcode tb-icons' tooltipText='Generar código de Barra' text='Código de Barra' ></e-item>
+                                                <e-item  type='Separator' ></e-item>
+                                                <e-item id='ms_b' prefixIcon='sf-icon-export-01-wf tb-icons' tooltipText='Mover a una situación' text='Mover'></e-item>
+                                                <e-item  type='Separator' ></e-item>
+                                                <e-item id='b_b' prefixIcon='sf-icon-delete tb-icons' tooltipText='Dar de baja el bien' text='Baja'></e-item>                           
+                                            
+                                                <e-item id='small_b' prefixIcon='sf-icon-menu-interface-wf tb-icons'  align='Right'></e-item>
+                                                <e-item id='medium_b' prefixIcon='sf-icon-view-01-wf tb-icons' align='Right'></e-item>
+                                                <e-item id='big_b' prefixIcon='sf-icon-align-justify tb-icons' align='Right'></e-item>
+                                            
+                                        </e-items>
+                                    </ejs-toolbar>
+                                </ng-template>
+                                <e-columns>
+                                    <e-column type='checkbox' width='5%'></e-column>
+                                <!-- <e-column field= "iTipoCId" headerText="iTipoCId" width="10%" [allowFiltering]="false" [visible]="false"></e-column>
+                                    <e-column field= "RowNumber" headerText="N°" width="2%" [allowFiltering]="false" [allowSorting]="false" [visible]="false"></e-column>
+                                    <e-column field= "iBienId" headerText="ID" width="10%" [allowFiltering]="false" [visible]="false"></e-column>-->
+                                    <e-column field= "iTipoCId" headerText="Tipo" width="5%" [allowFiltering]="false" >
+                                            <ng-template #template let-data>
+                                                    <div class="trust">
+                                                        <img style="width: 31px; height: 24px" src="./assets/images/png/{{data.iTipoCId}}.png" /> 
+                                                    </div>
+                                            </ng-template>
+
+                                    </e-column>
+                                    <e-column field='iTipoDespId' headerText='Desplazamiento' width="5%" [allowFiltering]="false">  
+                                            <ng-template #template let-data>                       
+                                                    <div *ngIf="data.iTipoDespId === '1';" class="statustemp e-activecolor">                                          
+                                                            <span class="statustxt e-sinAsignar">Sin asignar</span>           
+                                                    </div>
+                                                    <div *ngIf="data.iTipoDespId === '2';" class="statustemp e-inactivecolor">                                          
+                                                            <span class="statustxt e-Asignado">Asignado</span>           
+                                                    </div>
+                                                    <div *ngIf="data.iTipoDespId === '3';" class="statustemp e-activecolor">                                          
+                                                            <span class="statustxt e-Internado">Internado</span>           
+                                                    </div>
+                                                    <div *ngIf="data.iTipoDespId === '4';" class="statustemp e-activecolor">                                          
+                                                            <span class="statustxt e-Prestado">Prestado</span>           
+                                                    </div>                                           
+                                                </ng-template>     
+                                     </e-column>
+                                    <e-column field= "cBienCodigo" headerText="Código Pat." width="15%"  ></e-column>
+                                    <e-column field= "cBienDescripcion" headerText="Descripcion" width="45%" [allowResizing] = 'true' ></e-column>
+                                    <e-column field= "cDocAdqNro" headerText="Nro O/C" width="5%"  [allowSorting]="true"></e-column> 
+                                    <e-column field= "dDocAdqFecha" headerText="Fecha O/C" width="5%"  [allowFiltering]="false" [allowSorting]="true" ></e-column>
+                                    <e-column field= "nBienValor" headerText="Valor Adqu." width="5%"  [allowFiltering]="false" [allowSorting]="true"></e-column> 
+                                        
+                                </e-columns>
+                    </ejs-grid>
+
+                            </ng-template>
+                        </e-tabitem>
+                        <e-tabitem [header]='headerText[6]'>
+                                <ng-template #content>
+                                 
+
+                                    
+                    <ejs-grid #gridBajas [dataSource]='dataBienesBajas | async'  [allowSelection]="true" [selectionSettings]="selectOptions"   allowPaging='true' height=465  
+                    [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChangeBajas($event)' (rowSelected)='rowSelected($event)'   rowHeight='20'  >
+                    
+                      <ng-template #toolbarTemplate let-data>
+                            <ejs-toolbar (clicked)='clickHandler($event)'>
+                                <e-items>                
+                                        <e-item id='v_b' prefixIcon='sf-icon-message-information tb-icons' tooltipText='Ver datos del bien' text='Ver'></e-item>
+                                                           
+                                       
+                                        <e-item id='small_b' prefixIcon='sf-icon-menu-interface-wf tb-icons'  align='Right'></e-item>
+                                        <e-item id='medium_b' prefixIcon='sf-icon-view-01-wf tb-icons' align='Right'></e-item>
+                                        <e-item id='big_b' prefixIcon='sf-icon-align-justify tb-icons' align='Right'></e-item>
+                                       
+                                </e-items>
+                            </ejs-toolbar>
+                        </ng-template>
+                        <e-columns>
+                            <e-column type='checkbox' width='5%'></e-column>
+                           <!-- <e-column field= "iTipoCId" headerText="iTipoCId" width="10%" [allowFiltering]="false" [visible]="false"></e-column>
+                            <e-column field= "RowNumber" headerText="N°" width="2%" [allowFiltering]="false" [allowSorting]="false" [visible]="false"></e-column>
+                            <e-column field= "iBienId" headerText="ID" width="10%" [allowFiltering]="false" [visible]="false"></e-column>-->
+                            <e-column field= "iTipoCId" headerText="Tipo" width="5%" [allowFiltering]="false" >
+                                    <ng-template #template let-data>
+                                            <div class="trust">
+                                                <img style="width: 31px; height: 24px" src="./assets/images/png/{{data.iTipoCId}}.png" /> 
+                                            </div>
+                                    </ng-template>
+
+                            </e-column>
+                           
+                            <e-column field='iTipoDespId' headerText='Desplazamiento' width="5%" [allowFiltering]="false">  
+                                    <ng-template #template let-data>                       
+                                            <div *ngIf="data.iTipoDespId === '1';" class="statustemp e-activecolor">                                          
+                                                    <span class="statustxt e-sinAsignar">Sin asignar</span>           
+                                            </div>
+                                            <div *ngIf="data.iTipoDespId === '2';" class="statustemp e-inactivecolor">                                          
+                                                    <span class="statustxt e-Asignado">Asignado</span>           
+                                            </div>
+                                            <div *ngIf="data.iTipoDespId === '3';" class="statustemp e-activecolor">                                          
+                                                    <span class="statustxt e-Internado">Internado</span>           
+                                            </div>
+                                            <div *ngIf="data.iTipoDespId === '4';" class="statustemp e-activecolor">                                          
+                                                    <span class="statustxt e-Prestado">Prestado</span>           
+                                            </div>                                           
+                                        </ng-template>     
+                             </e-column>
+                            <e-column field= "cBienCodigo" headerText="Código Pat." width="15%"  >
+                                   
+
+                            </e-column>
+                            <e-column field= "cBienDescripcion" headerText="Descripcion" width="45%" [allowResizing] = 'true' ></e-column>
+                            <e-column field= "cDocAdqNro" headerText="Nro O/C" width="5%"  [allowSorting]="true"></e-column> 
+                            <e-column field= "dDocAdqFecha" headerText="Fecha O/C" width="5%"  [allowFiltering]="false" [allowSorting]="true" ></e-column>
+                            <e-column field= "nBienValor" headerText="Valor Adqu." width="5%"  [allowFiltering]="false" [allowSorting]="true"></e-column> 
+                                
+                        </e-columns>
+                    </ejs-grid>
+
+
+                                </ng-template>
+                            </e-tabitem>
+                        
+                            
+                 
+        </e-tabitems>
+    </ejs-tab>
 
 
 
 
-<ng-template #toolbarTemplate let-data>
-    <ejs-toolbar (clicked)='clickHandler($event)'>
-        <e-items>
-            <e-item id='collapse' prefixIcon='e-collapse'></e-item>
-        </e-items>
-    </ejs-toolbar>
-</ng-template>
-    <ejs-grid #grid [dataSource]='data | async'  [allowSelection]="true" [selectionSettings]="selectOptions"   allowPaging='true' height=465  
-    [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChange($event)' (rowSelected)='rowSelected($event)'  [toolbar]='toolbar' rowHeight='20'   (toolbarClick)='clickHandler($event)'>
-    
+                       
 
-    
-        <e-columns>
-            <e-column type='checkbox' width='5%'></e-column>
-           <!-- <e-column field= "iTipoCId" headerText="iTipoCId" width="10%" [allowFiltering]="false" [visible]="false"></e-column>
-            <e-column field= "RowNumber" headerText="N°" width="2%" [allowFiltering]="false" [allowSorting]="false" [visible]="false"></e-column>
-            <e-column field= "iBienId" headerText="ID" width="10%" [allowFiltering]="false" [visible]="false"></e-column>-->
-            <e-column field= "cBienCodigo" headerText="Código Pat." width="15%"  ></e-column>
-            <e-column field= "cBienDescripcion" headerText="Descripcion" width="55%" [allowResizing] = 'true' ></e-column>
-            <e-column field= "cDocAdqNro" headerText="Nro O/C" width="5%"  [allowSorting]="false"></e-column>
-            <e-column field= "dDocAdqFecha" headerText="Fecha O/C" width="5%"  [allowFiltering]="false" [allowSorting]="false" ></e-column>
-            <e-column field= "nBienValor" headerText="Valor Adqu." width="5%"  [allowFiltering]="false" [allowSorting]="false"></e-column>
-            <e-column field= "cEstadoBienAbre" headerText="E" width="5%" [allowFiltering]="false"></e-column>    
-              
-            
-           
-        </e-columns>
-    </ejs-grid>
+                  
 
+        
     <ejs-dialog #alertDialog [buttons]='alertDlgButtons' [isModal]='isModalAlert'  [visible]='hidden' [header]='alertHeader' [animationSettings]='animationSettings' [content]='alertContent' [showCloseIcon]='showCloseIcon' [target]='target' [width]='alertWidth'>
     </ejs-dialog>               
 

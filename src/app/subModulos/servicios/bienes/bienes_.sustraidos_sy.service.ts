@@ -14,7 +14,7 @@ import { LocalService } from '../../../servicios/local.services'
 @Injectable({
     providedIn: 'root'
   })
-export class BienSyService extends Subject<DataStateChangeEventArgs> { 
+export class BienesSustraidosSyService extends Subject<DataStateChangeEventArgs> { 
     parametros_consulta:any=[];
     orderBy:any=[];
     ls = window.localStorage;

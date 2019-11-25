@@ -1,17 +1,17 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable} from 'rxjs/internal/Observable';
 import { LocalService } from '../../../servicios/local.services'
 import { map } from 'rxjs/operators';
-import {AnioInterface} from '../../interfaces/tablasGenerales/anio-tablasGenerales-interface';
+import {BienInterface} from '../../interfaces/bienes/catalogo-bienes-nterface';
+
 import { environment } from '../../../../environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class AniosService {
+export class BienesService {
 
   ls = window.localStorage;
   httpOptions:any
@@ -19,34 +19,37 @@ export class AniosService {
   token:any
   constructor(private http:HttpClient,private store: LocalService,) {
    }
-   /*crear(FormaAdq:FormaAdquisicionInterface){
-    console.log("crud NUEVOOOO:::");
+   crear(Bien:BienInterface){
       this.insertHead()
-      return this.http.post<FormaAdquisicionInterface>(`${environment.apiUrl}/pat/formas_adquisicion`,FormaAdq,this.httpOptions)
+      return this.http.post<BienInterface>(`${environment.apiUrl}/pat/bienes`,Bien,this.httpOptions)
       .pipe(map(data => data));
    }
-   modificar(FormaAdq:FormaAdquisicionInterface){
-     console.log("crud MODIFICSR:::");
-        const idR=FormaAdq.iFormaAdqId;
+   modificar(Bien:BienInterface){
+        const idR=Bien.iBienId;
         this.insertHead()
-        return this.http.put<FormaAdquisicionInterface>(`${environment.apiUrl}/pat/formas_adquisicion/${idR}`,FormaAdq,this.httpOptions)
+        return this.http.put<BienInterface>(`${environment.apiUrl}/pat/bienes/${idR}`,Bien,this.httpOptions)
         .pipe(map(data => data));
     }
     delete(id:string){
       this.insertHead()
-      return this.http.delete<FormaAdquisicionInterface>(`${environment.apiUrl}/pat/formas_adquisicion/${id}`,this.httpOptions)
+      return this.http.delete<BienInterface>(`${environment.apiUrl}/pat/bienes/${id}`,this.httpOptions)
       .pipe(map(data => data));
-   }*/
-   getCombo_(): Observable<AnioInterface[]>{
-    
-    return this.http.get<AnioInterface[]>(`${environment.apiUrl}/pat/anios/combo`)
-    .pipe(map(data => data));
    }
-   getCombo(): Observable<AnioInterface[]>{
+
+   getCombo(): Observable<BienInterface[]>{
     this.insertHead()
-    return this.http.post<AnioInterface[]>(`${environment.apiUrl}/pat/anios/combo`,this.httpOptions)
+    return this.http.post<BienInterface[]>(`${environment.apiUrl}/pat/bienes/combo`,this.httpOptions)
     .pipe(map(data => data));
    }
+
+   baja(Bien:BienInterface){  
+       const idR=Bien.iBienId;
+       this.insertHead()
+       return this.http.put<BienInterface>(`${environment.apiUrl}/pat/bienes/baja/${idR}`,Bien,this.httpOptions)
+       .pipe(map(data => data));
+   }
+
+
 
 
 
@@ -69,3 +72,4 @@ export class AniosService {
   
 
 }
+

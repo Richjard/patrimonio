@@ -8,13 +8,23 @@
           <h1 class="mb-3 text-18">Inicio de Session</h1>
           <form [formGroup]="signinForm" (ngSubmit)="signin()">
             <div class="form-group">
-              <label for="email">asdfa</label>
-              <input id="email" class="form-control form-control-rounded" formControlName="usuario" type="text">
+              <label for="email">Usuario</label>
+              <input id="email" class="form-control " formControlName="usuario" type="text" required>
             </div>
             <div class="form-group">
               <label for="password">Clave</label>
-              <input id="password" class="form-control form-control-rounded" formControlName="password" type="password">
+              <input id="password" class="form-control " formControlName="password" type="password" required>
             </div>
+
+            <div class="form-group">
+                <label for="iYearId">Año</label>
+              <ejs-dropdownlist #AnioObj   id="iYearId"  [value]='valueAnio'  formControlName="iYearId"   required 
+              [dataSource]='dataAnio'  [fields]='AnioFields' floatLabelType='Auto'>
+              </ejs-dropdownlist>
+
+            </div>
+            
+
             <!-- <button class="btn btn-rounded btn-primary btn-block mt-2">Sign In</button> -->
             <btn-loading btnClass="btn-primary btn-rounded btn-block mt-3" [loadingText]="loadingText" [loading]="loading">
               Ingresar

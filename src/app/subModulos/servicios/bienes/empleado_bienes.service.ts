@@ -42,6 +42,7 @@ export class EmpleadoBienesService {
     return this.http.post<EmpleadoBienesInterface[]>(`${environment.apiUrl}/pat/empleado_bienes/data/${iCentroCostoEmpleadoId}`,this.httpOptions)
     .pipe(map(data => data));
    }
+  
 
 
 

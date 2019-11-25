@@ -77,8 +77,6 @@ public situacionList: DropDownListComponent;
 
     this.dataApi.getCombo().subscribe((respon)=>{ this.dataSituacion=respon; 
       this.situacionObj.value = '1';
-
-
     });
 
   }

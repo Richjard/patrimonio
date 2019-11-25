@@ -56,7 +56,8 @@ export class AuthService {
           this.authenticated = true;
           this.store.setItem("unamToken", data);
           this.api.getProfile().subscribe(data => { 
-            this.store.setItem('userInfo',data)
+            this.store.setItem('userInfo',data);
+            this.store.setItem('iYearId',credentials.iYearId)
           })
         }else{
           this.authenticated = false;

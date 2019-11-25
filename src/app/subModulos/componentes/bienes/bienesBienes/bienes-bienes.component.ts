@@ -13,13 +13,18 @@ import {SelectEventArgs   } from '@syncfusion/ej2-navigations';
 //servicios
 import {BienesService} from '../../../servicios/bienes/bienes.service'
 
+import {EstadosBienesService} from '../../../servicios/tablas_generales/estados_bienes.service'
 
+import {ReportService} from '../../../servicios/report/report'
 
 
 //interface
 
 import {BienInterface} from './../../../interfaces/bienes/catalogo-bienes-nterface';
 import {SituacionesBienesInterface} from './../../../interfaces/bienes/situaciones-bienes-interface';
+import {DesplazamientoBienInterface} from './../../../interfaces/bienes/desplazamiento-bienes-nterface';
+import {DesplazamientoBienesService} from '../../../servicios/bienes/desplazamiento_bienes.service'
+
 
 //synfusioin
 
@@ -62,9 +67,12 @@ let today: Date = new Date();
 
 
 export class BienesBienesComponent implements OnInit {
+  public DesplazamientoBien:DesplazamientoBienInterface
+  public dataAsignacionBienRegister;
   item_e:any[];
 
 @Output() devuelve_Biens:EventEmitter<BienInterface> = new EventEmitter<BienInterface>()//devovlemos cuando invoquen al componente
+public dataBienEstado;
 public bienSituaciones:SituacionesBienesInterface;
 public rowSize=30;
 faPlus = faPlus;//icono nuevo
@@ -309,6 +317,9 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
  
    @ViewChild('modalFormMover',{static: true})
    public DialogMover: DialogComponent;
+
+   @ViewChild('modalAsignarBienes',{static: true})
+   public DialogAsignarBienes: DialogComponent;
    //FIN DIAALOGO
 
   ttt;
@@ -378,7 +389,9 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
  // public pageSettings: Object;
   public stateBaja: DataStateChangeEventArgs;
 
-constructor(private serviceBienesActivos:BienSyService,
+constructor(
+  private serviceAsinacionBien:DesplazamientoBienesService,
+  private serviceBienesActivos:BienSyService,
   private serviceBienesSobrantes:BienesSobrantesSyService,
   private serviceBienesFaltantes:BienesFaltantesSyService,
   private serviceBienesSustraidos:BienesSustraidosSyService, 
@@ -387,7 +400,10 @@ constructor(private serviceBienesActivos:BienSyService,
   private serviceBienesBajas:BienesBajaSyService,
 
   private serviceCrud:BienesService,
-  private serviceSituacionBienCrud:SituacionBienesService){
+  private serviceSituacionBienCrud:SituacionBienesService,
+  private report:ReportService,
+  private dataApiEstadoBienes:EstadosBienesService
+  ){
 
   this.pageOptions = { pageSize: 30, pageCount: 4 };
   let state = { skip: 0, take: 30 };
@@ -473,6 +489,8 @@ public selectTab (e: SelectEventArgs) {
 }
 
 ngOnInit(): void {    
+ 
+  this.dataApiEstadoBienes.getCombo().subscribe((respon)=>{ this.dataBienEstado=respon; });
 
   this.bienSituaciones = { 
     iSituacionesBienId : 'autogenerado',
@@ -791,7 +809,11 @@ clickHandler(args: ClickEventArgs): void {//para tamaño de fila de la grila
          }else {                  
             this.toastObj.show(this.toasts[0]);
          } 
+        // this.pirnt();
     break;
+    case 'ab_b':
+        this.DialogAsignarBienes.show();
+    break;  
     case 'small_b':
         console.log("samllll::"+this.tabSlect);
         switch (this.tabSlect) {
@@ -1081,7 +1103,70 @@ public cerrar_ventana_modal_bien_baja(Bien:BienInterface){
     this.DialogMover.hide();
  }
 
- 
+ public cerrar_ventana_modal_bien_asignar(DesplazamientoBien:DesplazamientoBienInterface){  
+
+  this.serviceAsinacionBien.crear(DesplazamientoBien).subscribe((respon)=>{
+    if(respon["validated"]==true){
+      this.toastObj.show( { title: 'Éxito!', content: respon["mensaje"], cssClass: 'e-toast-success', icon: 'e-success toast-icons' });  
+      //imprimimos el documento de adquicicion 
+      console.log("id desplazamiento generado:::"+respon['queryResult']['iDespBienId']);
+      let iDespBienId= respon['queryResult']['iDespBienId'];
+      //imprimimos
+     
+   this.serviceAsinacionBien.getDataPrint(iDespBienId).subscribe((respon)=>{
+      if(respon["results"]){
+        this.dataAsignacionBienRegister=respon["results"];
+        console.log("data:",respon["results"][0].cDepenNombre); 
+        console.log("taotal:",respon["results"].length);
+        console.log(this.dataAsignacionBienRegister.iDespBienId);
+           this.DesplazamientoBien={
+            iDespBienId :respon["results"][0].iDespBienId,
+            dDespBienFecha:respon["results"][0].dDespBienFecha,
+            cDespBienDocRef:respon["results"][0].cDespBienDocRef,
+            iTipoDespId:respon["results"][0].iTipoDespId,
+            idCentroCostoEmpleado:respon["results"][0].idCentroCostoEmpleado,
+            iYearId:respon["results"][0].iYearId,
+            iOrigenUbicacion:respon["results"][0].iOrigenUbicacion,
+            iDestinoUbicacion:respon["results"][0].iDestinoUbicacion,
+            iOrigenEmpleado:respon["results"][0].empleado,
+            iDestinoEmpleado:respon["results"][0].iDestinoEmpleado,
+            bienes:respon["results"][0].bienes,
+            cOrigenEpleadoDNI:respon["results"][0].cOrigenEpleadoDNI,
+            iOrigenUbicacionSubDependencia:respon["results"][0].iOrigenUbicacionSubDependencia,
+            idCentroCostoEmpleadoOrigen:respon["results"][0].idCentroCostoEmpleadoOrigen,
+            cDestinoEpleadoDNI:respon["results"][0].cDestinoEpleadoDNI,
+            iDestinoUbicacionSubDependencia:respon["results"][0].iDestinoUbicacionSubDependencia,
+            cDepenNombre:respon["results"][0].cDepenNombre,
+            cCentroCostoNombre:respon["results"][0].cCentroCostoNombre,
+            cDepenNombreO:respon["results"][0].cDepenNombreO,
+            cEmpleadoO:respon["results"][0].cEmpleadoO,
+            iDocAdqId : respon["results"][0].iDocAdqId
+          }
+          //hay q mandar a imprimir
+          pdfMake.createPdf(this.report.DocumentoDesplazamiento(this.DesplazamientoBien,this.dataBienEstado)).open();
+          this.DialogAsignarBienes.hide();
+      }else{
+        this.toastObj.show( { title: 'Error!', content: respon["mensaje"], cssClass: 'e-toast-success', icon: 'e-success toast-icons' });  
+      }
+    });
+  
+      //fin impresion
+
+     // dataAsignacionBienRegister 162
+
+     //refresescamos la grilñla  
+     this.grid.refresh();
+    }else{
+      this.toastObj.show( { title: 'Error!', content: respon["mensaje"], cssClass: 'e-toast-success', icon: 'e-success toast-icons' });  
+    }
+     
+    });    
+   
+}
+
+
+
+
  
 }
 

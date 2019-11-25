@@ -19,7 +19,6 @@ import { OrderModule } from 'ngx-order-pipe';
 import { HomeComponent } from './home/home.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,

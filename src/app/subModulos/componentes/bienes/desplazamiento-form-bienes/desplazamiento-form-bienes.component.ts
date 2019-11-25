@@ -231,7 +231,8 @@ public onFormSubmit(): void {
     cDepenNombre:'',
     cCentroCostoNombre:'',
     cDepenNombreO:'',
-    cEmpleadoO:''
+    cEmpleadoO:'',
+    iDocAdqId :''
     
   };
 

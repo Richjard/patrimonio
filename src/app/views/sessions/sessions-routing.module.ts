@@ -4,6 +4,7 @@ import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { ForgotComponent } from './forgot/forgot.component';
 
+
 const routes: Routes = [
   {
     path: 'signup',
@@ -20,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [ RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class SessionsRoutingModule { }

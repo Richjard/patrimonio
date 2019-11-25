@@ -21,7 +21,8 @@ export class BienSyService extends Subject<DataStateChangeEventArgs> {
     httpOptions:any
     headers:any
     token:any
-    constructor(private http: HttpClient,private store: LocalService,) {
+    anio:string
+    constructor(private http: HttpClient,private store: LocalService,private local:LocalService,) {
         super();
     }
 
@@ -30,6 +31,7 @@ export class BienSyService extends Subject<DataStateChangeEventArgs> {
     }
 
     protected getData(state: DataStateChangeEventArgs,iSituacionBienId:number): Observable<DataStateChangeEventArgs> {
+     // this.anio=this.local.getItem('iYearId');
         const pageQuery = `$skip=${state.skip}&$top=${state.take}`;
         let sortQuery: string = '';
 
@@ -44,7 +46,8 @@ export class BienSyService extends Subject<DataStateChangeEventArgs> {
           filter:state.where,
           order:sortQuery,
           iSituacionBienId:iSituacionBienId,
-          baja:0
+          baja:0,
+          anio:this.anio
         
         };
         this.insertHead();  

@@ -17,6 +17,7 @@ export class HeaderSidebarLargeComponent implements OnInit {
     codigos:any = []
     data:any = {}
     nombres:string = ''
+    anio:string = ''
     constructor(
       private navService: NavigationService,
       public searchService: SearchService,
@@ -69,6 +70,7 @@ export class HeaderSidebarLargeComponent implements OnInit {
     }
     getCodigos(){
       this.data = this.local.getItem('userInfo')
+      this.anio=this.local.getItem('iYearId');
       this.getNombres()
       //console.log(this.data)
       for(let x in this.data['seg_credenciales_perfiles']){

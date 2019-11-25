@@ -1,0 +1,47 @@
+<form id="template_driven"  name="template_driven" #DependenciaFiltroForm="ngForm" novalidate>    
+
+
+    <div class="form-group template">
+               <div class="e-float-input" [ngClass]="{'e-success': iDepenId.valid}">
+              
+                   <ejs-dropdownlist #DependenciaList name="iDepenId"  id="iDepenId" #iDepenId='ngModel'   [filterBarPlaceholder]="filterPlaceholder"  (filtering)='onFiltering($event)'  [allowFiltering]='true'  [(ngModel)]="DependenciaFiltro.iDepenId" name="iCargId" required 
+                           [dataSource]='dataDependencia' [placeholder]='DependenciaMark' [fields]='DependenciaFields' floatLabelType='Auto'>
+                           </ejs-dropdownlist>
+                   
+                   <span class="e-float-line"></span>
+               
+               
+                   </div>
+    </div>
+   
+    
+    <div class="control-section">
+        <div class="radiobutton-control">
+            <h4>Select a payment method</h4>
+            <div class="row">
+                <ejs-radiobutton label="Credit/Debit card" name="payment" value="credit/debit" checked="true"></ejs-radiobutton>
+            </div>
+            <div class="row">
+                <ejs-radiobutton label="Net Banking" name="payment" value="netbanking"></ejs-radiobutton>
+            </div>
+            <div class="row">
+                <ejs-radiobutton label="Cash on Delivery" name="payment" value="cashondelivery"></ejs-radiobutton>
+            </div>
+            <div class="row">
+                <ejs-radiobutton label="Other Wallets" name="payment" value="others"></ejs-radiobutton>
+            </div>
+        </div>
+    </div>
+
+
+   <div class="form-group template" *ngIf="op!=1">
+       <div class="submitBtn">
+           <button class="submit-btn e-btn e-success sendButto" id="OkDependenciaFiltro" [disabled]="DependenciaFiltro.invalid"  type="submit" (click)= "Ok()"><fa-icon [icon]="faCheckCircle" size="lg"></fa-icon> OK</button>                                                              
+       </div> 
+       </div> 
+       
+       
+   
+       
+   </form> 
+   

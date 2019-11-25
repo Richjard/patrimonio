@@ -6,6 +6,10 @@ export const environment = {
   production: false,
   apiUrl: 'http://192.168.2.11/backsigeun-master/public/api'
 };
+export const environmentCliente = {
+  production: false,
+  apiUrl: 'http://localhost:4200'
+};
 
 /*
  * For easier debugging in development mode, you can import the following file

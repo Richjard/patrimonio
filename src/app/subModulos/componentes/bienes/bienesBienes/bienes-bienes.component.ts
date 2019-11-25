@@ -15,7 +15,7 @@ import {BienesService} from '../../../servicios/bienes/bienes.service'
 
 import {EstadosBienesService} from '../../../servicios/tablas_generales/estados_bienes.service'
 
-import {ReportService} from '../../../servicios/report/report'
+import {ReportService} from '../../../servicios/reportes/report'
 
 
 //interface

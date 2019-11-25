@@ -17,7 +17,7 @@ import {DesplazamientoBienesService} from '../../../servicios/bienes/desplazamie
 
 import {DesplazamientoBienInterface} from './../../../interfaces/bienes/desplazamiento-bienes-nterface';
 
-import {ReportService} from '../../../servicios/report/report'
+import {ReportService} from '../../../servicios/reportes/report'
 //synfusioin
 
 

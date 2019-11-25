@@ -86,7 +86,14 @@ import { BajaFormBienesComponent } from './componentes/bienes/baja-form-bienes/b
 import { MoverFormBienesComponent } from './componentes/bienes/mover-form-bienes/mover-form-bienes.component';
 import { AsignarFormBienesComponent } from './componentes/bienes/asignar-form-bienes/asignar-form-bienes.component';
 
-
+/*** */
+import { PorDependenciaReportesComponent } from './componentes/reportes/por-dependencia-reportes/por-dependencia-reportes.component';
+import { PorDepenSubdepenReporteComponent } from './componentes/reportes/por-depen-subdepen-reporte/por-depen-subdepen-reporte.component';
+import { PorDepenSubdepenEmpleReporteComponent } from './componentes/reportes/por-depen-subdepen-emple-reporte/por-depen-subdepen-emple-reporte.component';
+import { PorUbicacionEmpleadoReporteComponent } from './componentes/reportes/por-ubicacion-empleado-reporte/por-ubicacion-empleado-reporte.component';
+import { post } from 'selenium-webdriver/http';
+import { PorEmpleadoReporteComponent } from './componentes/reportes/por-empleado-reporte/por-empleado-reporte.component';
+/*** */
 
 
 
@@ -208,8 +215,36 @@ const routes: Routes = [
   {
     path: 'bienes/verificar',
     component: VerificarBienesComponent,
+  },
+
+  
+  //salvacho
+  {
+    path: 'reportes/por_dependecia',
+    component: PorDependenciaReportesComponent,
+  },
+  {
+    path: 'reportes/por_dependecia_subdependencia',
+    component: PorDepenSubdepenReporteComponent,
+  },
+  {
+    path: 'reportes/por_dependecia_sub_empleado',         
+    component: PorDepenSubdepenEmpleReporteComponent,
+  },
+  {
+   path: 'reportes/por_dependecia_empleado/:idDepe/:idSubepe/:NameDepe/:NameSubepe',
+   //path: 'reportes/por_dependecia_empleado',
+   //path: 'reportes/por_dependecia_empleado/:idDepe',
+    component: PorUbicacionEmpleadoReporteComponent,
+  },
+  {
+   path: 'reportes/por_empleado',
+   component: PorEmpleadoReporteComponent,
   }
 
+
+
+  //salvacho
 
 
   
@@ -242,7 +277,7 @@ const routes: Routes = [
     SwitchModule 
   ],
   exports: [RouterModule],
-  declarations: [LocalesUbicacionComponent, LocalDetallesUbicacionComponent, AreasUbicacionComponent, AreaFormUbicacionComponent, OficinasUbicacionComponent, OficinaFormUbicacionComponent, GruposGenericosCatalogoSBNComponent, GruposGenericosFormCatalogoSBNComponent, ClasesGenericosCatalogoSBNComponent, ClasesGenericosFormCatalogoSBNComponent, GrupoClaseGenericosFormCatalogoSBNComponent, GrupoClaseGenericosCatalogoSBNComponent, CatalogoCatalogoSBNComponent, CatalogoFormCatalogoSBNComponent, MarcasTablasGeneralesComponent, MarcasFormTablasGeneralesComponent, ModelosTablasGeneralesComponent, ModelosFormTablasGeneralesComponent, TiposTablasGeneralesComponent, TiposFormTablasGeneralesComponent, DocumentosTablasGeneralesComponent, DocumentosFormTablasGeneralesComponent, CatalogoNoPatrimonialTablasGeneralesComponent, CatalogoNoPatrimonialFormTablasGeneralesComponent, PlanFormTablasGeneralesComponent, PlanTablasGeneralesComponent, BienesBienesComponent, BienesFormBienesComponent, DocumentosTramiteTablasGeneralesComponent, DocumentosTramiteFormTablasGeneralesComponent, OcTablasGeneralesComponent, OcFormTablasGeneralesComponent, OcItemFormTablasGeneralesComponent, OcItemTablasGeneralesComponent, DesplazamientoBienesComponent, DesplazamientoFormBienesComponent, EmpleadosTablaGeneralesComponent, EmpleadosFormTablaGeneralesComponent, CentroCostoTablaGeneralesComponent, CentroCostoFormTablaGeneralesComponent, CentroCostoEmpleadoTablaGeneralesComponent, CentroCostoEmpleadoFormTablaGeneralesComponent, DocVerificacionBienesComponent, DocVerificacionFormBienesComponent, DependeciaUbicacionComponent, VerificarBienesComponent, BajaFormBienesComponent, MoverFormBienesComponent, AsignarFormBienesComponent],
+  declarations: [LocalesUbicacionComponent, LocalDetallesUbicacionComponent, AreasUbicacionComponent, AreaFormUbicacionComponent, OficinasUbicacionComponent, OficinaFormUbicacionComponent, GruposGenericosCatalogoSBNComponent, GruposGenericosFormCatalogoSBNComponent, ClasesGenericosCatalogoSBNComponent, ClasesGenericosFormCatalogoSBNComponent, GrupoClaseGenericosFormCatalogoSBNComponent, GrupoClaseGenericosCatalogoSBNComponent, CatalogoCatalogoSBNComponent, CatalogoFormCatalogoSBNComponent, MarcasTablasGeneralesComponent, MarcasFormTablasGeneralesComponent, ModelosTablasGeneralesComponent, ModelosFormTablasGeneralesComponent, TiposTablasGeneralesComponent, TiposFormTablasGeneralesComponent, DocumentosTablasGeneralesComponent, DocumentosFormTablasGeneralesComponent, CatalogoNoPatrimonialTablasGeneralesComponent, CatalogoNoPatrimonialFormTablasGeneralesComponent, PlanFormTablasGeneralesComponent, PlanTablasGeneralesComponent, BienesBienesComponent, BienesFormBienesComponent, DocumentosTramiteTablasGeneralesComponent, DocumentosTramiteFormTablasGeneralesComponent, OcTablasGeneralesComponent, OcFormTablasGeneralesComponent, OcItemFormTablasGeneralesComponent, OcItemTablasGeneralesComponent, DesplazamientoBienesComponent, DesplazamientoFormBienesComponent, EmpleadosTablaGeneralesComponent, EmpleadosFormTablaGeneralesComponent, CentroCostoTablaGeneralesComponent, CentroCostoFormTablaGeneralesComponent, CentroCostoEmpleadoTablaGeneralesComponent, CentroCostoEmpleadoFormTablaGeneralesComponent, DocVerificacionBienesComponent, DocVerificacionFormBienesComponent, DependeciaUbicacionComponent, VerificarBienesComponent, BajaFormBienesComponent, MoverFormBienesComponent, AsignarFormBienesComponent,PorDependenciaReportesComponent,PorDepenSubdepenReporteComponent,PorDepenSubdepenEmpleReporteComponent,PorUbicacionEmpleadoReporteComponent,PorEmpleadoReporteComponent],
   providers: [FilterService, PageService]
  
 })

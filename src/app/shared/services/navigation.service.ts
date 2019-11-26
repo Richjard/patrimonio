@@ -126,12 +126,10 @@ export class NavigationService {
             icon: 'i-File-Pictures',
             sub: [
                // { icon: 'i-Clock-3', name: 'Locales', state: '/control/estudiantes', type: 'link' },
-                { icon: 'i-Clock-3', name: 'Marca', state: '/subModulos/tablasGenerales/marcas', type: 'link' },
-                { icon: 'i-Clock-4', name: 'Modelo', state: '/subModulos/tablasGenerales/modelos', type: 'link' },
-                { icon: 'i-Clock-4', name: 'Tipo', state: '/subModulos/tablasGenerales/tipos', type: 'link' },
-                { icon: 'i-Clock-4', name: 'Catalogo No Patromonial', state: '/subModulos/tablasGenerales/catalogos_no_patrimonial', type: 'link' },
-                { icon: 'i-Clock-4', name: 'Documentos de Adquisicion', state: '/subModulos/tablasGenerales/documentos', type: 'link' },
-                { icon: 'i-Clock-4', name: 'Plan Contable', state: '/subModulos/tablasGenerales/planes', type: 'link' },
+                { icon: 'i-Receipt-4', name: 'Por Ubicacion - Dependencia', state: '/subModulos/reportes/por_dependecia', type: 'link' },
+                { icon: 'i-Receipt-4', name: 'Por Ubicacion - Sub Dependencia', state: '/subModulos/reportes/por_dependecia_subdependencia', type: 'link' },
+                { icon: 'i-Receipt-4', name: 'Por Ubicacion - Empleado', state: '/subModulos/reportes/por_dependecia_sub_empleado', type: 'link' },
+                { icon: 'i-Receipt-4', name: 'Por Empleado', state: '/subModulos/reportes/por_empleado', type: 'link' },
                
             ]
         },

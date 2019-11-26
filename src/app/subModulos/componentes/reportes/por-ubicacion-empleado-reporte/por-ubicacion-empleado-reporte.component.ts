@@ -6,6 +6,7 @@ import { rippleEffect,EmitType } from '@syncfusion/ej2-base';
 import { FilteringEventArgs } from '@syncfusion/ej2-dropdowns';
 import * as pdfMake from 'pdfmake/build/pdfmake.js';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
+import { faPlus, faEdit, faTrashAlt,faSave ,faFilter,faList,faCheckCircle} from '@fortawesome/free-solid-svg-icons';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { BienReportInterface } from 'src/app/subModulos/interfaces/reportes/BienReport-interface';
 import { DocumentoReportService } from 'src/app/subModulos/servicios/reportes/DocumentoReport';
@@ -22,6 +23,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PorUbicacionEmpleadoReporteComponent implements OnInit {
   //PorDepenSubdepenEmpleReporteComponent=0;
+  public faCheckCircle=faCheckCircle;
   public ubicacionEmpelado:UbicaionEmpeadoReportInterface;
   public iDepend;
   public iSubDepe;
@@ -83,8 +85,10 @@ export class PorUbicacionEmpleadoReporteComponent implements OnInit {
     }
 
     });
+    
     this.dataEmpleApi.getUbicacionPorDepenaEmp(this.ubicacionEmpelado.iDepenId,this.ubicacionEmpelado.iCentroCostoId).subscribe((respon)=>{ this.dataEmpelado=respon; }); 
-    //console.log("dataEmpleadoApi",this.dataEmpelado)
+    //console.log("dataEmpleadoApi--------");
+    //console.log(this.dataEmpleApi);
   }
   public OkDependenciaFiltro(): void {
     this.ubicacionEmpelado.empleadoNombre=this.EmpleadoaObj.text;

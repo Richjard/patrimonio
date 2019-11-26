@@ -49,7 +49,7 @@ export class PorEmpleadoReporteComponent implements OnInit {
   
 
   public Ok: EmitType<object> = () => {   
-    console.log("id empleado "+this.EmpleadoObj.value);
+    //console.log("id empleado "+this.EmpleadoObj.value);
     console.log(this.EmpleadoObj.text);
    
    

@@ -73,7 +73,12 @@ export class ApiReporteService {
 
     .pipe(map(data => data));
    }
+   getDataBienNoDepreciable(): Observable<UbicaionCentroCOsto[]>{
+    this.insertHead()
+    return this.http.get<UbicaionCentroCOsto[]>(`${environment.apiUrl}/pat/reportes/getBienNoDepreciable`,{headers:this.httpOptions})   
 
+    .pipe(map(data => data));
+   }
 
 
    

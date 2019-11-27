@@ -41,7 +41,7 @@
 
 <div class="form-group template">
     <div class="e-float-input" [ngClass]="{'e-success': iSituacionBienId.valid}">
-            <ejs-dropdownlist #situacionList name="iSituacionBienId"  id="iSituacionBienId" #iSituacionBienId='ngModel' [disabled]="op != 0"   [(ngModel)]="BienSituaciones.iSituacionBienId" name="iSituacionBienId" required 
+            <ejs-dropdownlist #situacionList name="iSituacionBienId"  id="iSituacionBienId" #iSituacionBienId='ngModel'    [(ngModel)]="BienSituaciones.iSituacionBienId" name="iSituacionBienId" required 
             [dataSource]='dataSituacion'  [fields]='SituacionFields' floatLabelType='Auto'>
             </ejs-dropdownlist>                          
        

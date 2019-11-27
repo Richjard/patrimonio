@@ -130,6 +130,7 @@ export class NavigationService {
                 { icon: 'i-Receipt-4', name: 'Por Ubicacion - Sub Dependencia', state: '/subModulos/reportes/por_dependecia_subdependencia', type: 'link' },
                 { icon: 'i-Receipt-4', name: 'Por Ubicacion - Empleado', state: '/subModulos/reportes/por_dependecia_sub_empleado', type: 'link' },
                 { icon: 'i-Receipt-4', name: 'Por Empleado', state: '/subModulos/reportes/por_empleado', type: 'link' },
+                { icon: 'i-Receipt-4', name: 'Bien Sin Depreciacion', state: '/subModulos/reportes/por_bien_noDepreciable', type: 'link' },
                
             ]
         },

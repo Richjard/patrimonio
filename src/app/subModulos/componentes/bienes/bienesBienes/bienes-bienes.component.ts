@@ -17,7 +17,7 @@ import {EstadosBienesService} from '../../../servicios/tablas_generales/estados_
 
 import {ReportService} from '../../../servicios/reportes/report'
 
-
+import { LocalService } from '../../../../servicios/local.services'
 //interface
 
 import {BienInterface} from './../../../interfaces/bienes/catalogo-bienes-nterface';
@@ -402,7 +402,8 @@ constructor(
   private serviceCrud:BienesService,
   private serviceSituacionBienCrud:SituacionBienesService,
   private report:ReportService,
-  private dataApiEstadoBienes:EstadosBienesService
+  private dataApiEstadoBienes:EstadosBienesService,
+  private local:LocalService
   ){
 
   this.pageOptions = { pageSize: 30, pageCount: 4 };
@@ -693,6 +694,7 @@ clickHandler(args: ClickEventArgs): void {//para tamaño de fila de la grila
       selectedrecords[0]['iFormaAdqId'],
       selectedrecords[0]['iTipoId'],
       selectedrecords[0]['iYearId'],
+
       selectedrecords[0]['iCatalogoNoPatId'],
       selectedrecords[0]['iCatSbnId'],
       selectedrecords[0]['iDocAdqId'],
@@ -725,7 +727,9 @@ clickHandler(args: ClickEventArgs): void {//para tamaño de fila de la grila
 
   switch (args.item.id) {
     case 'n_b':
-        this.setBienDatos("0","autogenerado","","","","","","","","","","","","","1","","","","","","","","","","","","","","","","","","",[]);
+        //let data = this.local.getItem('userInfo')
+        let anio=this.local.getItem('iYearId');
+        this.setBienDatos("0","autogenerado","","","","","","","","","","","","","1","",''+anio,"","","","","","","","","","","","","","","","",[]);
         if(this.grid.getSelectedRecords().length){  
           this.grid.clearSelection();          
         }          

@@ -20,7 +20,7 @@ export class BienesService {
   constructor(private http:HttpClient,private store: LocalService,) {
    }
    crear(Bien:BienInterface){
-      this.insertHead()
+      this.insertHead()      
       return this.http.post<BienInterface>(`${environment.apiUrl}/pat/bienes`,Bien,this.httpOptions)
       .pipe(map(data => data));
    }

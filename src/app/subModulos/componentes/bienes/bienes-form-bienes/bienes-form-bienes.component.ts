@@ -328,10 +328,10 @@ public BtnOkCatalogoModalClick(): void{
 
 
 public setTextSelectPlan(Plan:PlanInterface){  
-  console.log("catalogo selecccionado Seleccionado::"+Plan.cPlanContDescripcion);
+ /* console.log("catalogo selecccionado Seleccionado::"+Plan.cPlanContDescripcion);
   this.textSelectPlan=Plan.cPlanContDescripcion;
   this.idSelectPlan=Plan.iPlanContId;
-  this.codigoSelectPlan=Plan.cPlanContCodigo;
+  this.codigoSelectPlan=Plan.cPlanContCodigo;*/
 }
 
 public BtnOkPlanModalClick(): void{

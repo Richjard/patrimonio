@@ -10,10 +10,10 @@
 
 
 
-    <h1>Planes Contables</h1>
+    <h1>Cuentas Mayores</h1>
     <div id="action-description">
     <p>
-        En esta seccion puede UD. gestionar   <code>Plabes Contables</code>.
+        En esta seccion puede UD. gestionar   <code>Cuentas Mayores</code>.
     </div>
 
     <ejs-dialog #template  [isModal]='isModal' [allowDragging]='dialogdragging'  [height]='height' [visible]='hidden'  [animationSettings]='animationSettings' [showCloseIcon]='showCloseIcon' [target]='target' [width]='width' (open)="dialogOpen()"
@@ -63,11 +63,11 @@
 
     <ejs-grid #grid [dataSource]='data | async'  allowPaging='true' height=365  [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChange($event)' (rowSelected)='rowSelected($event)'>
    
-        <e-columns>
-            <e-column field= "RowNumber" headerText="N°" width="10%" [allowFiltering]="false" [allowSorting]="false"></e-column>
-            <e-column field= "iPlanContId" headerText="ID" width="10%" [allowFiltering]="false"></e-column>
-            <e-column field= "cPlanContDescripcion" headerText="Descripcion" width="60%"  ></e-column>
-            <e-column field= "cPlanContCodigo" headerText="Código" width="20%"  ></e-column>
+        <e-columns>           
+            <e-column field= "cPlanConMayorCodigo" headerText="Código" width="20%"  ></e-column>
+            <e-column field= "cPlanConMayorDescripcion" headerText="Descripcion" width="60%"  ></e-column>    
+            <e-column field= "cPlanConMayorTipo" headerText="Tipo" width="10%" [allowFiltering]="false"  ></e-column>    
+                  
            
            
         </e-columns>

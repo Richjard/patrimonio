@@ -1,8 +1,10 @@
-import { Component, OnInit,ViewChild,ElementRef,HostListener,Input,Output,EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit,ViewChild,ElementRef,HostListener,Input,Output,EventEmitter,Pipe } from '@angular/core';
+import { Observable, from } from 'rxjs';
 import { faPlus, faEdit, faTrashAlt,faSave,faInfo,faBarcode } from '@fortawesome/free-solid-svg-icons';
 
 
+import { Router ,NavigationStart, NavigationEnd,NavigationCancel,NavigationError,Event} from "@angular/router";
+import { filter } from 'rxjs/operators';
 import { GridComponent } from '@syncfusion/ej2-angular-grids';
 import { rippleEffect,EmitType } from '@syncfusion/ej2-base';
 import { detach, isNullOrUndefined } from '@syncfusion/ej2-base';
@@ -10,7 +12,14 @@ import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';//para tamaño de la fila de la grilla
 import {SelectEventArgs   } from '@syncfusion/ej2-navigations';
 
+
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 //servicios
+
+
+import { IsLoadingService } from '@service-work/is-loading';
+
 import {BienesService} from '../../../servicios/bienes/bienes.service'
 
 import {EstadosBienesService} from '../../../servicios/tablas_generales/estados_bienes.service'
@@ -67,6 +76,10 @@ let today: Date = new Date();
 
 
 export class BienesBienesComponent implements OnInit {
+
+
+  isLoading: Observable<boolean>;
+
   public DesplazamientoBien:DesplazamientoBienInterface
   public dataAsignacionBienRegister;
   item_e:any[];
@@ -403,7 +416,9 @@ constructor(
   private serviceSituacionBienCrud:SituacionBienesService,
   private report:ReportService,
   private dataApiEstadoBienes:EstadosBienesService,
-  private local:LocalService
+  private local:LocalService,
+  private isLoadingService: IsLoadingService,
+  private router: Router,
   ){
 
   this.pageOptions = { pageSize: 30, pageCount: 4 };
@@ -491,7 +506,48 @@ public selectTab (e: SelectEventArgs) {
 
 ngOnInit(): void {    
  
-  this.dataApiEstadoBienes.getCombo().subscribe((respon)=>{ this.dataBienEstado=respon; });
+
+
+  this.isLoading = this.isLoadingService.isLoading$();
+
+  this.router.events
+    .pipe(
+      filter(
+        event =>
+          event instanceof NavigationStart ||
+          event instanceof NavigationEnd ||
+          event instanceof NavigationCancel ||
+          event instanceof NavigationError,
+      ),
+    )
+    .subscribe(event => {
+      // If it's the start of navigation, `add()` a loading indicator
+      if (event instanceof NavigationStart) {
+        console.log();
+        this.isLoadingService.add();
+        return;
+      }
+
+      // Else navigation has ended, so `remove()` a loading indicator
+      this.isLoadingService.remove();
+    });
+
+
+
+    //this.dataBienEstado =
+    this.isLoadingService.add(
+      this.dataApiEstadoBienes.getCombo().subscribe(
+        (respon)=>{ this.dataBienEstado=respon; 
+         console.log("eee",this.isLoading);
+    
+    },
+    (error)=>{
+      console.log('errorrrrrrrrrrrrrr');
+    }
+    ) )
+    ;
+
+  
 
   this.bienSituaciones = { 
     iSituacionesBienId : 'autogenerado',
@@ -729,7 +785,7 @@ clickHandler(args: ClickEventArgs): void {//para tamaño de fila de la grila
     case 'n_b':
         //let data = this.local.getItem('userInfo')
         let anio=this.local.getItem('iYearId');
-        this.setBienDatos("0","autogenerado","","","","","","","","","","","","","1","",''+anio,"","","","","","","","","","","","","","","","",[]);
+        this.setBienDatos("0","autogenerado","","","","","","","","","","","","","1","","",''+anio,"","","","","","","","","","","","","","","",[]);
         if(this.grid.getSelectedRecords().length){  
           this.grid.clearSelection();          
         }          

@@ -27,7 +27,7 @@ export class PlanesService {
    }
    modificar(Plan:PlanInterface){
      console.log("crud MODIFICSR:::");
-        const idR=Plan.iPlanContId;
+        const idR=Plan.iPlanConMayorId;
         this.insertHead()
         return this.http.put<PlanInterface>(`${environment.apiUrl}/pat/planes/${idR}`,Plan,this.httpOptions)
         .pipe(map(data => data));

@@ -421,8 +421,7 @@ constructor(
   private router: Router,
   ){
 
-  this.pageOptions = { pageSize: 30, pageCount: 4 };
-  let state = { skip: 0, take: 30 };
+
  
 
   this.dataBienesActivos = serviceBienesActivos;  
@@ -433,8 +432,7 @@ constructor(
   this.dataBienesChispitas = serviceBienesChisputas;
   this.dataBienesLaptops = serviceBienesLaptops;
   this.dataBienesBajas = serviceBienesBajas;
-
-  this.serviceBienesActivos.execute(state,1);
+ 
 
   
 
@@ -510,28 +508,6 @@ ngOnInit(): void {
 
   this.isLoading = this.isLoadingService.isLoading$();
 
-  this.router.events
-    .pipe(
-      filter(
-        event =>
-          event instanceof NavigationStart ||
-          event instanceof NavigationEnd ||
-          event instanceof NavigationCancel ||
-          event instanceof NavigationError,
-      ),
-    )
-    .subscribe(event => {
-      // If it's the start of navigation, `add()` a loading indicator
-      if (event instanceof NavigationStart) {
-        console.log();
-        this.isLoadingService.add();
-        return;
-      }
-
-      // Else navigation has ended, so `remove()` a loading indicator
-      this.isLoadingService.remove();
-    });
-
 
 
     //this.dataBienEstado =
@@ -540,14 +516,16 @@ ngOnInit(): void {
         (respon)=>{ this.dataBienEstado=respon; 
          console.log("eee",this.isLoading);
     
-    },
-    (error)=>{
-      console.log('errorrrrrrrrrrrrrr');
-    }
-    ) )
-    ;
+      },
+      (error)=>{
+        console.log('errorrrrrrrrrrrrrr');
+      }) );
 
-  
+      this.pageOptions = { pageSize: 30, pageCount: 4 };
+      let state = { skip: 0, take: 30 };
+      this.serviceBienesActivos.execute(state,1);
+     // this.isLoadingService.add(  this.serviceBienesActivos.getData(state,1).subscribe() );
+
 
   this.bienSituaciones = { 
     iSituacionesBienId : 'autogenerado',

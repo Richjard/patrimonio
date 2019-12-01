@@ -10,7 +10,7 @@ import { environment } from '../../../../environments/environment';
 
 
 import { LocalService } from '../../../servicios/local.services'
-
+import {retryWithBackoff} from '../../servicios/retri'
 //@Injectable()
 @Injectable({
     providedIn: 'root'
@@ -48,12 +48,12 @@ export class EmpleadosSyService extends Subject<DataStateChangeEventArgs> {
         this.insertHead();  
         return this.http 
            .post(`${environment.apiUrl}/pat/empleados/result`,this.parametros_consulta,this.httpOptions) 
-           .pipe(map((response: any) => response))
-           .pipe(map((response: any) => (<DataResult>{
+           .pipe(retryWithBackoff(100),map((response: any) => response))
+           .pipe(retryWithBackoff(100),map((response: any) => (<DataResult>{
                 result: response['results'],
                 count: parseInt(response['count'], 10)
         })))
-        .pipe((data: any) => data);
+        .pipe(retryWithBackoff(100),(data: any) => data);
     }
 
     insertHead(){

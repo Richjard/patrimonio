@@ -4,14 +4,15 @@ import { SearchService } from '../../../../services/search.service';
 import { AuthService } from '../../../../services/auth.service';
 import { LocalService } from '../../../../../servicios/local.services'
 import * as $ from 'jquery';
-
+import { IsLoadingService } from '@service-work/is-loading';
+import { Observable, from } from 'rxjs';
 @Component({
   selector: 'app-header-sidebar-large',
   templateUrl: './header-sidebar-large.component.html',
   styleUrls: ['./header-sidebar-large.component.scss']
 })
 export class HeaderSidebarLargeComponent implements OnInit {
-
+  public isLoading: Observable<boolean>;
     notifications: any[];
     codigo:any
     codigos:any = []
@@ -22,7 +23,8 @@ export class HeaderSidebarLargeComponent implements OnInit {
       private navService: NavigationService,
       public searchService: SearchService,
       private local:LocalService,
-      private auth: AuthService
+      private auth: AuthService,
+      private isLoadingService: IsLoadingService,
     ) {
       this.notifications = [
         {

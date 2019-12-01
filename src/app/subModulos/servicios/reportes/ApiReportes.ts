@@ -79,6 +79,20 @@ export class ApiReporteService {
 
     .pipe(map(data => data));
    }
+   
+   getComboCuentaMayor(): Observable<BienReportInterface[]>{
+    this.insertHead()
+    return this.http.get<BienReportInterface[]>(`${environment.apiUrl}/pat/reportes/getComboCuentaMayor`,{headers:this.httpOptions})   
+
+    .pipe(map(data => data));
+   }
+   getComboSubCuenta(id:any): Observable<BienReportInterface[]>{
+    this.insertHead()
+    return this.http.get<BienReportInterface[]>(`${environment.apiUrl}/pat/reportes/getComboCuentaContable/${id}`,{headers:this.httpOptions})   
+
+    .pipe(map(data => data));
+   }
+
 
 
    

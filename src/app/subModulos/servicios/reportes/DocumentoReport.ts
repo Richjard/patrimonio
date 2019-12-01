@@ -644,8 +644,15 @@ export class DocumentoReportService {
         [
          {text: 'N°', style: 'tableHeader'},
          {text: 'CODIGO', style: 'tableHeader'}, 
-         {text: 'DESCRIPCION', style: 'tableHeader'}, 
-         {text: 'PRECIO', style: 'tableHeader'},
+         {text: 'DESCRIPCION', style: 'tableHeader'},  
+         {text: 'DIMENSION', style: 'tableHeader'},
+         {text: 'SERIE', style: 'tableHeader'},
+         {text: 'MARCA', style: 'tableHeader'},
+         {text: 'MODELO', style: 'tableHeader'},
+         {text: 'TIPO', style: 'tableHeader'},
+         {text: 'E', style: 'tableHeader'},
+         {text: 'OBSERVACION', style: 'tableHeader'},
+         {text: 'PRECIO', style: 'tableHeader'}
        ] ];
       
       let total=dataBienes.length; 
@@ -658,14 +665,21 @@ export class DocumentoReportService {
             [ {text: o++, style: 'tableItem'},
               {text: item['cBienCodigo'], style: 'tableItem'},
               {text: item['cBienDescripcion'], style: 'tableItem'},
+              {text: item['cBienDimension'], style: 'tableItem'},
+              {text: item['cBienSerie'], style: 'tableItem'},
+              {text: item['cMarcaDescripcion'], style: 'tableItem'},
+              {text: item['cModeloDescripcion'], style: 'tableItem'},
+              {text: item['cTipoDescripcion'], style: 'tableItem'},
+              {text: item['cEstadoBienAbre'], style: 'tableItem'},              
+              {text: item['cBienObs'], style: 'tableItem'},
               {text: item['nBienValor'], style: 'tableItem'}
               
            ] );
          }
       }   
       items_.push(
-          [ {text: 'Total de bienes:',colSpan: 2, alignment: 'right',style: 'tableItem'},
-            {},{},
+          [ {text: 'Total de bienes:',colSpan: 9, alignment: 'right',style: 'tableItem'},
+            {},{},{},{},{},{},{},{},{},
             {text: total, style: 'tableItem'}
           ] );
       //fin item
@@ -709,7 +723,8 @@ export class DocumentoReportService {
             style: 'tableExample',
             table: {
               headerRows: 1,
-              widths: ['auto', 'auto', 'auto','auto'],
+              widths: ['2.5%' , '12%', '12%','11%','11%','10%','10%','10%','2.5%','11%','8%'],
+                       // 10%','10%','10%','10%','10%','2.5%','8%'
               body:items_
             },
             layout: 'lightHorizontalLines'

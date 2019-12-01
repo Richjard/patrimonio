@@ -59,7 +59,7 @@ export class PorBienesNoDepreciablesComponent implements OnInit {
       nBienValor : ''
     }
     this.dataApiBien.getDataBienNoDepreciable().subscribe((respon)=>{ this.dataBienes=respon;
-      //console.log(this.dataBienes);
+      console.log(this.dataBienes);
     }); 
   }
 

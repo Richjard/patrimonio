@@ -12,10 +12,13 @@ import { DocumentoInterface } from 'src/app/subModulos/interfaces/tablasGenerale
 import { TipoInterface } from 'src/app/subModulos/interfaces/tablasGenerales/tipo-tablasGenerales-interface';
 import { OcItemInterface } from 'src/app/subModulos/interfaces/tablasGenerales/ocItem-tablasGenerales-interface';
 
-import { DropDownListComponent } from '@syncfusion/ej2-angular-dropdowns';
-
+import { Query } from '@syncfusion/ej2-data';
+import { DropDownListComponent,FilteringEventArgs } from '@syncfusion/ej2-angular-dropdowns';
 
 import { EstadosBienesService } from 'src/app/subModulos/servicios/tablas_generales/estados_bienes.service';
+
+import { PlanesService } from 'src/app/subModulos/servicios/tablas_generales/planes.service';
+import { SubCuentaService } from 'src/app/subModulos/servicios/tablas_generales/subCuenta.service';
 import { ColoresService } from 'src/app/subModulos/servicios/tablas_generales/colores.service';
 import { faPlus, faEdit, faTrashAlt,faSave,faFilter,faList } from '@fortawesome/free-solid-svg-icons';
 
@@ -80,16 +83,67 @@ public box: string = 'Box';
   @Output() cerrar_modal = new EventEmitter<string>()
   @ViewChild('BienForm',{static: true}) form: any;//fromulario
   //constructor(private dataApi:LocalesService,private route:ActivatedRoute) { 
-    constructor(private dataApi:LocalesService,private dataApiEstadoBienes:EstadosBienesService, private dataApiColores :ColoresService, private route:ActivatedRoute) { 
+    constructor(private dataApi:LocalesService,private dataApiEstadoBienes:EstadosBienesService, private dataApiColores :ColoresService, private route:ActivatedRoute,
+      private apiMayor:PlanesService, private apiSubCuenta:SubCuentaService
+      ) { 
 
   }
 
 
+//combo cuenta mayor
+  public mayorData;
+  public mayorFields: Object = { text:'cuenta',value: 'iPlanConMayorId' };
+  // set the height of the popup element
+  public heighte: string = '200px';  
+  
+  @ViewChild('mayorList',{static: false})
+  // country DropDownList instance
+  public mayorObj: DropDownListComponent;
+
+  public filterPlaceholder: string = 'Buscar cuenta mayor';
+  // filtering event handler to filter a Country
+  public onFiltering: EmitType<FilteringEventArgs> = (e: FilteringEventArgs) => {
+      let query: Query = new Query();
+      //frame the query based on search string with filter type.
+      query = (e.text !== '') ? query.where('cuenta', 'startswith', e.text, true) : query;
+      //pass the filter data source, filter query to updateData method.
+      e.updateData(this.mayorData, query);
+  }
+//fin combo cuenta mayor
+
+//combo sub cuenta
+public subCuentaData;
+public subCuentaFields: Object = { text:'subcuenta',value: 'iPlanConSubCueId' };
 
 
+@ViewChild('subCuentaList',{static: false})
+// country DropDownList instance
+public subCuentaObj: DropDownListComponent;
+
+public ConSubCuePlace: string = 'Buscar sub cuenta';
+// filtering event handler to filter a Country
+public onFilteringsubCuenta: EmitType<FilteringEventArgs> = (e: FilteringEventArgs) => {
+    let query: Query = new Query();
+    //frame the query based on search string with filter type.
+    query = (e.text !== '') ? query.where('subcuenta', 'startswith', e.text, true) : query;
+    //pass the filter data source, filter query to updateData method.
+    e.updateData(this.subCuentaData, query);
+}
 
 
+public onChangeMayor(): void {
+  this.subCuentaObj.enabled = true;
+  // query the data source based on country DropDownList selected value
+  let tempQuery: Query = new Query().where('iPlanConMayorId', 'equal', this.mayorObj.value);
+  this.subCuentaObj.query = tempQuery;
+  // clear the existing selection.
+  this.subCuentaObj.text = null;
+  // bind the property changes to state DropDownList
+  this.subCuentaObj.dataBind();
 
+}
+
+//fin combo sub cuenta
   @ViewChild('tipoCObj',{static: true})
     public tipoCObj: DropDownListComponent;
     // define the JSON of data
@@ -112,6 +166,12 @@ public box: string = 'Box';
     // set the height of the popup element
     // set the placeholder to DropDownList input element
     public EstadoBienMark: string = 'Estado del Bien';
+    
+    public datacuentasSelectCombo;
+    public cuentasSelectComboFields: Object = { text: 'MAYOR', value: 'CUENTA' };
+    // set the height of the popup element
+    // set the placeholder to DropDownList input element
+    public cuentasSelectComboMark: string = 'Seleccione una cuenta';
     
     //public value: string = '1';
     // set the value to select an item based on mapped value at initial rendering
@@ -219,10 +279,13 @@ public dialogOpen: EmitType<object> = () => {
 
 
   ngOnInit() {
-    
+   // this.subCuentaObj.enabled = true;
     //console.log("opcion enviada ="+this.op);
     this.dataApiEstadoBienes.getCombo().subscribe((respon)=>{ this.dataBienEstado=respon; });
     this.dataApiColores.getCombo().subscribe((respon)=>{ this.dataColores=respon; });
+    this.apiMayor.getCombo().subscribe((respon)=>{ this.mayorData=respon;   });
+    this.apiSubCuenta.getCombo().subscribe((respon)=>{ this.subCuentaData=respon;   });
+
     
 
   }
@@ -275,6 +338,8 @@ public onFormSubmit(): void {
     iCatalogoId:'',
     colores:[],
     cantidad:1,
+    iPlanConMayorId:'',
+      iPlanConSubCueId:''
 
   };
   this.ocItemSelect = {  
@@ -287,7 +352,10 @@ public onFormSubmit(): void {
     CANT_ITEM : 1,
     PREC_UNIT_MONEDA : '',
     PREC_TOT_SOLES :'',
-    b:0
+    b:0,
+    clasificador:'',
+    cuentas:[]
+    
   };
 }
 
@@ -413,7 +481,11 @@ public setTextSelectOcItemSiga(ocItem:OcItemInterface){
       PREC_UNIT_MONEDA : ocItem.PREC_UNIT_MONEDA,
       PREC_TOT_SOLES :ocItem.PREC_TOT_SOLES,
       b :ocItem.b,
+      clasificador:ocItem.clasificador,
+       cuentas:ocItem.cuentas
     };
+    this.datacuentasSelectCombo=this.ocItemSelect.cuentas;
+    console.log("cuentas",this.datacuentasSelectCombo);
 }
 
 public BtnOkOcItemSigaModalClick(): void{

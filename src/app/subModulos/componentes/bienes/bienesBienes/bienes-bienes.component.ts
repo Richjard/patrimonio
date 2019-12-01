@@ -86,6 +86,7 @@ export class BienesBienesComponent implements OnInit {
 
 @Output() devuelve_Biens:EventEmitter<BienInterface> = new EventEmitter<BienInterface>()//devovlemos cuando invoquen al componente
 public dataBienEstado;
+
 public bienSituaciones:SituacionesBienesInterface;
 public rowSize=30;
 faPlus = faPlus;//icono nuevo
@@ -182,7 +183,7 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
        this.grid.refresh();//refresescamos la grilñla  
       }); 
       this.alertDialog.hide();
-      this.setBienDatos("1","autogenerado","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",[]);
+      this.setBienDatos("1","autogenerado","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",[],'','');
      
  }
  public alertDlgButtons: Object[] = [{ click: this.alertDlgBtnClick.bind(this), buttonModel: { content: 'Si', isPrimary: true } }];
@@ -579,7 +580,9 @@ ngOnInit(): void {
       cMarcaDescripcion:'',
       iCatalogoId:'',
       colores:[],
-      cantidad:1
+      cantidad:1,
+      iPlanConMayorId:'',
+      iPlanConSubCueId:''
 
 
     
@@ -750,7 +753,10 @@ clickHandler(args: ClickEventArgs): void {//para tamaño de fila de la grila
       selectedrecords[0]['cModeloDescripcion'] ,
       selectedrecords[0]['cMarcaDescripcion'],
       selectedrecords[0]['iCatalogoId'],
-      selectedrecords[0]['colores'],   
+      selectedrecords[0]['colores'], 
+      selectedrecords[0]['iPlanConMayorId'], 
+      selectedrecords[0]['iPlanConSubCueId'], 
+    
     
     
       );            
@@ -763,7 +769,7 @@ clickHandler(args: ClickEventArgs): void {//para tamaño de fila de la grila
     case 'n_b':
         //let data = this.local.getItem('userInfo')
         let anio=this.local.getItem('iYearId');
-        this.setBienDatos("0","autogenerado","","","","","","","","","","","","","1","","",''+anio,"","","","","","","","","","","","","","","",[]);
+        this.setBienDatos("0","autogenerado","","","","","","","","","","","","","1","","",''+anio,"","","","","","","","","","","","","","","",[],'','');
         if(this.grid.getSelectedRecords().length){  
           this.grid.clearSelection();          
         }          
@@ -1019,6 +1025,9 @@ rowSelected(args: RowSelectEventArgs) {
         selectedrecords[0]['cMarcaDescripcion'],
         selectedrecords[0]['iCatalogoId'],
         selectedrecords[0]['colores'],
+        selectedrecords[0]['iPlanConMayorId'],
+        selectedrecords[0]['iPlanConSubCueId'], 
+        
 
 
 
@@ -1029,7 +1038,7 @@ rowSelected(args: RowSelectEventArgs) {
 
 setBienDatos(iTipoCId,iBienId,cBienCodigo,cBienDescripcion,nBienValor,cBienSerie,cBienDimension,cBienOtrasCaracteristicas,bBienBaja,dBienFechaBaja,cBienCausalBaja,cBienResolucionBaja,dBienAnioFabricacion,cBienObs,
     iEstadoBienId,iFormaAdqId,iTipoId,iYearId,iCatalogoNoPatId,iCatSbnId,iDocAdqId,cPlanContCodigo,cPlanContDescripcion,cClasGastoCodigo,cClasGastoDescripcion,cDocAdqNro,dDocAdqFecha,
-    nDocAdqValor,cFormaAdqDescripcion,cTipoDescripcion,cModeloDescripcion,cMarcaDescripcion,iCatalogoId,colores){
+    nDocAdqValor,cFormaAdqDescripcion,cTipoDescripcion,cModeloDescripcion,cMarcaDescripcion,iCatalogoId,colores,iPlanConMayorId,iPlanConSubCueId){
   this.Bien = { 
     iTipoCId:iTipoCId,  
     iBienId : iBienId,
@@ -1070,7 +1079,9 @@ setBienDatos(iTipoCId,iBienId,cBienCodigo,cBienDescripcion,nBienValor,cBienSerie
     cMarcaDescripcion:cMarcaDescripcion,
     iCatalogoId:iCatalogoId,
     colores: colores,
-    cantidad:1
+    cantidad:1,
+    iPlanConMayorId:iPlanConMayorId,
+    iPlanConSubCueId:iPlanConSubCueId
 
     
 

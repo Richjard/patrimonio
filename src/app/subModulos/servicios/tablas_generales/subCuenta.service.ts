@@ -4,14 +4,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable} from 'rxjs/internal/Observable';
 import { LocalService } from '../../../servicios/local.services'
 import { map } from 'rxjs/operators';
-import {PlanInterface} from '../../interfaces/tablasGenerales/plan-tablasGenerales-interface';
+import {SubCuentaInterface} from '../../interfaces/tablasGenerales/subCuenta-tablasGenerales-interface';
 import { environment } from '../../../../environments/environment';
 import {retryWithBackoff} from '../../servicios/retri'
 import { IsLoadingService } from '@service-work/is-loading';
 @Injectable({
   providedIn: 'root'
 })
-export class PlanesService {
+export class SubCuentaService {
   isLoading: Observable<boolean>;
   ls = window.localStorage;
   httpOptions:any
@@ -30,7 +30,7 @@ export class PlanesService {
       
     }
    }
-   crear(Plan:PlanInterface){
+  /*crear(Plan:PlanInterface){
     console.log("crud NUEVOOOO:::");
       this.insertHead()
       return this.http.post<PlanInterface>(`${environment.apiUrl}/pat/planes`,Plan,{headers:this.headers})
@@ -47,20 +47,14 @@ export class PlanesService {
       this.insertHead()
       return this.http.delete<PlanInterface>(`${environment.apiUrl}/pat/planes/${id}`,{headers:this.headers})
       .pipe(map(data => data));
-   }
+   }*/
 
-   getCombo(): Observable<PlanInterface[]>{
-    this.insertHead()
-    return  this.isLoadingService.add(this.http.get<PlanInterface[]>(`${environment.apiUrl}/pat/planes/combo`,{headers:this.headers})
+   getCombo(): Observable<SubCuentaInterface[]>{
+    return this.isLoadingService.add(this.http.get<SubCuentaInterface[]>(`${environment.apiUrl}/pat/subcuenta/combo`,{headers:this.headers})
     .pipe(retryWithBackoff(100),map(data => data)));
    }
 
 
-
-  insertHead(){
- 
-    
-  }
 
   
 

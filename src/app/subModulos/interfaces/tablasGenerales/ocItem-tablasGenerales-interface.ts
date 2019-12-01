@@ -9,6 +9,8 @@ export interface OcItemInterface {
     PREC_UNIT_MONEDA : string;
     PREC_TOT_SOLES : string;
     b : number;//para ver si es compatible SIGEUN Y SIGA EN CATALOGO
+    clasificador:string;
+    cuentas:[]
 
 }
 

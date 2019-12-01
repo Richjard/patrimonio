@@ -44,6 +44,10 @@ export interface BienInterface {
 
     colores:[];
     cantidad:number; 
+    iPlanConMayorId:String,
+    iPlanConSubCueId:String
+
+
 }
 
 

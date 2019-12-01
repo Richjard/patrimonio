@@ -39,9 +39,11 @@ public GuardarPlan(): void {
 public onFormSubmit(): void {
   this.form.reset();
   this.Plan = {
-    iPlanContId : '*autogenerado',
-    cPlanContCodigo:"",
-    cPlanContDescripcion:""
+    iPlanConMayorId : 'autogenerado',
+    cPlanConMayorCodigo :'',
+    cPlanConMayorDescripcion :'',
+    bPlanConMayorEstado:'',
+    cPlanConMayorTipo:'',
   };
 }
 

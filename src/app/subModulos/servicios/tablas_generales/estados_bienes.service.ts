@@ -6,8 +6,7 @@ import { LocalService } from '../../../servicios/local.services'
 import { map } from 'rxjs/operators';
 import {EstadoBienInterface} from '../../interfaces/tablasGenerales/estado_bien-tablasGenerales-interface';
 import { environment } from '../../../../environments/environment';
-
-
+import {retryWithBackoff} from '../../servicios/retri'
 @Injectable({
   providedIn: 'root'
 })
@@ -37,11 +36,13 @@ export class EstadosBienesService {
       return this.http.delete<FormaAdquisicionInterface>(`${environment.apiUrl}/pat/formas_adquisicion/${id}`,this.httpOptions)
       .pipe(map(data => data));
    }*/
-
+   
    getCombo(): Observable<EstadoBienInterface[]>{
     this.insertHead()
     return this.http.post<EstadoBienInterface[]>(`${environment.apiUrl}/pat/estados_bien/combo`,this.httpOptions)
-    .pipe(map(data => data));
+    .pipe(
+      retryWithBackoff(100),
+      map(data => data));
    }
 
    

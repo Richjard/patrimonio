@@ -119,14 +119,25 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
  public alertDlgBtnClick = () => {
      //eliminar registro seleccionado
  
-      this.serviceCrud.delete(this.Plan.iPlanContId).subscribe((respon)=>{      
-      console.log(respon["validated"])
-      if(respon["validated"]==true)
-       this.toastObj.show( { title: 'Éxito!', content: respon["mensaje"], cssClass: 'e-toast-success', icon: 'e-success toast-icons' });  
-       this.grid.refresh();//refresescamos la grilñla  
-      }); 
+      this.serviceCrud.delete(this.Plan.iPlanConMayorId).subscribe(
+        (respon)=>{      
+            console.log(respon["validated"])
+            if(respon["validated"]==true){
+              this.toastObj.show( { title: 'Éxito!', content: respon["mensaje"], cssClass: 'e-toast-success', icon: 'e-success toast-icons' });  
+              this.grid.refresh();//refresescamos la grilñla  
+            }else{
+              this.toastObj.show( { title: 'Error!', content: respon["mensaje"], cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+            }
+     
+        },
+        (error )=>{      
+         
+          this.toastObj.show( { title: 'Error!', content: 'Hubo un problema al tratar de eliminar', cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+   
+      }
+      ); 
       this.alertDialog.hide();
-      this.setPlanDatos("autogenerado","","");
+      this.setPlanDatos("autogenerado","","","","");
      
  }
  public alertDlgButtons: Object[] = [{ click: this.alertDlgBtnClick.bind(this), buttonModel: { content: 'Si', isPrimary: true } }];
@@ -138,7 +149,7 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
     public Dialog: DialogComponent;
     public proxy: any = this;
     public BtnNuevoPlanClick: EmitType<object> = () => {   
-      this.setPlanDatos("autogenerado","","");
+      this.setPlanDatos("autogenerado","","","","");
       if(this.grid.getSelectedRecords().length){  
          this.grid.clearSelection();          
       }  
@@ -151,7 +162,7 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
     public BtnVerPlanClick: EmitType<object> = () => {  
       if(this.grid.getSelectedRecords().length>0) {  
            const selectedrecords: object[] = this.grid.getSelectedRecords();  // Get the selected records.       
-           this.setPlanDatos(selectedrecords[0]['iPlanContId'],selectedrecords[0]['cPlanContDescripcion'],selectedrecords[0]['cPlanContCodigo']);       
+           this.setPlanDatos(selectedrecords[0]['iPlanConMayorId'],selectedrecords[0]['cPlanConMayorCodigo'],selectedrecords[0]['cPlanConMayorDescripcion'],selectedrecords[0]['bPlanConMayorEstado'],selectedrecords[0]['cPlanConMayorTipo']);       
   
            this.icoForm=faInfo;
            this.opcion=1;                     
@@ -163,7 +174,7 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
     public BtnModificarPlanClick: EmitType<object> = () => {
        if(this.grid.getSelectedRecords().length>0) {  
         const selectedrecords: object[] = this.grid.getSelectedRecords();  // Get the selected records.       
-        this.setPlanDatos(selectedrecords[0]['iPlanContId'],selectedrecords[0]['cPlanContDescripcion'],selectedrecords[0]['cPlanContCodigo']);         
+        this.setPlanDatos(selectedrecords[0]['iPlanConMayorId'],selectedrecords[0]['cPlanConMayorCodigo'],selectedrecords[0]['cPlanConMayorDescripcion'],selectedrecords[0]['bPlanConMayorEstado'],selectedrecords[0]['cPlanConMayorTipo']);           
 
         this.icoForm=faEdit;  
           this.opcion=2;                   
@@ -178,7 +189,7 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
        
         if(this.grid.getSelectedRecords().length>0) { 
           const selectedrecords: object[] = this.grid.getSelectedRecords();  // Get the selected records.       
-          this.setPlanDatos(selectedrecords[0]['iPlanContId'],selectedrecords[0]['cPlanContDescripcion'],selectedrecords[0]['cPlanContCodigo']);                 
+          this.setPlanDatos(selectedrecords[0]['iPlanConMayorId'],selectedrecords[0]['cPlanConMayorCodigo'],selectedrecords[0]['cPlanConMayorDescripcion'],selectedrecords[0]['bPlanConMayorEstado'],selectedrecords[0]['cPlanConMayorTipo']);                 
           this.alertDialog.show();
        } else {                  
        
@@ -274,9 +285,11 @@ public dataStateChange(state: DataStateChangeEventArgs): void {
 
 ngOnInit(): void {    
     this.Plan = {
-      iPlanContId :'autogenerado',
-      cPlanContCodigo:"",
-      cPlanContDescripcion:""
+      iPlanConMayorId : 'autogenerado',
+      cPlanConMayorCodigo :'',
+      cPlanConMayorDescripcion :'',
+      bPlanConMayorEstado:'',
+      cPlanConMayorTipo:'',
     };
     this.opcion=0;  
 
@@ -299,16 +312,18 @@ ngOnInit(): void {
 rowSelected(args: RowSelectEventArgs) { 
   console.log("select");
   const selectedrecords: object[] = this.grid.getSelectedRecords();  // Get the selected records.       
-  this.setPlanDatos(selectedrecords[0]['iPlanContId'],selectedrecords[0]['cPlanContDescripcion'],selectedrecords[0]['cPlanContCodigo']);    
+  this.setPlanDatos(selectedrecords[0]['iPlanConMayorId'],selectedrecords[0]['cPlanConMayorCodigo'],selectedrecords[0]['cPlanConMayorDescripcion'],selectedrecords[0]['bPlanConMayorEstado'],selectedrecords[0]['cPlanConMayorTipo']);    
   this.devuelve_planes.emit(this.Plan);
 }
 
 
-setPlanDatos(iPlanId,cPlanContDescripcion,cPlanContCodigo){
+setPlanDatos(iPlanConMayorId,cPlanConMayorCodigo,cPlanConMayorDescripcion,bPlanConMayorEstado,cPlanConMayorTipo){
   this.Plan = {   
-    iPlanContId : iPlanId,
-    cPlanContCodigo :cPlanContCodigo,
-    cPlanContDescripcion:cPlanContDescripcion
+    iPlanConMayorId : iPlanConMayorId,
+    cPlanConMayorCodigo :cPlanConMayorCodigo,
+    cPlanConMayorDescripcion :cPlanConMayorDescripcion,
+    bPlanConMayorEstado:bPlanConMayorEstado,
+    cPlanConMayorTipo:cPlanConMayorTipo,
   };
 }
 

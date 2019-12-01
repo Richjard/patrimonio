@@ -9,12 +9,14 @@ import { environment } from '../../../../environments/environment';
 
 
 import { LocalService } from '../../../servicios/local.services'
-
+import {retryWithBackoff} from '../../servicios/retri'
+import { IsLoadingService } from '@service-work/is-loading';
 //@Injectable()
 @Injectable({
     providedIn: 'root'
   })
 export class BienSyService extends Subject<DataStateChangeEventArgs> { 
+  isLoading: Observable<boolean>;
     parametros_consulta:any=[];
     orderBy:any=[];
     ls = window.localStorage;
@@ -22,12 +24,15 @@ export class BienSyService extends Subject<DataStateChangeEventArgs> {
     headers:any
     token:any
     anio:string
-    constructor(private http: HttpClient,private store: LocalService,private local:LocalService,) {
+    constructor(private http: HttpClient,private store: LocalService,private local:LocalService, private isLoadingService: IsLoadingService,) {
         super();
     }
 
     public execute(state: any,iSituacionBienId:number): void {
-        this.getData(state,iSituacionBienId).subscribe(x => super.next(x));
+      this.isLoading = this.isLoadingService.isLoading$();
+
+
+      this.isLoadingService.add(  this.getData(state,iSituacionBienId).subscribe(x => super.next(x)));
     }
 
     protected getData(state: DataStateChangeEventArgs,iSituacionBienId:number): Observable<DataStateChangeEventArgs> {
@@ -50,15 +55,17 @@ export class BienSyService extends Subject<DataStateChangeEventArgs> {
           anio:this.anio
         
         };
+
+       
         this.insertHead();  
         return this.http 
            .post(`${environment.apiUrl}/pat/bienes/result`,this.parametros_consulta,this.httpOptions) 
-           .pipe(map((response: any) => response))
-           .pipe(map((response: any) => (<DataResult>{
+           .pipe( retryWithBackoff(100),map((response: any) => response))
+           .pipe(retryWithBackoff(100),map((response: any) => (<DataResult>{
                 result: response['results'],
                 count: parseInt(response['count'], 10)
         })))
-        .pipe((data: any) => data);
+        .pipe(retryWithBackoff(100),(data: any) => data);
     }
 
     insertHead(){

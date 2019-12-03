@@ -10,7 +10,7 @@ export interface BienReportInterface {
     cMarcaDescripcion : String,
     iDespBienId : String,
     dDespBienFecha : String,
-    nBienValor : String
+    nBienValor : Number
 }
 
 

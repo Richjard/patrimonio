@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import {BienReportInterface} from '../../interfaces/reportes/BienReport-interface';
 import { UbicaionCentroCOsto } from 'src/app/subModulos/interfaces/reportes/ubicacion-CentroCosto';
 import { environment,environmentCliente } from '../../../../environments/environment';
-
+import {retryWithBackoff} from '../../servicios/retri'
 
 @Injectable({
   providedIn: 'root'
@@ -84,13 +84,19 @@ export class ApiReporteService {
     this.insertHead()
     return this.http.get<BienReportInterface[]>(`${environment.apiUrl}/pat/reportes/getComboCuentaMayor`,{headers:this.httpOptions})   
 
-    .pipe(map(data => data));
+    .pipe(retryWithBackoff(100),map(data => data));
    }
-   getComboSubCuenta(id:any): Observable<BienReportInterface[]>{
+   getComboSubCuenta(): Observable<BienReportInterface[]>{
     this.insertHead()
-    return this.http.get<BienReportInterface[]>(`${environment.apiUrl}/pat/reportes/getComboCuentaContable/${id}`,{headers:this.httpOptions})   
+    return this.http.get<BienReportInterface[]>(`${environment.apiUrl}/pat/reportes/getComboCuentaContable`,{headers:this.httpOptions})   
 
-    .pipe(map(data => data));
+    .pipe(retryWithBackoff(100),map(data => data));
+   }
+   getBienCuentaContable(id:any): Observable<BienReportInterface[]>{
+    this.insertHead()
+    return this.http.get<BienReportInterface[]>(`${environment.apiUrl}/pat/reportes/getBienCuentaMayor/${id}`,{headers:this.httpOptions})   
+
+    .pipe(retryWithBackoff(100),map(data => data));
    }
 
 

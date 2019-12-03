@@ -30,7 +30,6 @@ import { DropDownListModule,MultiSelectModule } from '@syncfusion/ej2-angular-dr
 
 
 
-import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 import { AreasUbicacionComponent } from './componentes/ubicacion/areas-ubicacion/areas-ubicacion.component';
@@ -282,8 +281,7 @@ const routes: Routes = [
     MultiSelectModule,
     MaskedTextBoxModule,
     TextBoxModule,
-    SwitchModule ,
-    MatProgressBarModule
+    SwitchModule 
   ],
   exports: [RouterModule],
   declarations: [LocalesUbicacionComponent, LocalDetallesUbicacionComponent, AreasUbicacionComponent, AreaFormUbicacionComponent, OficinasUbicacionComponent, OficinaFormUbicacionComponent, GruposGenericosCatalogoSBNComponent, GruposGenericosFormCatalogoSBNComponent, ClasesGenericosCatalogoSBNComponent, ClasesGenericosFormCatalogoSBNComponent, GrupoClaseGenericosFormCatalogoSBNComponent, GrupoClaseGenericosCatalogoSBNComponent, CatalogoCatalogoSBNComponent, CatalogoFormCatalogoSBNComponent, MarcasTablasGeneralesComponent, MarcasFormTablasGeneralesComponent, ModelosTablasGeneralesComponent, ModelosFormTablasGeneralesComponent, TiposTablasGeneralesComponent, TiposFormTablasGeneralesComponent, DocumentosTablasGeneralesComponent, DocumentosFormTablasGeneralesComponent, CatalogoNoPatrimonialTablasGeneralesComponent, CatalogoNoPatrimonialFormTablasGeneralesComponent, PlanFormTablasGeneralesComponent, PlanTablasGeneralesComponent, BienesBienesComponent, BienesFormBienesComponent, DocumentosTramiteTablasGeneralesComponent, DocumentosTramiteFormTablasGeneralesComponent, OcTablasGeneralesComponent, OcFormTablasGeneralesComponent, OcItemFormTablasGeneralesComponent, OcItemTablasGeneralesComponent, DesplazamientoBienesComponent, DesplazamientoFormBienesComponent, EmpleadosTablaGeneralesComponent, EmpleadosFormTablaGeneralesComponent, CentroCostoTablaGeneralesComponent, CentroCostoFormTablaGeneralesComponent, CentroCostoEmpleadoTablaGeneralesComponent, CentroCostoEmpleadoFormTablaGeneralesComponent, DocVerificacionBienesComponent, DocVerificacionFormBienesComponent, DependeciaUbicacionComponent, VerificarBienesComponent, BajaFormBienesComponent, MoverFormBienesComponent, AsignarFormBienesComponent,PorDependenciaReportesComponent,PorDepenSubdepenReporteComponent,PorDepenSubdepenEmpleReporteComponent,PorUbicacionEmpleadoReporteComponent,PorEmpleadoReporteComponent, PorPlanContableComponent, PorBienesNoDepreciablesComponent, PorBienesDepreciablesComponent],

@@ -29,6 +29,7 @@ export interface DesplazamientoBienInterface {
     cDepenNombreO:string;
     cEmpleadoO:string;
     iDocAdqId : string;
+    asignacion:number;
     
 
 }

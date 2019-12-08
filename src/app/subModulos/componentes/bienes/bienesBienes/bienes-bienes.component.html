@@ -26,6 +26,32 @@
     </ng-template>
 </ejs-dialog>
 
+<ejs-dialog #modalFormDepreciacion  [isModal]='isModal' [allowDragging]='dialogdragging'  [height]='height' [visible]='hidden'  [animationSettings]='animationSettings' [showCloseIcon]='showCloseIcon' [target]='target' [width]='width' (open)="dialogOpen()"
+    (close)="dialogClose()">  
+    <!--<ng-template #footerTemplate>
+        <input id="inVal" class="e-input" type="text" placeholder="Enter your message here!"/>
+            <button id="sendButton" class="e-control e-btn e-light sendButton" data-ripple="true">Cancelar</button>
+            <button id="sendButton"  class="e-control e-btn e-primary sendButton" data-ripple="true">Guardar</button>         
+                <button  [disabled]="userForm.form.invalid" >SAVE</button>
+    </ng-template>-->
+    <ng-template #content>
+        <div class="dialogContent">
+            <span class="dialogText">    
+            <app-depreciacion-form-bienes [datosBien]="BienDepreciacion" [op]="opcion" (devuelve_hijo)="cerrar_ventana_modal_bien_baja($event)" (cerrar_modal)="cerrar_ventana_modal_($event)"></app-depreciacion-form-bienes>                   
+        
+            </span>     
+        </div>
+    </ng-template>
+
+    <ng-template #header>
+        <!--<div class="e-avatar template-image e-avatar-xsmall e-avatar-circle">fadsf</div>-->
+
+        <fa-icon [icon]="icoForm" size="lg"></fa-icon>
+                                                        
+        <div id="dlg-template" title="Nancy" class="e-icon-settings"> Parametros de depreciacion del bien</div>
+    </ng-template>
+</ejs-dialog>
+
 <ejs-dialog #modalFormbaja  [isModal]='isModal' [allowDragging]='dialogdragging'  [height]='height' [visible]='hidden'  [animationSettings]='animationSettings' [showCloseIcon]='showCloseIcon' [target]='target' [width]='width' (open)="dialogOpen()"
     (close)="dialogClose()">  
     <!--<ng-template #footerTemplate>
@@ -142,7 +168,14 @@
                   <br>
 
        
-                  <ejs-grid #grid [dataSource]='dataBienesActivos | async'  [allowSelection]="true" [selectionSettings]="selectOptions"   allowPaging='true' height='600'  
+                  <ejs-grid #grid [dataSource]='dataBienesActivos | async'
+                   
+                  [allowSelection]='true' [selectionSettings]='selectOptions'
+                  
+                  [allowRowDragAndDrop]="true"
+                  
+                  
+                  allowPaging='true' height='600'  
                             [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChange($event)' (rowSelected)='rowSelected($event)'   rowHeight='20'  >
                             
                               <ng-template #toolbarTemplate let-data>
@@ -160,7 +193,7 @@
                                                 <e-item id='b_b' prefixIcon='sf-icon-delete tb-icons' tooltipText='Dar de baja el bien' text='Baja'></e-item>
                                                 <e-item  type='Separator' ></e-item>
                                                 <e-item id='ab_b' prefixIcon=' sf-icon-assign tb-icons' tooltipText='Asignar Bienes' text='Asignar bienes'></e-item>
-                                               
+                                                <e-item id='depr_b' prefixIcon='sf-icon-battery-low tb-icons' tooltipText='Parametros de depreciación' text='Depreciación'></e-item>
                                                
                                                 <e-item id='small_b' prefixIcon='sf-icon-menu-interface-wf tb-icons'  align='Right'></e-item>
                                                 <e-item id='medium_b' prefixIcon='sf-icon-view-01-wf tb-icons' align='Right'></e-item>
@@ -170,8 +203,8 @@
                                     </ejs-toolbar>
                                 </ng-template>
                                 <e-columns>
-                                    <e-column type='checkbox' width='5%'></e-column>
-                                   <!-- <e-column field= "iTipoCId" headerText="iTipoCId" width="10%" [allowFiltering]="false" [visible]="false"></e-column>
+                                 <!--    <e-column type='checkbox' width='5%'></e-column>
+                                   <e-column field= "iTipoCId" headerText="iTipoCId" width="10%" [allowFiltering]="false" [visible]="false"></e-column>
                                     <e-column field= "RowNumber" headerText="N°" width="2%" [allowFiltering]="false" [allowSorting]="false" [visible]="false"></e-column>
                                     <e-column field= "iBienId" headerText="ID" width="10%" [allowFiltering]="false" [visible]="false"></e-column>-->
                                     <e-column field= "bVerificacionEstado" headerText="VB" width="3%" [allowFiltering]="false" [allowSorting]="false">                                                                                         

@@ -60,7 +60,7 @@
         </div>
     </div>
 
-    <ejs-grid #grid [dataSource]='data | async'  allowPaging='true' height=50  [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChange($event)' (rowSelected)='rowSelected($event)'>
+    <ejs-grid #grid [dataSource]='data | async'  allowPaging='true' height=550  [allowFiltering]="true" [pageSettings]='pageOptions' allowSorting= 'true'  (dataStateChange)= 'dataStateChange($event)' (rowSelected)='rowSelected($event)'>
    
         <e-columns>
             <e-column field= "RowNumber" headerText="N°" width="10%" [allowFiltering]="false" [allowSorting]="false" [visible]="false"></e-column>

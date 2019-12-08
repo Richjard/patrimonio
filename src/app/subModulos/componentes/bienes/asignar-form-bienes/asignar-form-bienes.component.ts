@@ -200,9 +200,12 @@ PadLeft(value, length) {
     console.log("fecha  ="+this.date);
 
     let date: Date = new Date();  
+    console.log("fecha sistema:"+ new Date());
     let dia=this.PadLeft( date.getDay(),2);
     let mes=this.PadLeft( date.getMonth(),2);
     this.fecha=date.getFullYear()+'-'+mes+'-'+dia;  
+    console.log("fecha calcualda:"+ new Date().getDay());//dd-MM-yyyy
+    console.log("mes :"+ new Date().getMonth());//dd-MM-yyyy
      this.anio=date.getFullYear(); 
 
     
@@ -227,7 +230,8 @@ PadLeft(value, length) {
       cCentroCostoNombre:'',
       cDepenNombreO:'',
       cEmpleadoO:'',
-      iDocAdqId : ''
+      iDocAdqId : '',
+      asignacion:1
   
     };
  
@@ -268,7 +272,8 @@ public onFormSubmit(): void {
     cCentroCostoNombre:'',
     cDepenNombreO:'',
     cEmpleadoO:'',
-    iDocAdqId : ''
+    iDocAdqId : '',
+    asignacion:1
 
   };
 

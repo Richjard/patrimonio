@@ -87,7 +87,7 @@
                                 <input type="hidden" id="iCatalogoId" name="iCatalogoId" [(ngModel)]="Bien.iCatalogoId" #iCatalogoId="ngModel" required  value="{{Bien.iCatalogoId}}">
                                 <input type="text" required  class="inputD"     disabled id="cBienCodigo" name="cBienCodigo" [(ngModel)]="Bien.cBienCodigo" #cBienCodigo="ngModel"   value="{{Bien.cBienCodigo}}">
                                 <span class="e-float-line"></span>
-                                <label class="e-float-text" [ngClass]="{'e-label-top': Bien.cBienCodigo !== '' , 'e-label-bottom':  Bien.cBienCodigo == ''}" for="cBienCodigo">Código </label>                        
+                                <label class="e-float-text" [ngClass]="{'e-label-top': Bien.cBienCodigo !== '' , 'e-label-bottom':  Bien.cBienCodigo == ''}" for="cBienCodigo">Código {{Bien.iPlanConSubCueId}} </label>                        
                         
                                 
                                 <button  class="e-input-group-icon " (click)="BtnVerCatalogoSBNloClick()"   [disabled]="op != 0"  ><fa-icon [icon]="faFilter" size="lg"></fa-icon> </button> 
@@ -469,10 +469,11 @@
 
              
                   </div>
-                  <div class="col-xs-4 col-sm-4 col-lg-4 col-md-4">
+                  <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
                       
-                        <ejs-dropdownlist #CuentasObj name="cuentasSelectCombo"  id="cuentasSelectCombo"   [(ngModel)]="cuentasSelectCombo"   
-                                    [dataSource]='datacuentasSelectCombo'  [fields]='cuentasSelectComboFields' floatLabelType='Auto'>
+                        <ejs-dropdownlist #CuentasList name="cuentasSelectCombo"  id="cuentasSelectCombo"   [(ngModel)]="cuentasSelectCombo"   
+                                    [dataSource]='datacuentasSelectCombo  '  [fields]='cuentasSelectComboFields' [placeholder]='cuentasSelectComboMark'  
+                                     required>
                         </ejs-dropdownlist>     
 
   
@@ -480,7 +481,7 @@
                
                     </div>   
   
-               <div class="col-xs-4 col-sm-4 col-lg-4 col-md-4">
+               <div class="col-xs-2 col-sm-2 col-lg-2 col-md-2">
                       <!--<button id="sendButton" class="e-control e-btn e-light sendButton" data-ripple="true">Cancelar</button>-->
                       <button id="BtnOkOcItemSigaModalClick"  class="e-control e-btn e-primary sendButton" data-ripple="true" (click)="BtnOkOcItemSigaModalClick()"> Ok</button>     
                   </div>

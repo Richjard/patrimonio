@@ -111,8 +111,8 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
       if(this.grid.getSelectedRecords().length>0) {  
         const selectedrecords: object[] = this.grid.getSelectedRecords();  // Get the selected records.
         this.setOcItem(selectedrecords[0]['CODIGO'],selectedrecords[0]['GRUPO_BIEN'],selectedrecords[0]['CLASE_BIEN'],selectedrecords[0]['FAMILIA_BIEN'],selectedrecords[0]['ITEM_BIEN'],
-        selectedrecords[0]['NOMBRE_ITEM'],selectedrecords[0]['CANT_ITEM'],selectedrecords[0]['PREC_UNIT_MONEDA'],selectedrecords[0]['PREC_TOT_SOLES'],selectedrecords[0]['b'],selectedrecords[0]['clasificador'],selectedrecords[0]['cuentas'] );    
-           
+        selectedrecords[0]['NOMBRE_ITEM'],selectedrecords[0]['CANT_ITEM'],selectedrecords[0]['PREC_UNIT_MONEDA'],selectedrecords[0]['PREC_TOT_SOLES'],selectedrecords[0]['b'],
+        selectedrecords[0]['clasificador'],selectedrecords[0]['cuentas'],selectedrecords[0]['anio'] );    
           this.icoForm=faInfo;
           this.opcion=1;                     
           this.Dialog.show();  
@@ -206,11 +206,12 @@ ngOnInit(): void {
       ITEM_BIEN : '',
       NOMBRE_ITEM:'',
       CANT_ITEM : 1,
-      PREC_UNIT_MONEDA : '',  
-      PREC_TOT_SOLES:''  ,
+      PREC_UNIT_MONEDA : 0,  
+      PREC_TOT_SOLES:0 ,
       b:0  ,
       clasificador:'',
-     cuentas:[]
+     cuentas:[],
+     anio:''
     };
     this.opcion=0;  
 
@@ -234,7 +235,8 @@ rowSelected(args: RowSelectEventArgs) {
   const selectedrecords: object[] = this.grid.getSelectedRecords();  // Get the selected records. 
   console.log("codigo:::"+selectedrecords[0]['CODIGO']);       
   this.setOcItem(selectedrecords[0]['CODIGO'],selectedrecords[0]['GRUPO_BIEN'],selectedrecords[0]['CLASE_BIEN'],selectedrecords[0]['FAMILIA_BIEN'],selectedrecords[0]['ITEM_BIEN'],
-  selectedrecords[0]['NOMBRE_ITEM'],selectedrecords[0]['CANT_ITEM'],selectedrecords[0]['PREC_UNIT_MONEDA'],selectedrecords[0]['PREC_TOT_SOLES'],selectedrecords[0]['b'],selectedrecords[0]['clasificador'],selectedrecords[0]['cuentas'] );    
+  selectedrecords[0]['NOMBRE_ITEM'],selectedrecords[0]['CANT_ITEM'],selectedrecords[0]['PREC_UNIT_MONEDA'],selectedrecords[0]['PREC_TOT_SOLES'],selectedrecords[0]['b'],
+  selectedrecords[0]['clasificador'],selectedrecords[0]['cuentas'],selectedrecords[0]['anio'] );    
   
   console.log("CUENTAS:::",selectedrecords[0]['cuentas']); 
   this.devuelve_OcITEM.emit(this.OcItem);      
@@ -242,7 +244,7 @@ rowSelected(args: RowSelectEventArgs) {
 }
 
 
-setOcItem(CODIGO,GRUPO_BIEN,CLASE_BIEN,FAMILIA_BIEN,ITEM_BIEN,NOMBRE_ITEM,CANT_ITEM,PREC_UNIT_MONEDA,PREC_TOT_SOLES,b,clasificador,cuentas){
+setOcItem(CODIGO,GRUPO_BIEN,CLASE_BIEN,FAMILIA_BIEN,ITEM_BIEN,NOMBRE_ITEM,CANT_ITEM,PREC_UNIT_MONEDA,PREC_TOT_SOLES,b,clasificador,cuentas,anio){
   this.OcItem = {  
     CODIGO :CODIGO,
     GRUPO_BIEN: GRUPO_BIEN,   
@@ -255,7 +257,8 @@ setOcItem(CODIGO,GRUPO_BIEN,CLASE_BIEN,FAMILIA_BIEN,ITEM_BIEN,NOMBRE_ITEM,CANT_I
     PREC_TOT_SOLES:PREC_TOT_SOLES  ,
     b: b ,
     clasificador:clasificador,
-    cuentas:cuentas
+    cuentas:cuentas,
+    anio:anio
   };
 }
 

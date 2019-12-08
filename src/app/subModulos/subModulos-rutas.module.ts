@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -95,6 +95,7 @@ import { PorEmpleadoReporteComponent } from './componentes/reportes/por-empleado
 import { PorPlanContableComponent } from './componentes/reportes/por-plan-contable/por-plan-contable.component';
 import { PorBienesNoDepreciablesComponent } from './componentes/reportes/por-bienes-no-depreciables/por-bienes-no-depreciables.component';
 import { PorBienesDepreciablesComponent } from './componentes/reportes/por-bienes-depreciables/por-bienes-depreciables.component';
+import { DepreciacionFormBienesComponent } from './componentes/bienes/depreciacion-form-bienes/depreciacion-form-bienes.component';
 /*** */
 
 
@@ -284,8 +285,11 @@ const routes: Routes = [
     SwitchModule 
   ],
   exports: [RouterModule],
-  declarations: [LocalesUbicacionComponent, LocalDetallesUbicacionComponent, AreasUbicacionComponent, AreaFormUbicacionComponent, OficinasUbicacionComponent, OficinaFormUbicacionComponent, GruposGenericosCatalogoSBNComponent, GruposGenericosFormCatalogoSBNComponent, ClasesGenericosCatalogoSBNComponent, ClasesGenericosFormCatalogoSBNComponent, GrupoClaseGenericosFormCatalogoSBNComponent, GrupoClaseGenericosCatalogoSBNComponent, CatalogoCatalogoSBNComponent, CatalogoFormCatalogoSBNComponent, MarcasTablasGeneralesComponent, MarcasFormTablasGeneralesComponent, ModelosTablasGeneralesComponent, ModelosFormTablasGeneralesComponent, TiposTablasGeneralesComponent, TiposFormTablasGeneralesComponent, DocumentosTablasGeneralesComponent, DocumentosFormTablasGeneralesComponent, CatalogoNoPatrimonialTablasGeneralesComponent, CatalogoNoPatrimonialFormTablasGeneralesComponent, PlanFormTablasGeneralesComponent, PlanTablasGeneralesComponent, BienesBienesComponent, BienesFormBienesComponent, DocumentosTramiteTablasGeneralesComponent, DocumentosTramiteFormTablasGeneralesComponent, OcTablasGeneralesComponent, OcFormTablasGeneralesComponent, OcItemFormTablasGeneralesComponent, OcItemTablasGeneralesComponent, DesplazamientoBienesComponent, DesplazamientoFormBienesComponent, EmpleadosTablaGeneralesComponent, EmpleadosFormTablaGeneralesComponent, CentroCostoTablaGeneralesComponent, CentroCostoFormTablaGeneralesComponent, CentroCostoEmpleadoTablaGeneralesComponent, CentroCostoEmpleadoFormTablaGeneralesComponent, DocVerificacionBienesComponent, DocVerificacionFormBienesComponent, DependeciaUbicacionComponent, VerificarBienesComponent, BajaFormBienesComponent, MoverFormBienesComponent, AsignarFormBienesComponent,PorDependenciaReportesComponent,PorDepenSubdepenReporteComponent,PorDepenSubdepenEmpleReporteComponent,PorUbicacionEmpleadoReporteComponent,PorEmpleadoReporteComponent, PorPlanContableComponent, PorBienesNoDepreciablesComponent, PorBienesDepreciablesComponent],
-  providers: [FilterService, PageService]
+  declarations: [LocalesUbicacionComponent, LocalDetallesUbicacionComponent, AreasUbicacionComponent, AreaFormUbicacionComponent, OficinasUbicacionComponent, OficinaFormUbicacionComponent, GruposGenericosCatalogoSBNComponent, GruposGenericosFormCatalogoSBNComponent, ClasesGenericosCatalogoSBNComponent, ClasesGenericosFormCatalogoSBNComponent, GrupoClaseGenericosFormCatalogoSBNComponent, GrupoClaseGenericosCatalogoSBNComponent, CatalogoCatalogoSBNComponent, CatalogoFormCatalogoSBNComponent, MarcasTablasGeneralesComponent, MarcasFormTablasGeneralesComponent, ModelosTablasGeneralesComponent, ModelosFormTablasGeneralesComponent, TiposTablasGeneralesComponent, TiposFormTablasGeneralesComponent, DocumentosTablasGeneralesComponent, DocumentosFormTablasGeneralesComponent, CatalogoNoPatrimonialTablasGeneralesComponent, CatalogoNoPatrimonialFormTablasGeneralesComponent, PlanFormTablasGeneralesComponent, PlanTablasGeneralesComponent, BienesBienesComponent, BienesFormBienesComponent, DocumentosTramiteTablasGeneralesComponent, DocumentosTramiteFormTablasGeneralesComponent, OcTablasGeneralesComponent, OcFormTablasGeneralesComponent, OcItemFormTablasGeneralesComponent, OcItemTablasGeneralesComponent, DesplazamientoBienesComponent, DesplazamientoFormBienesComponent, EmpleadosTablaGeneralesComponent, EmpleadosFormTablaGeneralesComponent, CentroCostoTablaGeneralesComponent, CentroCostoFormTablaGeneralesComponent, CentroCostoEmpleadoTablaGeneralesComponent, CentroCostoEmpleadoFormTablaGeneralesComponent, DocVerificacionBienesComponent, DocVerificacionFormBienesComponent, DependeciaUbicacionComponent, VerificarBienesComponent, BajaFormBienesComponent, MoverFormBienesComponent, AsignarFormBienesComponent,PorDependenciaReportesComponent,PorDepenSubdepenReporteComponent,PorDepenSubdepenEmpleReporteComponent,PorUbicacionEmpleadoReporteComponent,PorEmpleadoReporteComponent, PorPlanContableComponent, PorBienesNoDepreciablesComponent, PorBienesDepreciablesComponent, DepreciacionFormBienesComponent],
+  providers: [FilterService, PageService,DatePipe]
  
 })
-export class subModulosRutasModule { }
+export class subModulosRutasModule { 
+
+  
+}

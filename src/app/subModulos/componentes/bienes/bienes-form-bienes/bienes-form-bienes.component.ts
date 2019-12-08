@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild,Input,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit,ViewChild,Input,Output,EventEmitter,SimpleChanges } from '@angular/core';
 import { LocalesService } from 'src/app/subModulos/servicios/locales.service';
 import {ActivatedRoute,Params} from '@angular/router'
 import { BienInterface } from 'src/app/subModulos/interfaces/bienes/catalogo-bienes-nterface';
@@ -16,6 +16,7 @@ import { Query } from '@syncfusion/ej2-data';
 import { DropDownListComponent,FilteringEventArgs } from '@syncfusion/ej2-angular-dropdowns';
 
 import { EstadosBienesService } from 'src/app/subModulos/servicios/tablas_generales/estados_bienes.service';
+import { OcItemSyService } from 'src/app/subModulos/servicios/tablas_generales/ocItem.sy.service';
 
 import { PlanesService } from 'src/app/subModulos/servicios/tablas_generales/planes.service';
 import { SubCuentaService } from 'src/app/subModulos/servicios/tablas_generales/subCuenta.service';
@@ -32,7 +33,7 @@ import { DialogComponent } from '@syncfusion/ej2-angular-popups';
 })
 export class BienesFormBienesComponent implements OnInit {
 
-
+private iPlanConSubCueId=0;
   private ocItemSelect:OcItemInterface;
 
   public dataColores;/*: string[] = [
@@ -84,7 +85,7 @@ public box: string = 'Box';
   @ViewChild('BienForm',{static: true}) form: any;//fromulario
   //constructor(private dataApi:LocalesService,private route:ActivatedRoute) { 
     constructor(private dataApi:LocalesService,private dataApiEstadoBienes:EstadosBienesService, private dataApiColores :ColoresService, private route:ActivatedRoute,
-      private apiMayor:PlanesService, private apiSubCuenta:SubCuentaService
+      private apiMayor:PlanesService, private apiSubCuenta:SubCuentaService,private apiItemOc:OcItemSyService
       ) { 
 
   }
@@ -132,6 +133,7 @@ public onFilteringsubCuenta: EmitType<FilteringEventArgs> = (e: FilteringEventAr
 
 
 public onChangeMayor(): void {
+  console.log("queueue?");
   this.subCuentaObj.enabled = true;
   // query the data source based on country DropDownList selected value
   let tempQuery: Query = new Query().where('iPlanConMayorId', 'equal', this.mayorObj.value);
@@ -140,6 +142,15 @@ public onChangeMayor(): void {
   this.subCuentaObj.text = null;
   // bind the property changes to state DropDownList
   this.subCuentaObj.dataBind();
+  if(this.iPlanConSubCueId!=0){
+    this.subCuentaObj.value=this.iPlanConSubCueId;
+  }
+  if(this.Bien.iPlanConSubCueId!='0' && this.mayorObj.value!='0' && this.iPlanConSubCueId==0){
+    this.subCuentaObj.value=''+this.Bien.iPlanConSubCueId;
+  }
+  this.iPlanConSubCueId=0;
+
+
 
 }
 
@@ -158,6 +169,7 @@ public onChangeMayor(): void {
 
     // set the height of the popup element
     public height2: string = '220px';
+    public WidthCuenta:string='800px';
     // set the placeholder to DropDownList input element
     public tipoCMark: string = 'T. Cat.';
 
@@ -168,11 +180,16 @@ public onChangeMayor(): void {
     public EstadoBienMark: string = 'Estado del Bien';
     
     public datacuentasSelectCombo;
-    public cuentasSelectComboFields: Object = { text: 'MAYOR', value: 'CUENTA' };
+    public cuentasSelectComboFields: Object = { text: 'NOMBRE', value: 'MAYOR' };
     // set the height of the popup element
     // set the placeholder to DropDownList input element
     public cuentasSelectComboMark: string = 'Seleccione una cuenta';
+
+
     
+@ViewChild('CuentasList',{static: false})
+// country DropDownList instance
+public cuentaObj: DropDownListComponent;
     //public value: string = '1';
     // set the value to select an item based on mapped value at initial rendering
     //public value: string = '1';
@@ -183,7 +200,7 @@ public tipoCObj: DropDownListComponent;*/
 public onTipoCatalogo(): void {
    
   this.Bien.cBienDescripcion=''; 
-  this.Bien.nBienValor='';
+  this.Bien.nBienValor=0;
   this.Bien.cantidad=1;  
 
   this.Bien.iCatalogoId= '';  
@@ -296,6 +313,28 @@ public GuardarBien(): void {
   this.cerrar_modal.emit(this.op); 
   //this.onFormSubmit();
 }
+ngOnChanges(changes: SimpleChanges){
+
+ if(this.op=="0"){
+   /*console.log('nuevoo:::::::  uevo');
+  //this.mayorObj.text = null;
+  //this.mayorObj.value = null;
+  //this.subCuentaObj.text = null;
+  //this.subCuentaObj.value = null;
+      
+  //this.mayorObj.refresh();
+  //this.subCuentaObj.refresh();  */
+  this.subCuentaObj.text = null;
+  this.subCuentaObj.value = null;
+ /* this.subCuentaObj.enabled = true;*
+ /* this.subCuentaObj.index=0;*/
+ }
+   
+ 
+}
+
+
+
 public onFormSubmit(): void {
   this.form.reset();
   this.Bien = {
@@ -303,7 +342,7 @@ public onFormSubmit(): void {
     iBienId : '*autogenerado',
     cBienCodigo:'',
     cBienDescripcion :'',
-    nBienValor:'',
+    nBienValor:0,
     cBienSerie:'',
     cBienDimension:'',
     cBienOtrasCaracteristicas:'',
@@ -339,7 +378,16 @@ public onFormSubmit(): void {
     colores:[],
     cantidad:1,
     iPlanConMayorId:'',
-      iPlanConSubCueId:''
+    iPlanConSubCueId:'',
+
+
+    iBienVidaUtil:0,
+    dBienFinVida:null,
+    dBienInicioVida:null,
+    nBienValorDepreciacion:0,
+    nBienCuotaSalvamiento:0,
+    nBienTasaDepreciacion:0,
+    nBienDepreciacionAcumulada:0,
 
   };
   this.ocItemSelect = {  
@@ -350,13 +398,20 @@ public onFormSubmit(): void {
     ITEM_BIEN : '',
     NOMBRE_ITEM:'',
     CANT_ITEM : 1,
-    PREC_UNIT_MONEDA : '',
-    PREC_TOT_SOLES :'',
+    PREC_UNIT_MONEDA : 0,
+    PREC_TOT_SOLES :0,
     b:0,
     clasificador:'',
-    cuentas:[]
+    cuentas:[],
+    anio:''
     
   };
+  //reiniciamos los combos de cuentas contables
+  this.mayorObj.text = null;
+  this.mayorObj.value = null;
+  this.subCuentaObj.text = null;
+  this.subCuentaObj.value = null;
+  this.subCuentaObj.enabled = true;
 }
 
 public setTextSelectCatalogoSBN(CatalogoSBN:CatalogoSBNInterface){  
@@ -482,10 +537,31 @@ public setTextSelectOcItemSiga(ocItem:OcItemInterface){
       PREC_TOT_SOLES :ocItem.PREC_TOT_SOLES,
       b :ocItem.b,
       clasificador:ocItem.clasificador,
-       cuentas:ocItem.cuentas
+       cuentas:ocItem.cuentas,
+       anio:ocItem.anio
     };
-    this.datacuentasSelectCombo=this.ocItemSelect.cuentas;
-    console.log("cuentas",this.datacuentasSelectCombo);
+
+ 
+    //recupearmos cuentas
+    this.datacuentasSelectCombo=[];
+    this.cuentaObj.dataBind();
+    this.cuentaObj.index=0;
+    
+    this.apiItemOc.getCombo(this.ocItemSelect.anio,this.ocItemSelect.clasificador,this.ocItemSelect.GRUPO_BIEN,this.ocItemSelect.CLASE_BIEN,this.ocItemSelect.FAMILIA_BIEN).subscribe((respon)=>{
+       
+      this.datacuentasSelectCombo=respon;
+
+     // this.cuentaObj.open(); 
+      this.cuentaObj.dataBind();       
+      this.cuentaObj.index=0;
+      this.cuentaObj.showPopup();
+      console.log("cuentaseeeeee",this.datacuentasSelectCombo);
+      });
+    /*this.datacuentasSeleectCombo=[];
+    this.datacuentasSelectCombo=this.ocItemSelect.cuentas['results'];
+    this.cuentaObj.dataBind();*/
+   
+   
 }
 
 public BtnOkOcItemSigaModalClick(): void{
@@ -493,6 +569,30 @@ public BtnOkOcItemSigaModalClick(): void{
     console.log("seleccione por favor una O/C");
   }else{
     if(this.ocItemSelect.b==1){
+    
+      let v=this.cuentaObj.value;
+      let x= this.cuentaObj.getDataByValue(v);
+      console.log('data:',x);
+     // console.log('sub cuenta:'+x['NOMBRE_SUBCUENTA']);
+     let SubCuentaID=x['NOMBRE_SUBCUENTA'];
+     //actualizamos los combos de cuentas
+     
+    this.mayorObj.value=x['iPlanConMayorId'];
+    this.iPlanConSubCueId=x['iPlanConSubCueId'];
+   // this.subCuentaObj.value=x['iPlanConSubCueId'];
+     /*let tempQuery: Query = new Query().where('cPlanConMayorCodigo', 'equal', x['MAYOR']);
+     this.mayorObj.query = tempQuery;*/
+     /*this.subCuentaObj.enabled = true;
+      // query the data source based on country DropDownList selected value
+      let tempQuery: Query = new Query().where('iPlanConMayorId', 'equal', this.mayorObj.value);
+      this.subCuentaObj.query = tempQuery;
+      // clear the existing selection.
+      //this.subCuentaObj.text = null;
+      // bind the property changes to state DropDownList
+      this.subCuentaObj.dataBind();
+      this.subCuentaObj.value=;*/
+     //fin
+     
       this.Bien.cBienDescripcion=this.ocItemSelect.NOMBRE_ITEM; 
       this.Bien.nBienValor=this.ocItemSelect.PREC_UNIT_MONEDA;
       this.Bien.cantidad=this.ocItemSelect.CANT_ITEM;  

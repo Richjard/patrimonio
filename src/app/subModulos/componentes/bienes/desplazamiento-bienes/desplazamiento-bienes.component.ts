@@ -312,7 +312,8 @@ ngOnInit(): void {
       cCentroCostoNombre:'',
       cDepenNombreO:'',
       cEmpleadoO:'',
-      iDocAdqId : ''
+      iDocAdqId : '',
+      asignacion:0
   
     };
     this.opcion=0;  
@@ -364,7 +365,8 @@ setDesplazamientoBienDatos(iDespBienId,dDespBienFecha,cDespBienDocRef,iTipoDespI
     cCentroCostoNombre:cCentroCostoNombre,
     cDepenNombreO:cDepenNombreO,
     cEmpleadoO:cEmpleadoO,
-    iDocAdqId : ''
+    iDocAdqId : '',
+    asignacion:0
   };
 }
 

@@ -32,6 +32,8 @@ import { LocalService } from '../../../../servicios/local.services'
 import {BienInterface} from './../../../interfaces/bienes/catalogo-bienes-nterface';
 import {SituacionesBienesInterface} from './../../../interfaces/bienes/situaciones-bienes-interface';
 import {DesplazamientoBienInterface} from './../../../interfaces/bienes/desplazamiento-bienes-nterface';
+import {DepreciacionBienesInterface} from './../../../interfaces/bienes/depreciacion-bienes-interface';
+
 import {DesplazamientoBienesService} from '../../../servicios/bienes/desplazamiento_bienes.service'
 
 
@@ -158,6 +160,7 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
  
 
   public Bien:BienInterface;//formulario interfaz data
+  public BienDepreciacion:DepreciacionBienesInterface;
  //variablres para pasarle al componente local-detalles-ubicacion
 
  //DIALOGO
@@ -183,7 +186,12 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
        this.grid.refresh();//refresescamos la grilñla  
       }); 
       this.alertDialog.hide();
-      this.setBienDatos("1","autogenerado","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",[],'','');
+      let anio=this.local.getItem('iYearId');
+      this.setBienDatos("0","autogenerado","","","","","","","","","","","","","1","","",''+anio,"","","","","","","","","","","","","","","",[],'0','0',
+      0,null,null,0,0,0,0
+      
+      
+      );
      
  }
  public alertDlgButtons: Object[] = [{ click: this.alertDlgBtnClick.bind(this), buttonModel: { content: 'Si', isPrimary: true } }];
@@ -334,7 +342,15 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
 
    @ViewChild('modalAsignarBienes',{static: true})
    public DialogAsignarBienes: DialogComponent;
+
+
+   
+   @ViewChild('modalFormDepreciacion',{static: true})
+   public DialogDepreciacion: DialogComponent;
    //FIN DIAALOGO
+   //FIN DIAALOGO
+
+   
 
   ttt;
   //local:any[]=[];
@@ -354,7 +370,7 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
   public pageOptions: Object;
   public pageSettings: Object;
   public state: DataStateChangeEventArgs;
-
+  public selectOptions: Object;
   
   @ViewChild('gridSobrates',{static: false})
   public gridSobrates: GridComponent;
@@ -402,6 +418,10 @@ documentClick: EmitType<Object> = (e: MouseEvent) => {
   //public pageOptions: Object;
  // public pageSettings: Object;
   public stateBaja: DataStateChangeEventArgs;
+
+
+
+
 
 constructor(
   private serviceAsinacionBien:DesplazamientoBienesService,
@@ -521,7 +541,7 @@ ngOnInit(): void {
       (error)=>{
         console.log('errorrrrrrrrrrrrrr');
       }) );
-
+      this.selectOptions = { type: 'Multiple' };
       this.pageOptions = { pageSize: 30, pageCount: 4 };
       let state = { skip: 0, take: 30 };
       this.serviceBienesActivos.execute(state,1);
@@ -541,13 +561,28 @@ ngOnInit(): void {
     cBienDescripcion :'',
 
    }
+
+   this.BienDepreciacion={
+    iBienId :'autogenerado',
+    cBienCodigo:'',
+    cBienDescripcion :'',
+   
+    iBienVidaUtil:0,
+    dBienFinVida:null,
+    dBienInicioVida:null,
+    nBienValorDepreciacion:0,
+    nBienCuotaSalvamiento:0,
+    nBienTasaDepreciacion:0,
+    nBienDepreciacionAcumulada:0,
+    nBienValor:0
+  }
   
     this.Bien = {
       iTipoCId:'0',
       iBienId : 'autogenerado',
       cBienCodigo:'',
       cBienDescripcion :'',
-      nBienValor:'',
+      nBienValor:0,
       cBienSerie:'',
       cBienDimension:'',
       cBienOtrasCaracteristicas:'',
@@ -582,7 +617,15 @@ ngOnInit(): void {
       colores:[],
       cantidad:1,
       iPlanConMayorId:'',
-      iPlanConSubCueId:''
+      iPlanConSubCueId:'',
+
+      iBienVidaUtil:0,
+      dBienFinVida:null,
+      dBienInicioVida:null,
+      nBienValorDepreciacion:0,
+      nBienCuotaSalvamiento:0,
+      nBienTasaDepreciacion:0,
+      nBienDepreciacionAcumulada:0,
 
 
     
@@ -707,7 +750,7 @@ clickHandler(args: ClickEventArgs): void {//para tamaño de fila de la grila
     }
 
  
- if( args.item.id==='m_b' || args.item.id==='e_b' || args.item.id==='v_b' || args.item.id==='b_b'  || args.item.id==='ms_b'     ){
+ if( args.item.id==='m_b' || args.item.id==='e_b' || args.item.id==='v_b' || args.item.id==='b_b'  || args.item.id==='ms_b' || args.item.id==='depr_b'     ){
   if(tSelect>0) {  
 
    
@@ -756,6 +799,15 @@ clickHandler(args: ClickEventArgs): void {//para tamaño de fila de la grila
       selectedrecords[0]['colores'], 
       selectedrecords[0]['iPlanConMayorId'], 
       selectedrecords[0]['iPlanConSubCueId'], 
+
+      selectedrecords[0]['iBienVidaUtil'] ,
+      selectedrecords[0]['dBienFinVida'] ,
+      selectedrecords[0]['dBienInicioVida'],
+      selectedrecords[0]['nBienValorDepreciacion'],
+      selectedrecords[0]['nBienCuotaSalvamiento'], 
+      selectedrecords[0]['nBienTasaDepreciacion'], 
+      selectedrecords[0]['nBienDepreciacionAcumulada'],
+ 
     
     
     
@@ -769,7 +821,14 @@ clickHandler(args: ClickEventArgs): void {//para tamaño de fila de la grila
     case 'n_b':
         //let data = this.local.getItem('userInfo')
         let anio=this.local.getItem('iYearId');
-        this.setBienDatos("0","autogenerado","","","","","","","","","","","","","1","","",''+anio,"","","","","","","","","","","","","","","",[],'','');
+        this.setBienDatos("0","autogenerado","","","","","","","","","","","","","1","","",''+anio,"","","","","","","","","","","","","","","",[],'0','0',
+        0,null,null,0,0,0,0
+        
+        
+
+  
+        
+        );
         if(this.grid.getSelectedRecords().length){  
           this.grid.clearSelection();          
         }          
@@ -789,7 +848,7 @@ clickHandler(args: ClickEventArgs): void {//para tamaño de fila de la grila
         } 
 
     break;   
-    case 'm_b':    
+    case 'm_b':  //modificar bien  
      
           
           if(tSelect>0){
@@ -801,12 +860,12 @@ clickHandler(args: ClickEventArgs): void {//para tamaño de fila de la grila
           } 
 
         break;
-    case 'e_b':
+    case 'e_b'://elminar bien
         this.opcion=3;     
         this.alertDialog.show();
         break;  
     
-    case 'cb_b':
+    case 'cb_b'://codigo de barra
         if(tSelect>0){
           this.opcion=4;
           pdfMake.createPdf(this.Etiqueta()).print()
@@ -816,7 +875,7 @@ clickHandler(args: ClickEventArgs): void {//para tamaño de fila de la grila
 
        ;
       break;   
-    case 'b_b':
+    case 'b_b'://dar de baja el bien
         if(tSelect>0){
           this.opcion=5;
          // this.icoForm=faInfo;
@@ -828,8 +887,33 @@ clickHandler(args: ClickEventArgs): void {//para tamaño de fila de la grila
         } 
         //his.alertDialog.show();
     break;   
-
-    case 'ms_b':
+    case 'depr_b':
+      if(tSelect>0){
+        this.opcion=7;
+       // this.icoForm=faInfo;
+       // this.opcion=1;       
+        //this.Dialog.show();
+        this.BienDepreciacion={
+          iBienId : this.Bien.iBienId,
+          cBienCodigo:this.Bien.cBienCodigo,
+          cBienDescripcion :this.Bien.cBienDescripcion,
+         
+          iBienVidaUtil:this.Bien.iBienVidaUtil,
+          dBienFinVida:this.Bien.dBienFinVida,
+          dBienInicioVida:this.Bien.dBienInicioVida,
+          nBienValorDepreciacion:this.Bien.nBienValorDepreciacion,
+          nBienCuotaSalvamiento:this.Bien.nBienCuotaSalvamiento,
+          nBienTasaDepreciacion:this.Bien.nBienTasaDepreciacion,
+          nBienDepreciacionAcumulada:this.Bien.nBienDepreciacionAcumulada,
+          nBienValor:this.Bien.nBienValor,
+        }
+        this.DialogDepreciacion.show();
+      }else {                  
+         this.toastObj.show(this.toasts[0]);
+      } 
+      //his.alertDialog.show();
+  break;    
+    case 'ms_b'://mover de situacion
         if(tSelect>0){
           this.opcion=6;
           // this.icoForm=faInfo;
@@ -847,6 +931,7 @@ clickHandler(args: ClickEventArgs): void {//para tamaño de fila de la grila
             iBienId:this.Bien.iBienId,
             cBienCodigo :this.Bien.cBienCodigo,
             cBienDescripcion :this.Bien.cBienDescripcion,
+           
 
            }
            this.DialogMover.show();
@@ -1027,6 +1112,14 @@ rowSelected(args: RowSelectEventArgs) {
         selectedrecords[0]['colores'],
         selectedrecords[0]['iPlanConMayorId'],
         selectedrecords[0]['iPlanConSubCueId'], 
+
+        selectedrecords[0]['iBienVidaUtil'] ,
+        selectedrecords[0]['dBienFinVida'] ,
+        selectedrecords[0]['dBienInicioVida'],
+        selectedrecords[0]['nBienValorDepreciacion'],
+        selectedrecords[0]['nBienCuotaSalvamiento'],
+        selectedrecords[0]['nBienTasaDepreciacion'],
+        selectedrecords[0]['nBienDepreciacionAcumulada'], 
         
 
 
@@ -1038,7 +1131,17 @@ rowSelected(args: RowSelectEventArgs) {
 
 setBienDatos(iTipoCId,iBienId,cBienCodigo,cBienDescripcion,nBienValor,cBienSerie,cBienDimension,cBienOtrasCaracteristicas,bBienBaja,dBienFechaBaja,cBienCausalBaja,cBienResolucionBaja,dBienAnioFabricacion,cBienObs,
     iEstadoBienId,iFormaAdqId,iTipoId,iYearId,iCatalogoNoPatId,iCatSbnId,iDocAdqId,cPlanContCodigo,cPlanContDescripcion,cClasGastoCodigo,cClasGastoDescripcion,cDocAdqNro,dDocAdqFecha,
-    nDocAdqValor,cFormaAdqDescripcion,cTipoDescripcion,cModeloDescripcion,cMarcaDescripcion,iCatalogoId,colores,iPlanConMayorId,iPlanConSubCueId){
+    nDocAdqValor,cFormaAdqDescripcion,cTipoDescripcion,cModeloDescripcion,cMarcaDescripcion,iCatalogoId,colores,iPlanConMayorId,iPlanConSubCueId,
+    
+    iBienVidaUtil,dBienFinVida,dBienInicioVida,nBienValorDepreciacion,nBienCuotaSalvamiento,nBienTasaDepreciacion,nBienDepreciacionAcumulada
+    
+    
+    
+    ){
+
+
+
+     
   this.Bien = { 
     iTipoCId:iTipoCId,  
     iBienId : iBienId,
@@ -1081,7 +1184,15 @@ setBienDatos(iTipoCId,iBienId,cBienCodigo,cBienDescripcion,nBienValor,cBienSerie
     colores: colores,
     cantidad:1,
     iPlanConMayorId:iPlanConMayorId,
-    iPlanConSubCueId:iPlanConSubCueId
+    iPlanConSubCueId:iPlanConSubCueId,
+
+    iBienVidaUtil:iBienVidaUtil,
+    dBienFinVida:dBienFinVida,
+    dBienInicioVida:dBienInicioVida,
+    nBienValorDepreciacion:nBienValorDepreciacion,
+    nBienCuotaSalvamiento:nBienCuotaSalvamiento,
+    nBienTasaDepreciacion:nBienTasaDepreciacion,
+    nBienDepreciacionAcumulada:nBienDepreciacionAcumulada,  
 
     
 
@@ -1189,7 +1300,8 @@ public cerrar_ventana_modal_bien_baja(Bien:BienInterface){
             cCentroCostoNombre:respon["results"][0].cCentroCostoNombre,
             cDepenNombreO:respon["results"][0].cDepenNombreO,
             cEmpleadoO:respon["results"][0].cEmpleadoO,
-            iDocAdqId : respon["results"][0].iDocAdqId
+            iDocAdqId : respon["results"][0].iDocAdqId,
+            asignacion:1
           }
           //hay q mandar a imprimir
           pdfMake.createPdf(this.report.DocumentoDesplazamiento(this.DesplazamientoBien,this.dataBienEstado)).open();

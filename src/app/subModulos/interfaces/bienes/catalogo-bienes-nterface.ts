@@ -4,7 +4,7 @@ export interface BienInterface {
     iBienId : string;
     cBienCodigo:string;
     cBienDescripcion :string;
-    nBienValor:string;
+    nBienValor:number;
     cBienSerie:string;
     cBienDimension:string;
     cBienOtrasCaracteristicas:string;
@@ -44,8 +44,20 @@ export interface BienInterface {
 
     colores:[];
     cantidad:number; 
-    iPlanConMayorId:String,
-    iPlanConSubCueId:String
+    iPlanConMayorId:String;
+    iPlanConSubCueId:String;
+
+
+
+    iBienVidaUtil:number;
+    dBienFinVida:String;
+    dBienInicioVida:Date;
+    nBienValorDepreciacion:number;
+    nBienCuotaSalvamiento:number;
+    nBienTasaDepreciacion:number;
+    nBienDepreciacionAcumulada:number;   
+
+
 
 
 }

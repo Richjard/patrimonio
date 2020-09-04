@@ -73,7 +73,7 @@
     "pdfmake": "^0.1.62",
     "pdfmake-wrapper": "^1.0.7",
     "popper.js": "1.14.4",
-    "quill": "1.3.6",
+    "quill": "1.3.7",
     "rxjs": "^6.5.3",
     "sweetalert2": "^8.19.0",
     "web-animations-js": "github:angular/web-animations-js#release_pr208",

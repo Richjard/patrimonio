@@ -58,7 +58,7 @@
     "highlight.js": "9.13.1",
     "jquery": "^3.4.1",
     "jspdf": "^1.5.3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "ng2-validation": "4.2.0",
     "ngx-chips": "1.9.8",
     "ngx-color-picker": "7.0.1",
